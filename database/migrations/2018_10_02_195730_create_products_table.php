@@ -19,6 +19,10 @@ class CreateProductsTable extends Migration
             $table->string('title');
             $table->decimal('price');
             $table->string('main_image_url');
+            $table->integer('category_id');
+            $table->foreign('category_id')->references('id')->on('categories');
+            $table->integer('productable_id');
+            $table->string('productable_type');
             $table->timestamps();
         });
     }
