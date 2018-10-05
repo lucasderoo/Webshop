@@ -22,9 +22,6 @@ class ShopController extends Controller
 
     }
 
-
-
-
     public function show($slug){
 
 
@@ -32,5 +29,10 @@ class ShopController extends Controller
 
     	var_dump($product);
 
+    }
+
+    public function test(){
+
+        return View('welcome'); 
     }
 }
