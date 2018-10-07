@@ -10,37 +10,42 @@ body{
     margin-bottom:0;
 }
 
-header{
+#main{
+    height:90px; 
+    position: fixed;
+    background: white;
+    border-style: solid;
+    border-width: 1px;
+    border-color:gray;
+    width:100%;
+    top:0;
+    left:0;
+    }
+
+    
+
+#small{
     height:50px; 
     position: fixed;
     background: #3b83f7;
     width:100%;
-    top: 0;
-    left: 0;
+    top:0;
+    left:0;
     }
 
+
     .button {
-        background-color: #3b83f7; /* Gray background */
+        background-color: #3b83f7;
         color: white; /* White text */
-        cursor: pointer; /* Pointer/hand icon */
-        float: left; /* make header elements huddle next to each other */
+        cursor: pointer;
+        float: right; /* make header elements huddle next to each other */
         height: 50px;
         width: 100px;
         font-size: 20px;
         text-align:center;
         line-height: 50px; /* trick to center vertically */
     }
-    
-    .headertext {
-        color: white; /* White text */
-        float: left; /* make header elements huddle next to each other */
-        height: 50px;
-        width: 100px;
-        font-size: 20px;
-        text-align:center;
-        line-height: 50px; /* trick to center vertically */
-    }
-    
+
     /* Add a background color on hover */
     .button:hover {
         background-color: #46494c;
@@ -49,4 +54,14 @@ header{
     /* Make the background lighter upon clicking */
     .button:active{
       background-color:#646a70;
+    }
+
+    .headertext {
+        color: white; 
+        float: left; /* make header elements huddle next to each other */
+        height: 50px;
+        width: 100px;
+        font-size: 24px;
+        text-align:center;
+        line-height: 50px; /* trick to center vertically */
     }
