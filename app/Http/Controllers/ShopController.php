@@ -33,6 +33,6 @@ class ShopController extends Controller
 
     public function test(){
 
-        return View('welcome'); 
+        return View('basepage'); 
     }
 }
