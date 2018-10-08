@@ -8,6 +8,7 @@ use DB;
 
 use App\Product;
 use App\Category;
+use Auth;
 
 class ShopController extends Controller
 {
@@ -15,22 +16,22 @@ class ShopController extends Controller
 
     public function index(){
 
+    	$products = Product::all();
 
-    	$product = Product::find(1);
-
-    	var_dump($product);
-
+    	var_dump($products);
+    	return;
     }
 
 
 
 
     public function show($slug){
+    	$product = Product::where('slug', $slug)->first();
 
+    	if(empty($product)){
+    		return "product niet gevonden";
+    	}
 
-    	$product = Product::find(1);
-
-    	var_dump($product);
-
+    	return view('shop.show')->with(compact('product'));
     }
 }

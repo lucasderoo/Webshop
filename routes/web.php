@@ -15,3 +15,7 @@
 /* HOME ROUTE */
 Route::get('/home', 'ShopController@index');
 Route::get('/', 'ShopController@index');
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/product/{slug}', 'ShopController@show');
