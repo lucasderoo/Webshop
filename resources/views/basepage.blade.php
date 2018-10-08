@@ -9,13 +9,12 @@
 
 
     <body>
-    <div id="main">
-    mememememememememememememememememememe mememememememememememememememememememe mememememememememememememememememememe mememememememememememememememememememe
+    <div id="main"> 
         <header id="small">
-            <a class="headertext"><div>Logohere</div></a> 
-            <a class="button"><div>Account</div></a>
-            <a class="button"><div>Cart🛒</div></a>
-            <a class="button"><div>Home</div></a>
+            <a class="headertext">Logohere</a> 
+            <a class="button">Account</a>
+            <a class="button">Cart🛒</a>
+            <a href="https://www.coolblue.nl" class="button">Home</a>
         </header> 
     </div>
 
