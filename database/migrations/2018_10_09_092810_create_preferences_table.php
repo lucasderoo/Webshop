@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCarriersTable extends Migration
+class CreatePreferencesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateCarriersTable extends Migration
      */
     public function up()
     {
-        Schema::create('carriers', function (Blueprint $table) {
+        Schema::create('preferences', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', '50');
+            $table->integer('genre_id');
+            $table->foreign('genre_id')->references('id')->on('genres');
         });
     }
 
@@ -26,6 +27,6 @@ class CreateCarriersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('carriers');
+        Schema::dropIfExists('preferences');
     }
 }
