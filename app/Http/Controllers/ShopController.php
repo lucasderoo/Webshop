@@ -34,5 +34,10 @@ class ShopController extends Controller
     public function test(){
 
         return View('basepage'); 
+	}
+	
+	public function list(){
+
+        return View('shop/productlist'); 
     }
 }

@@ -1,67 +1,83 @@
-@include('layouts.header')
+<!-- Footer -->
+<footer class="page-footer font-small blue pt-4">
 
-<style>
-.product-info p{
-width: 49%;
-display: inline-block;
-height: 25px;
-}
-.image-select{
-	width: 25%;
-	height: 500px;
-	float: left;
-}
-.image-select img{
-	margin: auto;
-	display: block;
-	margin-bottom: 15px;
-}
-.main-image-buy-btn{
-	width: 74%; 
-	height: 500px;
-	float: left;
-}
-.main-image img{
-	display: block;
-	margin: auto;
-}
-.buy-buttons{
-	margin-top: 80px;
-}
-.buy-buttons button{
-	color: white;
-	width: 40%;
-	height: 50px;
-}
-.add-to-cart{
-	float: left;
-	background-color: #00ACED;
-}
-.buy-now{
-	float: right;
-	background-color: #FF9900;
-}
-.main-image-buy-btn-wrapper{
-	width: 85%;
-    margin: auto;
-}
-.top-row{
-	margin-top: 10px;
-	height: 50px;
-}
-h5{
-	color: #00ACED;
-}
-.bottom-p{
-	width: 100% !important;
-}
-</style>
-<div class="container-fluid main-container" style="max-width: 1000px; margin: auto; margin-top: 100px;">
-    <div class="row top-row">
-    </div>
-    <div class="row">
-        <div class="col-md-8">
+    <!-- Footer Links -->
+    <div class="container-fluid text-center text-md-left">
+
+      <!-- Grid row -->
+      <div class="row">
+
+        <!-- Grid column -->
+        <div class="col-md-6 mt-md-0 mt-3">
+
+          <!-- Content -->
+          <h5 class="text-uppercase">Footer Content</h5>
+          <p>Here you can use rows and columns here to organize your footer content.</p>
+
         </div>
+        <!-- Grid column -->
+
+        <hr class="clearfix w-100 d-md-none pb-3">
+
+        <!-- Grid column -->
+        <div class="col-md-3 mb-md-0 mb-3">
+
+            <!-- Links -->
+            <h5 class="text-uppercase">Links</h5>
+
+            <ul class="list-unstyled">
+              <li>
+                <a href="#!">Link 1</a>
+              </li>
+              <li>
+                <a href="#!">Link 2</a>
+              </li>
+              <li>
+                <a href="#!">Link 3</a>
+              </li>
+              <li>
+                <a href="#!">Link 4</a>
+              </li>
+            </ul>
+
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-3 mb-md-0 mb-3">
+
+            <!-- Links -->
+            <h5 class="text-uppercase">Links</h5>
+
+            <ul class="list-unstyled">
+              <li>
+                <a href="#!">Link 1</a>
+              </li>
+              <li>
+                <a href="#!">Link 2</a>
+              </li>
+              <li>
+                <a href="#!">Link 3</a>
+              </li>
+              <li>
+                <a href="#!">Link 4</a>
+              </li>
+            </ul>
+
+          </div>
+          <!-- Grid column -->
+
+      </div>
+      <!-- Grid row -->
+
     </div>
-	@include('layouts.footer')
-</div> 
+    <!-- Footer Links -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2018 Copyright:
+      <a href="https://mdbootstrap.com/bootstrap-tutorial/"> MDBootstrap.com</a>
+    </div>
+    <!-- Copyright -->
+
+  </footer>
+  <!-- Footer -->
