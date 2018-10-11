@@ -13,8 +13,8 @@
 
 
 /* HOME ROUTE */
-Route::get('/home', 'ShopController@index');
-Route::get('/', 'ShopController@index');
+Route::get('/home', 'HomeController@index');
+Route::get('/', 'HomeController@index');
 Route::get('/product/{slug}', 'ShopController@show');
 Route::get('/homepage', function(){
   return view('homepage');

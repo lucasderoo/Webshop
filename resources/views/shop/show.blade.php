@@ -15,9 +15,11 @@ height: 25px;
 	margin: auto;
 	display: block;
 	margin-bottom: 15px;
+	max-width: 100px;
+	max-height: 100px;
 }
 .main-image-buy-btn{
-	width: 74%; 
+	width: 74%;
 	height: 500px;
 	float: left;
 }
@@ -68,8 +70,8 @@ h5{
     <div class="row">
         <div class="col-md-8">
         	<div class="image-select">
-        		<img src="https://via.placeholder.com/80x60">
-        		<img src="https://via.placeholder.com/80x60">
+        		<img src="{{$product->main_image_url}}">
+        		<img src="{{$product->main_image_url}}">
         		<img src="https://via.placeholder.com/80x60">
         		<img src="https://via.placeholder.com/80x60">
         	</div>
@@ -100,4 +102,4 @@ h5{
         	</div>
         </div>
     </div>
-</div> 
+</div>
