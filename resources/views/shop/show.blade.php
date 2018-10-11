@@ -27,7 +27,7 @@ height: 25px;
 }
 .buy-buttons{
 	margin-top: 40px;
-	
+
 }
 .buy-buttons button{
 	color: white;
@@ -85,7 +85,7 @@ h5{
 <div class="container-fluid main-container" style="max-width: 1300px; margin: auto; margin-top: 100px;">
     <div class="row top-row">
         <div class="col-md-8">
-        	<p>Home > {{$product->productable->genre->name}} > {{$product->productable->artist->name}} - {{$product->title}}</p>
+        	<p>Home > {{$product->category->name}} > {{$product->productable->artist->name}} - {{$product->title}}</p>
         </div>
         <div class="col-md-4">
         	<h5>{{$product->productable->artist->name}} - {{$product->title}}</h5>
@@ -96,7 +96,7 @@ h5{
         	<div class="image-select">
 
         		<img class="x100_pic" src="{{$product->main_image_url}}">
-        		<img class="x100_pic"  src="https://img.cdandlp.com/2016/06/imgL/118209175-2.jpg">
+        		<!-- <img class="x100_pic"  src="https://img.cdandlp.com/2016/06/imgL/118209175-2.jpg" -->
         		<img class="x100_pic"  src="https://via.placeholder.com/100x100">
         		<img class="x100_pic"  src="https://via.placeholder.com/100x100">
         	</div>
@@ -124,7 +124,7 @@ h5{
         	<div class="product-info">
         	<p> <b>Artist:</b> {{$product->productable->artist->name}}</p>
         	<p><b>Title:</b> {{$product->title}}</p>
-        	<p><b>Format:</b> {{$product->productable->carrier->name}}</p>
+        	<p><b>Format:</b> {{$product->productable->format}}</p>
         	<p><b>Genre:</b> {{$product->productable->genre->name}}</p>
         	<p class="bottom-p"><b>Released:</b> {{$product->productable->release_date}}</p>
         	</div>
