@@ -117,7 +117,7 @@ h5{
 					<hr>
 
 <div class="product-info">
-					<h5>Seller </h5><p >{{$product->productable->carrier->name}}</p>
+					<h5>Seller </h5><b>{{$product->productable->carrier->name}}</b>
 </div>
 					<hr>
         	<h5>Product description</h5>
