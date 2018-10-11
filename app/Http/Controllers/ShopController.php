@@ -29,9 +29,8 @@ class ShopController extends Controller
     	$product = Product::where('slug', $slug)->first();
 
     	if(empty($product)){
-    		return "product niet gevonden";
+    		return view('errors.404');
     	}
-
     	return view('shop.show')->with(compact('product'));
     }
 }

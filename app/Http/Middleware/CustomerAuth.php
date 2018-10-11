@@ -15,6 +15,10 @@ class CustomerAuth
      */
     public function handle($request, Closure $next)
     {
+        if (Auth::guest() OR $request->user() && $request->user()->user_account_type != 1)
+        {
+            return redirect('/unauthorized'); // change later
+        }
         return $next($request);
     }
 }

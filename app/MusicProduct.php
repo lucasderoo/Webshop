@@ -19,11 +19,6 @@ class MusicProduct extends Model
         return $this->belongsTo('App\Carrier');
     }
 
-    public function artist()
-    {
-        return $this->belongsTo('App\Artist');
-    }
-
     public function genre()
     {
         return $this->belongsTo('App\Genre');

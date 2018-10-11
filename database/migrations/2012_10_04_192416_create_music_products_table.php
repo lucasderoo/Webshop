@@ -17,8 +17,7 @@ class CreateMusicProductsTable extends Migration
             $table->increments('id');
             $table->date('release_date');
             $table->longText('description', '500');
-            $table->integer('artist_id');
-            $table->foreign('artist_id')->references('id')->on('artists');
+            $table->string('artist');
             $table->integer('genre_id');
             $table->foreign('genre_id')->references('id')->on('genre');
             $table->integer('carrier_id');
