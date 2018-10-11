@@ -20,13 +20,16 @@
 	width: 200px;
 	height: 200px;
 }
+.Banner{
+  text-align: center;
+}
 
 </style>
 <br>
 <br>
 <br>
 <br>
-<div class="container">
+<div class="Banner">
   <div class="row justify-content-center">
     <div class="col-10">
       <img class="Banner" src="http://cdn-02.dagelijksestandaard.nl/wp-content/uploads/2017/12/landscape-queen-bohemian-rhapsody-still-1132x670.jpg" alt="Queen should be here" style="height:80%">
@@ -38,14 +41,16 @@
   <div class="row justify-content-center">
     <div class="col finished">
       <div class="prod-image">
-        <img src="https://www.udiscovermusic.com/wp-content/uploads/2018/04/queen-ii.jpg">
-      </div>
-      <div class="text-image-1">
-        <h6> Queen II: LP
-        <br>
-        Price: €27.99
-        </h6>
-      </div>
+        <a href="http://schoolwebshop.nl/product/queen">
+          <img src="https://www.udiscovermusic.com/wp-content/uploads/2018/04/queen-ii.jpg">
+          </div>
+          <div class="text-image-1">
+            <h6> Queen II: LP
+            <br>
+            Price: €27.99
+            </h6>
+          </div>
+      </a>
     </div>
     <div class="col finished">
       <div class="prod-image">
