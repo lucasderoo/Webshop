@@ -4,6 +4,9 @@
   background-color: red;
   text-align: center;
 }
+.finished{
+  text-align: center;
+}
 .first-image{
 	width: 100%;
 	height: 200px;
@@ -12,6 +15,7 @@
 .prod-image img{
 	margin: auto;
 	display: block;
+  margin-top: 15px;
 	margin-bottom: 15px;
 	width: 200px;
 	height: 200px;
@@ -32,24 +36,49 @@
 </div>
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col test">
+    <div class="col finished">
       <div class="prod-image">
-        <img src="http://cdn.playbuzz.com/cdn/9c81429e-2ca1-4f32-8921-fe0934bbab5f/458641f0-4974-448c-8902-920d21e1f949.jpg">
+        <img src="https://www.udiscovermusic.com/wp-content/uploads/2018/04/queen-ii.jpg">
       </div>
       <div class="text-image-1">
-        <h6> Queen <small></small></h6>
+        <h6> Queen II: LP
+        <br>
+        Price: €27.99
+        </h6>
       </div>
     </div>
-    <div class="col test">
+    <div class="col">
       <div class="prod-image">
         <img src="https://via.placeholder.com/80x60">
       </div>
+      <div class="text-image-2">
+        <h6> Lorum: Ipsum
+        <br>
+        Price: €10.99
+        </h6>
+      </div>
     </div>
-    <div class="col test">
-      1 of 4
+    <div class="col">
+      <div class="prod-image">
+        <img src="https://via.placeholder.com/80x60">
+      </div>
+      <div class="text-image-3">
+        <h6> Lorum: Ipsum
+        <br>
+        Price: €10.99
+        </h6>
+      </div>
     </div>
-    <div class="col test">
-      1 of 4
+    <div class="col">
+      <div class="prod-image">
+        <img src="https://via.placeholder.com/80x60">
+      </div>
+      <div class="text-image-4">
+        <h6> Lorum: Ipsum
+        <br>
+        Price: €10.99
+        </h6>
+      </div>
     </div>
   </div>
   <div class="row justify-content-center">
@@ -67,5 +96,3 @@
     </div>
   </div>
 </div>
-
-<div class=""
