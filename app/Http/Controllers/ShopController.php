@@ -22,9 +22,6 @@ class ShopController extends Controller
     	return;
     }
 
-
-
-
     public function show($slug){
     	$product = Product::where('slug', $slug)->first();
 
@@ -32,5 +29,15 @@ class ShopController extends Controller
     		return view('errors.404');
     	}
     	return view('shop.show')->with(compact('product'));
+    }
+
+    public function test(){
+
+        return View('basepage'); 
+	}
+	
+	public function list(){
+
+        return View('shop/productlist'); 
     }
 }

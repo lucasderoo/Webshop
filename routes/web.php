@@ -15,6 +15,7 @@
 /* HOME ROUTE */
 Route::get('/', 'ShopController@index');
 Route::get('/home', 'ShopController@index');
+
 Route::get('/product/{slug}', 'ShopController@show');
 Route::get('/products/{category}', 'ShopController@products');
 
@@ -62,5 +63,6 @@ Route::group([
 
 Auth::routes();
 
-
 Route::get('/unauthorized', 'HomeController@unauthorized');
+Route::get('/productlist','ShopController@list');
+
