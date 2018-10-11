@@ -47,7 +47,7 @@
         </h6>
       </div>
     </div>
-    <div class="col">
+    <div class="col finished">
       <div class="prod-image">
         <img src="https://via.placeholder.com/80x60">
       </div>
@@ -58,7 +58,7 @@
         </h6>
       </div>
     </div>
-    <div class="col">
+    <div class="col finished">
       <div class="prod-image">
         <img src="https://via.placeholder.com/80x60">
       </div>
@@ -69,7 +69,7 @@
         </h6>
       </div>
     </div>
-    <div class="col">
+    <div class="col finished">
       <div class="prod-image">
         <img src="https://via.placeholder.com/80x60">
       </div>
