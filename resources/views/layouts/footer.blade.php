@@ -11,7 +11,7 @@
         <div class="col-md-3 mt-md-0 mt-3">
 
           <!-- Content -->
-          <h5 class="text-uppercase">Social Media</h5>
+          <h5 class="text-uppercase">LOGO HERE</h5>
           <p>Here you can use rows and columns here to organize your footer content.</p>
 
         </div>
@@ -20,7 +20,7 @@
         <div class="col-md-3 mt-md-0 mt-3">
 
         <!-- Content -->
-        <h5 class="text-uppercase">Footer Content</h5>
+        <h5 class="text-uppercase">Social Media</h5>
         <p>Here you can use rows and columns here to organize your footer content.</p>
 
         </div

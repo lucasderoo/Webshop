@@ -16,22 +16,25 @@
   </div> <!-- first row -->
 
   <div class="row">
-    <div class="col-2">
+    <div class="col-md-2">
 	@include('layouts.genrefilter')
     </div>
     <div class="col-1"></div>
-	<div class="col-9" style="background-color: #cee1ff;">
+	<div class="col-9">
     <div class="row">
       </div>
   <div class="row">
-  <div class="col-sm-4" style="height:400px;background-color:red;">productquery</div>
-  <div class="col-sm-4" style="height:400px;background-color:green;">productquery</div>
-  <div class="col-sm-4" style="height:400px;background-color:purple;">productquery</div>
-  </div>  
-  <div class="row">
-  <div class="col-sm-4" style="height:400px;background-color:green;">productquery</div>
-  <div class="col-sm-4" style="height:400px;background-color:purple;">productquery</div>
-  <div class="col-sm-4" style="height:400px;background-color:red;">productquery</div>
+  @include('layouts.product-small')
+  @include('layouts.product-small')
+  @include('layouts.product-small')
+  @include('layouts.product-small')
+  @include('layouts.product-small')
+  @include('layouts.product-small')
+  @include('layouts.product-small')
+  @include('layouts.product-small')
+  @include('layouts.product-small')
+
+
   </div>
 </div>
 </div>
