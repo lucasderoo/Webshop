@@ -52,10 +52,10 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'firstname' => 'required|string|max:50',
-            'insertion' => 'required|string|max:20',
+            'insertion' => 'string|max:20',
             'lastname' => 'required|string|max:50',
             'initials' => 'required|string|max:50',
-            'phonenumber' => 'required|string|max:10',
+            'phonenumber' => 'string|max:10',
         ]);
     }
 
@@ -75,8 +75,6 @@ class RegisterController extends Controller
             'phonenumber' => $data['phonenumber'],
         ]);
         $member->save();
-        var_dump($member);
-        return;
         return User::create([
             'email' => $data['email'],
             'password' => bcrypt($data['password']),

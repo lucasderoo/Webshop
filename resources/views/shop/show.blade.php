@@ -95,7 +95,7 @@ h5{
         <div class="col-md-8">
         	<div class="image-select">
 
-        		<img class="x100_pic" src="{{$product->main_image_url}}">
+        		<img class="x100_pic" src="https://via.placeholder.com/100x100">
         		<img class="x100_pic"  src="https://img.cdandlp.com/2016/06/imgL/118209175-2.jpg">
         		<img class="x100_pic"  src="https://via.placeholder.com/100x100">
         		<img class="x100_pic"  src="https://via.placeholder.com/100x100">
@@ -104,7 +104,7 @@ h5{
         		<div class="main-image-buy-btn-wrapper">
         		<!--	<img src="https://via.placeholder.com/600x700">
 -->
-							<img class="Big_image" src="{{$product->main_image_url}}">
+							<img class="Big_image" src="https://via.placeholder.com/400x400">
         			<div class="buy-buttons">
         				<button class="add-to-cart btn">Add to Cart</button>
         				<button class="buy-now btn">Buy Now</button>
@@ -115,11 +115,6 @@ h5{
         <div class="col-md-4">
 					<b> €{{$product->price}}</b>
 					<hr>
-
-<div class="product-info">
-					<h5>Seller </h5><p >{{$product->productable->carrier->name}}</p>
-</div>
-					<hr>
         	<h5>Product description</h5>
         	<div class="product-info">
         	<p> <b>Artist:</b> {{$product->productable->artist->name}}</p>
@@ -129,11 +124,12 @@ h5{
         	<p class="bottom-p"><b>Released:</b> {{$product->productable->release_date}}</p>
         	</div>
 
+            <hr>
         	<div class="product-desc">
 
         		<p>{{$product->productable->description}}<p>
         	</div>
-					<hr>
+			
         </div>
     </div>
 </div>

@@ -83,7 +83,7 @@ body{
 
 
 </style>
-<div class="row">
+<div class="row" style="height: 50px; margin-bottom: 50px;">
     <div class="col-md-12">
         <div id="main"> 
                 <header id="small">
