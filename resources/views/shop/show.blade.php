@@ -53,8 +53,8 @@ height: 25px;
 }
 
 .Big_image{
-max-width: 600px;
-max-height: 700px;
+width: 600px;
+height: 600px;
 
 }
 .normal_sized_p{
