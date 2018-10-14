@@ -23,7 +23,7 @@ Route::group([
 	'prefix' => '/admin/products',
 	'middleware' => 'Manager'
 ], function(){
-	Route::get('', 'ProductController@index');
+	Route::get('', 'ProductController@index')->name('Admin/products');;
 	Route::get('/create', 'ProductController@create');
 	Route::post('/create', 'ProductController@store');
 	Route::get('/edit/{id}', 'ProductController@edit');

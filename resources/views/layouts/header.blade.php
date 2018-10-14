@@ -25,9 +25,30 @@
       <li class="nav-item">
         <a class="nav-link text-light" href="#">Home</a>
       </li>
+      @guest
       <li class="nav-item">
-        <a class="nav-link text-light" href="#">Login</a>
+        <a class="nav-link text-light" href="{{ route('login') }}">Login</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link text-light" href="{{ route('register') }}">Register</a>
+      </li>
+      @else
+        @if(Auth::user()->user_account_type > 1)
+          <li class="nav-item">
+            <a class="nav-link text-light" href="{{ route('Admin/products') }}">Admin</a>
+          </li>
+        @else
+          <li class="nav-item">
+            <a class="nav-link text-light" href="#">Account</a>
+          </li>
+        @endif
+        <li class="nav-item">
+            <a class="nav-link text-light" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+        </li>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            {{ csrf_field() }}
+        </form>
+      @endif
       <li class="nav-item">
         <a class="nav-link text-light" href="#">Cart🛒</a>
       </li>
