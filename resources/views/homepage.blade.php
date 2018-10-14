@@ -38,16 +38,16 @@
 <br>
 <br>
 <div class="Banner">
-  <div class="row justify-content-center">
+  <div class="row justify-content-center" style="width:100%">
     <div class="col-10">
       <a href="https://www.youtube.com/watch?v=uhBHL3v4d3I">
-        <img class="Banner" src="http://www.metalinjection.net/wp-content/uploads/2016/08/METALLICA-HARD-WIRED-LISTEN-TO-THE-NEW-SONG-2016.jpg" alt="Metallica should be here" style="height:80%">
+        <img class="Banner" src="http://www.metalinjection.net/wp-content/uploads/2016/08/METALLICA-HARD-WIRED-LISTEN-TO-THE-NEW-SONG-2016.jpg" alt="Metallica should be here">
       </a>
 
     </div>
   </div>
 </div>
-<div class="container">
+<div class="container" style="border-style:solid; border-width:1px; margin-top:20px;">
       <h5> Most viewed products</h5>
   <div class="row justify-content-center">
     <div class="col finished">
