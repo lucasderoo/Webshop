@@ -18,17 +18,16 @@ class Product extends Model
         return $this->belongsTo('App\Category');
     }
 
-
+    public function images()
+    {
+        return $this->hasMany('App\Image');
+    }
 
 
     public function productable()
     {
         return $this->morphTo();
     }
-
-
-
-
 
     public function sluggable()
     {
