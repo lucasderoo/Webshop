@@ -16,14 +16,19 @@
 Route::get('/', 'ShopController@index');
 Route::get('/home', 'ShopController@index');
 
-Route::get('/product/{slug}', 'ShopController@show');
-Route::get('/products/{category}', 'ShopController@products');
+Route::get('/product/{slug}', 'ShopController@show')->name('show');
+Route::get('/products', 'ShopController@products');
+Route::get('/products/{name}','ShopController@list');
+
+
+Route::get('/unauthorized', 'HomeController@unauthorized');
+
 
 Route::group([
 	'prefix' => '/admin/products',
 	'middleware' => 'Manager'
 ], function(){
-	Route::get('', 'ProductController@index')->name('Admin/products');;
+	Route::get('', 'ProductController@index')->name('Admin/products');
 	Route::get('/create', 'ProductController@create');
 	Route::post('/create', 'ProductController@store');
 	Route::get('/edit/{id}', 'ProductController@edit');
@@ -62,7 +67,3 @@ Route::group([
 });
 
 Auth::routes();
-
-Route::get('/unauthorized', 'HomeController@unauthorized');
-Route::get('/productlist','ShopController@list');
-

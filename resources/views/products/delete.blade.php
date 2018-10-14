@@ -11,6 +11,10 @@
 <div class="container">    
     <div class="row">
         <div class="col-md-8 offset-md-2 products-delete">
+        <div class="admin-top">
+            <h3>Delete Product</h3>
+            <hr>
+        </div>
         	<form id="product-add-form" class="form-horizontal" role="form" method="POST" action="">
         	{{ csrf_field() }}
         		<div class="row">
@@ -69,3 +73,5 @@
         </div>
     </div>
 </div>
+
+@include('layouts.footer')

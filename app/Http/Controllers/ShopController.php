@@ -9,6 +9,8 @@ use DB;
 use App\Product;
 use App\Category;
 use Auth;
+use App\MusicProduct;
+use Input;
 
 class ShopController extends Controller
 {
@@ -18,8 +20,7 @@ class ShopController extends Controller
 
     	$products = Product::all();
 
-    	var_dump($products);
-    	return;
+    	return view('shop.home')->with(compact('products'));
     }
 
     public function show($slug){
@@ -31,13 +32,34 @@ class ShopController extends Controller
     	return view('shop.show')->with(compact('product'));
     }
 
-    public function test(){
+    public function products(request $request){
+        $genres = MusicProduct::all()->pluck('genre')->unique();
+        $artists = MusicProduct::all()->pluck('artist')->unique();
+        $categories = Category::all();
 
-        return View('basepage'); 
-	}
-	
-	public function list(){
+        $genres_filter = $request->has('genres') ? $request->get('genres') : [];
+        $artists_filter = $request->has('artists') ? $request->get('artists') : [];
 
-        return View('shop/productlist'); 
+
+        $query = MusicProduct::query();
+
+        if(isset($genres_filter)){
+            foreach($genres_filter as $key => $genre){
+                $query = $query->where('genre', $genre);
+            }
+        }
+
+        if(isset($artists_filter)){
+            foreach($artists_filter as $key => $artist){
+                $query = $query->where('artist', $artist);
+            }
+        }
+        $musicProducts = $query->get();
+        // $products = Product::orderBy($request['sort'], $request['order'])->get();
+        $products = collect([]);
+        foreach($musicProducts as $product){
+            $products->push($product->productParent[0]);
+        }
+        return view('shop.list')->with(compact('products', 'categories', 'genres', 'artists', 'request'));
     }
 }

@@ -200,3 +200,4 @@ $(document).on("click", ".delete-image", function (event) {
 
 
 </script>
+@include('layouts.footer')

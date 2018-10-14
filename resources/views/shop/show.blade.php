@@ -15,9 +15,11 @@ height: 25px;
 	margin: auto;
 	display: block;
 	margin-bottom: 15px;
+	max-width: 100px;
+	max-height: 100px;
 }
 .main-image-buy-btn{
-	width: 74%; 
+	width: 74%;
 	height: 500px;
 	float: left;
 }
@@ -149,3 +151,4 @@ $(".image-select").on("click", "img", function (event) {
 });
 
 </script>
+@include('layouts.footer')
