@@ -33,33 +33,46 @@ class ShopController extends Controller
     }
 
     public function products(request $request){
-        $genres = MusicProduct::all()->pluck('genre')->unique();
-        $artists = MusicProduct::all()->pluck('artist')->unique();
+        $genres = MusicProduct::all()->pluck('genre')->unique()->values();
+        $artists = MusicProduct::all()->pluck('artist')->unique()->values();
         $categories = Category::all();
 
         $genres_filter = $request->has('genres') ? $request->get('genres') : [];
         $artists_filter = $request->has('artists') ? $request->get('artists') : [];
 
 
-        $query = MusicProduct::query();
+        $musicQuery = MusicProduct::query();
+
+        $productQuery = Product::query();
 
         if(isset($genres_filter)){
             foreach($genres_filter as $key => $genre){
-                $query = $query->where('genre', $genre);
+                $musicQuery = $musicQuery->where('genre', $genre);
             }
         }
 
         if(isset($artists_filter)){
             foreach($artists_filter as $key => $artist){
-                $query = $query->where('artist', $artist);
+                $musicQuery = $musicQuery->where('artist', $artist);
             }
         }
-        $musicProducts = $query->get();
-        // $products = Product::orderBy($request['sort'], $request['order'])->get();
-        $products = collect([]);
-        foreach($musicProducts as $product){
-            $products->push($product->productParent[0]);
+
+        $musicProducts = $musicQuery->pluck('id');
+
+        // productQuery filters here
+        $productQuery = $productQuery->where('price', '>=', (int)$request->get('min-price'))
+                                     ->where('price', '<=', (int)$request->get('max-price'));
+
+
+
+        $products = $productQuery->get();
+        foreach ($products as $key => $product) {
+            if(!$musicProducts->contains($product->productable_id)){
+                unset($products[$key]);
+            }
         }
+        $products->values();
+
         return view('shop.list')->with(compact('products', 'categories', 'genres', 'artists', 'request'));
     }
 }

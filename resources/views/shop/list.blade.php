@@ -51,7 +51,7 @@
                                 <span class="form-check-label">{{ $genres[$i] }}</span>
                             </label>
                             @endfor
-                            </div> <!-- card-body.// -->
+                            </div>
                         </div>
                     </article> <!-- card-group-item.// -->
 
@@ -68,10 +68,19 @@
                                 <span class="form-check-label">{{ $artists[$i] }}</span>
                             </label>
                             @endfor
-                            </div> <!-- card-body.// -->
+                            </div>
                         </div>
                     </article> <!-- card-group-item.// -->
-                    <button type="submit" class="btn btn-block btn-outline-primary">Apply</button>
+                    <article class="card-group-item">
+                        <header class="card-header">
+                            <h6 class="title">Price</h6>
+                        </header>
+                        <label>Min. Price</label>
+                        <input type="number" name="min-price" value="{{ $request->get('min-price') }}">
+                        <label>Max. Price</label>
+                        <input type="number" name="max-price" value="{{ $request->get('max-price') }}">
+                    </article> <!-- card-group-item.// -->
+                    <button type="submit" class="btn btn-block btn-outline-primary" style="margin-top: 52px;">Apply</button>
                     </form>
                 </div> <!-- card.// -->
               </div>
@@ -88,7 +97,7 @@
                             <h5>€{{ $product->price }}</h5>
                             <button type="button" class="btn btn-primary" style="margin-top:10px; width: 100%;">Add product to cart</button>
                         </div>
-                    </div> <!-- productexample -->
+                    </div>
                     @endforeach
                 </div>
             </div>
