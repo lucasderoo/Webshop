@@ -47,13 +47,13 @@ class ShopController extends Controller
 
         if(isset($genres_filter)){
             foreach($genres_filter as $key => $genre){
-                $musicQuery = $musicQuery->where('genre', $genre);
+                $musicQuery = $key > 0 ? $musicQuery->orwhere('genre', $genre) : $musicQuery->where('genre', $genre);
             }
         }
 
         if(isset($artists_filter)){
             foreach($artists_filter as $key => $artist){
-                $musicQuery = $musicQuery->where('artist', $artist);
+                $musicQuery = $key > 0 ? $musicQuery->orwhere('artist', $artist) : $musicQuery->where('artist', $artist);
             }
         }
 
