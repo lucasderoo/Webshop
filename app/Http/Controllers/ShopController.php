@@ -60,8 +60,11 @@ class ShopController extends Controller
         $musicProducts = $musicQuery->pluck('id');
 
         // productQuery filters here
-        $productQuery = $productQuery->where('price', '>=', (int)$request->get('min-price'))
-                                     ->where('price', '<=', (int)$request->get('max-price'));
+        $minPrice = $request->has('min-price') ? $request->get('min-price') : 0;
+        $maxPrice = $request->has('max-price') ? $request->get('max-price') : (int)Product::max('price');
+
+        $productQuery = $productQuery->where('price', '>=', $minPrice)
+                                     ->where('price', '<=', $maxPrice);
 
 
 
