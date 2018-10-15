@@ -76,9 +76,9 @@
                             <h6 class="title">Price</h6>
                         </header>
                         <label>Min. Price</label>
-                        <input type="number" name="min-price" value="{{ $request->get('min-price') }}">
+                        <input type="number" name="min-price" value="{{ $request->has('min-price') ? $request->get('min-price') : 0 }}">
                         <label>Max. Price</label>
-                        <input type="number" name="max-price" value="{{ $request->get('max-price') }}">
+                        <input type="number" name="max-price" value="{{ $request->has('max-price') ? $request->get('max-price') : $maxPrice }}">
                     </article> <!-- card-group-item.// -->
                     <button type="submit" class="btn btn-block btn-outline-primary" style="margin-top: 52px;">Apply</button>
                     </form>
