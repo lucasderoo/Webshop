@@ -14,10 +14,10 @@
 
 /* HOME ROUTE */
 Route::get('/', 'ShopController@index');
-Route::get('/home', 'ShopController@index');
+Route::get('/home', 'ShopController@index')->name('show');
 
 Route::get('/product/{slug}', 'ShopController@show')->name('show');
-Route::get('/products', 'ShopController@products');
+Route::get('/products', 'ShopController@products')->name('products');
 Route::get('/products/{name}','ShopController@list');
 
 
