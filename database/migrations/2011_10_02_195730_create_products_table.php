@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('slug');
             $table->string('title', '50');
             $table->decimal('price');
-            $table->smallinteger('main_image');
+            $table->smallinteger('main_image_url');
             $table->integer('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->integer('productable_id');
