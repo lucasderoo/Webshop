@@ -1,4 +1,46 @@
 @include('layouts.header')
+<style>
+.pages {
+    display: inline-block;
+}
+
+.pages a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.pages a.active {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+}
+
+.pages a:hover:not(.active-page) {background-color: #ddd;}
+
+.pages a:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.pages a:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.center {
+    text-align: center;
+}
+
+.active-page{
+    background-color: #2570e8 !important;
+    color: white !important;
+    border: 1px solid #2570e8 !important;
+}
+</style>
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
@@ -9,10 +51,11 @@
               	<div class="col-4">
                   	<div class="form-group">
                       	<select id="pref-orderby" class="form-control">
-                            <option value="">Price high to low</option>
-                            <option value="">Price low to high</option>
-                            <option value="">date new to old</option>
-                            <option value="">date old to new</option>
+                            <option>Price high to low</option>
+                            <option>Price low to high</option>
+                            <option>date new to old</option>
+                            <option>date old to new</option>
+                            <option>most sold</option>
                           </select>                                
                       </div>
                 </div>
@@ -21,7 +64,7 @@
             <div class="row">
               <div class="col-md-4">
           	     <div class="card">
-                    <form action="{{ URL::current()}}"> 
+                    <form id="filter-form" action="{{ URL::current()}}"> 
                     <!-- <article class="card-group-item">
                         <header class="card-header">
                             <h6 class="title">Category</h6>
@@ -80,6 +123,9 @@
                         <label>Max. Price</label>
                         <input type="number" name="max-price" value="{{ $request->has('max-price') ? $request->get('max-price') : $maxPrice }}">
                     </article> <!-- card-group-item.// -->
+                    <input type="hidden" name="page" id="page" value="1">
+                    <input type="hidden" name="sortby" id="page" value="sold">
+                    <input type="hidden" name="order" id="page" value="DESC">
                     <button type="submit" class="btn btn-block btn-outline-primary" style="margin-top: 52px;">Apply</button>
                     </form>
                 </div> <!-- card.// -->
@@ -100,6 +146,27 @@
                     </div>
                     @endforeach
                 </div>
+                <div class="center">
+                    <div class="pages">
+                    <?php $pages = array_key_exists('pages', $paginationArray) ? $paginationArray['pages'] : 1; $currentPage = $request->has('page') ? $request->get('page') : 1; $pagesRangeEnd = $currentPage+2>=$pages ? $pages : $currentPage+5-$currentPage; $pagesRangeStart = $pages >= 5 ? $pagesRangeEnd-4 : 1; ?>
+                        @if($pages > 1)
+                        <a id="{{ $currentPage <= 1 ? $currentPage : $currentPage-1 }}">&laquo;</a>
+                            @for ($pagesRangeStart; $pagesRangeStart <= $pagesRangeEnd; $pagesRangeStart++)
+                                <a class="{{ $currentPage == $pagesRangeStart ? 'active-page' : ''}}" id="{{ $pagesRangeStart }}">{{ $pagesRangeStart }}</a>
+                            @endfor
+                        <a id="{{ $currentPage >= $pages ? $currentPage : $currentPage+1 }}">&raquo;</a>
+                        @endif
+                    </div>
+                </div>
+                <script>
+                    $(".pages").on('click', 'a', function (e) {
+                        var id = event.target.id;
+                        document.getElementById("page").value = id;
+                        document.getElementById("filter-form").submit();
+                    });
+
+
+                </script>
             </div>
     </div>
 </div>

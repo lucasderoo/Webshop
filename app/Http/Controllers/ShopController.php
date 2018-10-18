@@ -33,52 +33,81 @@ class ShopController extends Controller
     }
 
     public function products(request $request){
+        $pagination = 15;
+        $paginationArray = [];
+
         $genres = MusicProduct::all()->pluck('genre')->unique()->values();
         $artists = MusicProduct::all()->pluck('artist')->unique()->values();
         $categories = Category::all();
 
-        $genres_filter = $request->has('genres') ? $request->get('genres') : [];
-        $artists_filter = $request->has('artists') ? $request->get('artists') : [];
+        $genresFilter = $request->has('genres') ? $request->get('genres') : [];
+        $artistsFilter = $request->has('artists') ? $request->get('artists') : [];
 
 
         $musicQuery = MusicProduct::query();
 
         $productQuery = Product::query();
 
-        if(isset($genres_filter)){
-            foreach($genres_filter as $key => $genre){
+        if(isset($genresFilter)){
+            foreach($genresFilter as $key => $genre){
                 $musicQuery = $key > 0 ? $musicQuery->orwhere('genre', $genre) : $musicQuery->where('genre', $genre);
             }
         }
 
-        if(isset($artists_filter)){
-            foreach($artists_filter as $key => $artist){
-                $musicQuery = $key > 0 ? $musicQuery->orwhere('artist', $artist) : $musicQuery->where('artist', $artist);
+        $musicProducts = $musicQuery->get(['id','artist']);
+
+        if(!empty($artistsFilter)){
+            foreach($musicProducts as $key => $musicProduct){
+                if(!in_array($musicProduct->artist, $artistsFilter)){
+                    unset($musicProducts[$key]);
+                }
             }
         }
-
-        $musicProducts = $musicQuery->pluck('id');
 
         // productQuery filters here
 
 
+        $musicIds = $musicProducts->pluck('id')->toArray();
+
         $minPrice = $request->has('min-price') ? $request->get('min-price') : 0;
         $maxPrice = $request->has('max-price') ? $request->get('max-price') : (int)Product::max('price');
-
-
-        $productQuery = $productQuery->where('price', '>=', $minPrice)
+        $productQuery = $productQuery->whereIn('productable_id', $musicIds)
+                                     ->where('price', '>=', $minPrice)
                                      ->where('price', '<=', $maxPrice);
 
-
-
         $products = $productQuery->get();
-        foreach ($products as $key => $product) {
-            if(!$musicProducts->contains($product->productable_id)){
-                unset($products[$key]);
+
+        if(!empty($genresFilter) or !empty($artistsFilter)){
+            foreach ($products as $key => $product) {
+                if(!$musicProducts->contains($product->productable_id)){
+                    unset($products[$key]);
+                }
             }
         }
-        $products->values();
 
-        return view('shop.list')->with(compact('products', 'categories', 'genres', 'artists', 'request', 'maxPrice'));
+        $orderBy = $request->has('orderby') ? $request->get('orderby') : "sold";
+
+        if($orderBy == "sold"){
+            $orderby = "id"; // change in future
+        }
+
+        $sort = $request->has('sort') ? $request->get('sort') : "DESC";
+        if($sort == "DESC"){
+            $products->sortbydesc($orderBy);
+        }
+        else{
+            $products->sortby($orderBy);
+        }
+        
+        // keep this at the bottom
+        $productsCount = count($products);
+        if($productsCount > $pagination){
+            $paginationArray['pages'] = $productsCount/$pagination+1;
+            $paginationArray['pages'] = (int)$paginationArray['pages'];
+            $paginationArray['currentpage'] = $request->has('page') ? $request->get('page') :  1;
+            $products = $products->slice($paginationArray['currentpage']*$pagination-$pagination)->take($pagination);
+        }
+
+        return view('shop.list')->with(compact('products', 'categories', 'genres', 'artists', 'request', 'maxPrice', 'paginationArray'));
     }
 }
