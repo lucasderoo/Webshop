@@ -17,4 +17,9 @@ class Member extends Model
         'initials',
         'phonenumber',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

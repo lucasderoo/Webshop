@@ -19,7 +19,9 @@ class CreateMembersTable extends Migration
             $table->string('insertion', '20');
             $table->string('lastname', '50');
             $table->string('initials', '20');
-            $table->string('phonenumber', '50');
+            $table->string('phonenumber', '50')->nullable();
+            $table->integer('user_id')->default('0');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

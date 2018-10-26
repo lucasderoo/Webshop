@@ -1,53 +1,32 @@
 @include('layouts.header')
 
 <style>
-.login-form{
-    margin: auto;
-}
 
-.form-header{
-    background-color: #3C83F7;
-}
-
-.form-header h5{
-    margin: 0;
-    padding: 5px;
-    padding-left: 13px;
-    color: white;
-}
-
-.panel-body{
-    border-radius: 0;
-}
-
-.form-input{
-    margin-bottom: 20px;
-}
-.form-input label{
-    margin-bottom: 0;
-}
-.a-link{
+.admin-top a{
+    display: inline-block;
     float: right;
-    font-size: 1rem;
-    text-decoration: none;
-    color: #3C83F7;
 }
-.a-link:hover{
-    text-decoration: underline;
+.admin-top h3{
+    display: inline-block;
 }
+
+
 </style>
 <div class="container">    
     <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <div class="panel-header form-header">
-                <h5>Register</h5>
+        <div class="col-md-8 offset-md-2">
+            @include('layouts.admin-submenu')
+            <div class="admin-top">
+                <h3>Edit User</h3>
+                <a class="btn btn-warning" href="{{ route('admin/users/edit/password', ['id' => $user->id]) }}">Edit password</a>
             </div>
-            <div class="panel-body form-control">
+            <hr>
+            <div class="panel-body">
                 <form class="form-horizontal" method="POST" action="">
                 {{ csrf_field() }}
                     <div class="form-input">
                         <label for="firstname" class="control-label">First name</label>
-                        <input id="first_name" type="text" class="form-control" name="firstname" required>
+                        <input id="first_name" type="text" class="form-control" name="firstname" value="{{ $user->member->firstname }}" required>
                         @if ($errors->has('firstname'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('firstname') }}</strong>
@@ -56,7 +35,7 @@
                     </div>
                     <div class="form-input">
                         <label for="insertion" class="control-label">Insertion</label>
-                        <input id="insetion" type="text" class="form-control" name="insertion">
+                        <input id="insetion" type="text" class="form-control" name="insertion" value="{{ $user->member->insertion }}">
                         @if ($errors->has('insertion'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('insertion') }}</strong>
@@ -65,7 +44,7 @@
                     </div>
                     <div class="form-input">
                         <label for="lastname" class="control-label">Last name</label>
-                        <input id="last_name" type="text" class="form-control" name="lastname" required>
+                        <input id="last_name" type="text" class="form-control" name="lastname" value="{{ $user->member->lastname }}" required>
                         @if ($errors->has('lastname'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('lastname') }}</strong>
@@ -74,7 +53,7 @@
                     </div>
                     <div class="form-input">
                         <label for="initials" class="control-label">Initials</label>
-                        <input id="initials" type="text" class="form-control" name="initials" required>
+                        <input id="initials" type="text" class="form-control" name="initials" value="{{ $user->member->initials }}" required>
                         @if ($errors->has('initials'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('initials') }}</strong>
@@ -83,7 +62,7 @@
                     </div>
                     <div class="form-input">
                         <label for="phonenumber" class="control-label">Phone Number</label>
-                        <input id="phone_number" type="text" class="form-control" name="phonenumber">
+                        <input id="phone_number" type="text" class="form-control" name="phonenumber" value="{{ $user->member->phonenumber }}">
                         @if ($errors->has('phonenumber'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('phonenumber') }}</strong>
@@ -92,7 +71,7 @@
                     </div>
                     <div class="form-input">
                         <label for="email" class="control-label">E-Mail Address</label>
-                        <input id="email" type="email" class="form-control" name="email" required>
+                        <input id="email" type="email" class="form-control" name="email" value="{{ $user->email }}" required>
                         @if ($errors->has('email'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('email') }}</strong>
@@ -100,29 +79,35 @@
                         @endif
                     </div>
                     <div class="form-input">
-                        <label for="email" class="control-label">Password</label>
-                        <input id="email" type="password" class="form-control" name="password" required>
-                        @if ($errors->has('password'))
+                        <label for="user_account_type" class="control-label">Account type</label>
+                        <select name="user_account_type" class="form-control">
+                            <option value="1" {{ $user->user_account_type == 1 ? 'selected="selected"' : '' }}>Customer</option>
+                            <option value="2" {{ $user->user_account_type == 2 ? 'selected="selected"' : '' }}>Manager</option>
+                            <option value="3" {{ $user->user_account_type == 3 ? 'selected="selected"' : '' }}>Admin</option>
+                        </select>
+                        @if ($errors->has('user_account_type'))
                             <span class="help-block">
-                                <strong>{{ $errors->first('password') }}</strong>
+                                <strong>{{ $errors->first('user_account_type') }}</strong>
                             </span>
                         @endif
                     </div>
                     <div class="form-input">
-                        <label for="password_confirmation" class="control-label">Password Confirmation</label>
-                        <input id="email" type="password" class="form-control" name="password_confirmation" required>
-                        @if ($errors->has('password_confirmation'))
+                        <label for="user_activated" class="control-label">User activated</label>
+                        <select name="user_activated" class="form-control">
+                            <option value="1" {{ $user->user_activated == 1 ? 'selected="selected"' : '' }}>Yes</option>
+                            <option value="2" {{ $user->user_activated == 2 ? 'selected="selected"' : '' }}>No</option>
+                        </select>
+                        @if ($errors->has('user_activated'))
                             <span class="help-block">
-                                <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                <strong>{{ $errors->first('user_activated') }}</strong>
                             </span>
                         @endif
                     </div>
+                    <br>
                     <div class="form-input">
-                        <button type="submit" class="btn btn-primary">Register</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
                     </div>
                 </form>
-                <hr>
-                <p>Already have an account? <a href="#">Sign In Here</a></p>
             </div>
         </div>
     </div>

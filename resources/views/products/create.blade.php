@@ -38,6 +38,7 @@ h5{
 <div class="container">    
     <div class="row">
         <div class="col-md-8 offset-md-2 products-add">
+            @include('layouts.admin-submenu')
             <div class="admin-top">
                 <h3>Add Product</h3>
             </div>

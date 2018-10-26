@@ -25,9 +25,7 @@ class CreateUsersTable extends Migration
             $table->dateTime('user_last_failed_login')->nullable();
             $table->string('user_forgot_password_token')->nullable();
             $table->dateTime('user_password_reset_timestamp')->nullable();
-            $table->smallInteger('user_activated')->default('0');
-            $table->integer('member_id')->default('0');
-            $table->foreign('member_id')->references('id')->on('members');
+            $table->smallInteger('user_activated')->default('1');
             $table->timestamps();
         });
     }

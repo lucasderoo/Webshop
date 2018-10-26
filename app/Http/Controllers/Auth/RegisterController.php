@@ -75,12 +75,16 @@ class RegisterController extends Controller
             'phonenumber' => $data['phonenumber'],
         ]);
         $member->save();
-        return User::create([
+
+        $user =  User::create([
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'user_account_type' => 1,
             'user_activated' => 1,
-            'member_id' => $member->id,
         ]);
+
+        $user->save();
+
+        $user->member()->save($member);
     }
 }

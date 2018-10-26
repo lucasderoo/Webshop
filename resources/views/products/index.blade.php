@@ -15,6 +15,7 @@
 <div class="container">    
     <div class="row">
         <div class="col-md-8 offset-md-2 products-index">
+        @include('layouts.admin-submenu')
             <div class="admin-top">
                 <h3>Products</h3>
                 <a class="btn btn-small btn-success" href="{{ URL::to('admin/products/create') }}">Create</a>
@@ -43,9 +44,9 @@
                         <td>{{ $product->category->name }}</td>
                         <td>{{ $product->created_at }}</td>
                         <td>{{ $product->updated_at }}</td>
-                        <td><a class="btn btn-small btn-info" href="{{ URL::to('admin/products/edit/' . $product->id) }}">Edit</a></td>
-                        <td><a class="btn btn-small btn-danger" href="{{ URL::to('admin/products/delete/' . $product->id) }}">Delete</a></td>
-                        <td><a class="btn btn-small btn-warning" href="{{ URL::to('product/' . $product->slug) }}">Show</a></td>
+                        <td><a class="btn btn-small btn-info" href="{{ route('admin/products/edit', ['id' => $product->id]) }}">Edit</a></td>
+                        <td><a class="btn btn-small btn-danger" href="{{ route('admin/products/edit', ['id' => $product->id]) }}">Delete</a></td>
+                        <td><a class="btn btn-small btn-warning" href="{{ route('show', ['slug' => $product->slug]) }}">Show</a></td>
                     </tr>
                 @endforeach
                 </tbody>

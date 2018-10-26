@@ -1,48 +1,14 @@
 @include('layouts.header')
 
-<style>
-.login-form{
-    margin: auto;
-}
-
-.form-header{
-    background-color: #3C83F7;
-}
-
-.form-header h5{
-    margin: 0;
-    padding: 5px;
-    padding-left: 13px;
-    color: white;
-}
-
-.panel-body{
-    border-radius: 0;
-}
-
-.form-input{
-    margin-bottom: 20px;
-}
-.form-input label{
-    margin-bottom: 0;
-}
-.a-link{
-    float: right;
-    font-size: 1rem;
-    text-decoration: none;
-    color: #3C83F7;
-}
-.a-link:hover{
-    text-decoration: underline;
-}
-</style>
 <div class="container">    
     <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <div class="panel-header form-header">
-                <h5>Register</h5>
+        <div class="col-md-8 offset-md-2">
+            @include('layouts.admin-submenu')
+            <div class="admin-top">
+                <h3>Add User</h3>
             </div>
-            <div class="panel-body form-control">
+            <hr>
+            <div class="panel-body">
                 <form class="form-horizontal" method="POST" action="">
                 {{ csrf_field() }}
                     <div class="form-input">
@@ -101,7 +67,7 @@
                     </div>
                     <div class="form-input">
                         <label for="email" class="control-label">Password</label>
-                        <input id="email" type="password" class="form-control" name="password" required>
+                        <input id="password" type="password" class="form-control" name="password" required>
                         @if ($errors->has('password'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('password') }}</strong>
@@ -110,7 +76,7 @@
                     </div>
                     <div class="form-input">
                         <label for="password_confirmation" class="control-label">Password Confirmation</label>
-                        <input id="email" type="password" class="form-control" name="password_confirmation" required>
+                        <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required>
                         @if ($errors->has('password_confirmation'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('password_confirmation') }}</strong>
@@ -118,11 +84,23 @@
                         @endif
                     </div>
                     <div class="form-input">
+                        <label for="user_account_type" class="control-label">Account type</label>
+                        <select name="user_account_type" class="form-control">
+                            <option value="1">Customer</option>
+                            <option value="2">Manager</option>
+                            <option value="3">Admin</option>
+                        </select>
+                        @if ($errors->has('user_account_type'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('user_account_type') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                    <br>
+                    <div class="form-input">
                         <button type="submit" class="btn btn-primary">Register</button>
                     </div>
                 </form>
-                <hr>
-                <p>Already have an account? <a href="#">Sign In Here</a></p>
             </div>
         </div>
     </div>

@@ -7,12 +7,11 @@ display: inline-block;
 height: 25px;
 }
 .image-select{
-	width: 25%;
+	width: 20%;
 	height: 500px;
 	float: left;
 }
 .image-select img{
-	margin: auto;
 	display: block;
 	margin-bottom: 15px;
 	max-width: 100px;
@@ -92,51 +91,55 @@ h5{
     border: 2px solid #00ACED !important;
 }
 </style>
-<div class="container-fluid main-container" style="max-width: 1000px; margin: auto; margin-top: 100px;">
-    <div class="row top-row">
-        <div class="col-md-8">
-        	<p>Home > {{$product->category->name}} > {{$product->productable->artist}} - {{$product->title}}</p>
-        </div>
-        <div class="col-md-4">
-        	<h5>{{$product->productable->artist}} - {{$product->title}}</h5>
-        </div>
-    </div>
+<div class="container">
     <div class="row">
-        <div class="col-md-8">
-        	<div class="image-select">
-            <img id="img-1" class="x100_pic selected-image" src="{{asset('images/uploads/products/product_').$product->id.'/img_'.$product->main_image_url.'.png'}}">
-            @foreach($product->images as $image)
-                @if($product->main_image_url != (int)substr($image->image_url, -1))
-                    <img id="img-{{$loop->iteration+1}}" class="x100_pic " src="{{asset('images/uploads/products/product_').$product->id.'/'.$image->image_url.'.png'}}">
-                @endif
-            @endforeach
-        	</div>
-        	<div class="main-image-buy-btn">
-        		<div class="main-image-buy-btn-wrapper">
-        			<img id="big_image" class="Big_image" src="{{asset('images/uploads/products/product_').$product->id.'/img_'.$product->main_image_url.'.png'}}">
-        			<div class="buy-buttons">
-        				<button class="add-to-cart btn">Add to Cart</button>
-        				<button class="buy-now btn">Buy Now</button>
-        			</div>
-        		</div>
-        	</div>
-        </div>
-        <div class="col-md-4">
-			<b> €{{$product->price}}</b>
-			<hr>
-        	<h5>Product description</h5>
-        	<div class="product-info">
-        	<p><b>Artist:</b> {{$product->productable->artist}}</p>
-        	<p><b>Title:</b> {{$product->title}}</p>
-        	<p><b>Format:</b> {{$product->productable->carrier->name}}</p>
-        	<p><b>Genre:</b> {{$product->productable->genre}}</p>
-        	<p class="bottom-p"><b>Released:</b> {{$product->productable->release_date}}</p>
-        	</div>
+        <div class="col-md-8 offset-md-2">
+            <div class="row top-row">
+                <div class="col-md-8">
+                	<p>Home > {{$product->category->name}} > {{$product->productable->artist}} - {{$product->title}}</p>
+                </div>
+                <div class="col-md-4">
+                	<h5>{{$product->productable->artist}} - {{$product->title}}</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                	<div class="image-select">
+                    <img id="img-1" class="x100_pic selected-image" src="{{asset('images/uploads/products/product_').$product->id.'/img_'.$product->main_image_url.'.png'}}">
+                    @foreach($product->images as $image)
+                        @if($product->main_image_url != (int)substr($image->image_url, -1))
+                            <img id="img-{{$loop->iteration+1}}" class="x100_pic " src="{{asset('images/uploads/products/product_').$product->id.'/'.$image->image_url.'.png'}}">
+                        @endif
+                    @endforeach
+                	</div>
+                	<div class="main-image-buy-btn">
+                		<div class="main-image-buy-btn-wrapper">
+                			<img id="big_image" class="Big_image" src="{{asset('images/uploads/products/product_').$product->id.'/img_'.$product->main_image_url.'.png'}}">
+                			<div class="buy-buttons">
+                				<button class="add-to-cart btn">Add to Cart</button>
+                				<button class="buy-now btn">Buy Now</button>
+                			</div>
+                		</div>
+                	</div>
+                </div>
+                <div class="col-md-4">
+        			<b> €{{$product->price}}</b>
+        			<hr>
+                	<h5>Product description</h5>
+                	<div class="product-info">
+                	<p><b>Artist:</b> {{$product->productable->artist}}</p>
+                	<p><b>Title:</b> {{$product->title}}</p>
+                	<p><b>Format:</b> {{$product->productable->carrier->name}}</p>
+                	<p><b>Genre:</b> {{$product->productable->genre}}</p>
+                	<p class="bottom-p"><b>Released:</b> {{$product->productable->release_date}}</p>
+                	</div>
 
-        	<div class="product-desc" style="height: 300px;">
-        	<br>
-        		<textarea readonly="readonly">{{$product->productable->description}}</textarea>
-        	</div>
+                	<div class="product-desc" style="height: 300px;">
+                	<br>
+                		<textarea readonly="readonly">{{$product->productable->description}}</textarea>
+                	</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

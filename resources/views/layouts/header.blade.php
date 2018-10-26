@@ -38,7 +38,7 @@
       @else
         @if(Auth::user()->user_account_type > 1)
           <li class="nav-item">
-            <a class="nav-link text-light" href="{{ route('Admin/products') }}">Admin</a>
+            <a class="nav-link text-light" href="{{ route('admin') }}">Admin</a>
           </li>
         @else
           <li class="nav-item">

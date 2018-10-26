@@ -24,46 +24,49 @@ Route::get('/products/{name}','ShopController@list');
 Route::get('/unauthorized', 'HomeController@unauthorized');
 
 
+Route::get('/admin', 'AdminController@index')->middleware('Admin')->name('admin');
 Route::group([
 	'prefix' => '/admin/products',
 	'middleware' => 'Manager'
 ], function(){
-	Route::get('', 'ProductController@index')->name('Admin/products');
-	Route::get('/create', 'ProductController@create');
+	Route::get('', 'ProductController@index')->name('admin/products');
+	Route::get('/create', 'ProductController@create')->name('admin/products/create');
 	Route::post('/create', 'ProductController@store');
-	Route::get('/edit/{id}', 'ProductController@edit');
+	Route::get('/edit/{id}', 'ProductController@edit')->name('admin/products/edit');
 	Route::post('/edit/{id}', 'ProductController@update');
-	Route::get('/delete/{id}', 'ProductController@delete');
+	Route::get('/delete/{id}', 'ProductController@delete')->name('admin/products/delete');
 	Route::post('/delete/{id}', 'ProductController@destroy');
-	Route::get('/read/{id}', 'ProductController@read');
+	Route::get('/read/{id}', 'ProductController@read')->name('admin/products/read');
 });
 
 Route::group([
 	'prefix' => '/admin/categories',
 	'middleware' => 'Manager'
 ], function(){
-	Route::get('', 'CategoryController@index');
-	Route::get('/create', 'CategoryController@create');
+	Route::get('', 'CategoryController@index')->name('admin/categories');
+	Route::get('/create', 'CategoryController@create')->name('admin/categories/create');
 	Route::post('/create', 'CategoryController@store');
-	Route::get('/edit/{id}', 'CategoryController@edit');
+	Route::get('/edit/{id}', 'CategoryController@edit')->name('admin/categories/edit');
 	Route::post('/edit/{id}', 'CategoryController@update');
-	Route::get('/delete/{id}', 'CategoryController@delete');
+	Route::get('/delete/{id}', 'CategoryController@delete')->name('admin/categories/delete');
 	Route::post('/delete/{id}', 'CategoryController@destroy');
-	Route::get('/read/{id}', 'CategoryController@read');
+	Route::get('/read/{id}', 'CategoryController@read')->name('admin/categories/read');
 });
 
 Route::group([
 	'prefix' => '/admin/users',
 	'middleware' => 'Admin'
 ], function(){
-	Route::get('', 'UserController@index');
-	Route::get('/create', 'UserController@create');
+	Route::get('', 'UserController@index')->name('admin/users');
+	Route::get('/create', 'UserController@create')->name('admin/users/create');
 	Route::post('/create', 'UserController@store');
-	Route::get('/edit/{id}', 'UserController@edit');
+	Route::get('/edit/{id}', 'UserController@edit')->name('admin/users/edit');
 	Route::post('/edit/{id}', 'UserController@update');
-	Route::get('/delete/{id}', 'UserController@delete');
+	Route::get('/edit/{id}/password', 'UserController@edit_password')->name('admin/users/edit/password');
+	Route::post('/edit/{id}/password', 'UserController@update_password');
+	Route::get('/delete/{id}', 'UserController@delete')->name('admin/users/delete');
 	Route::post('/delete/{id}', 'UserController@destroy');
-	Route::get('/read/{id}', 'UserController@read');
+	Route::get('/read/{id}', 'UserController@read')->name('admin/users/read');
 });
 
 Auth::routes();

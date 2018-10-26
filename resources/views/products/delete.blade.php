@@ -11,6 +11,7 @@
 <div class="container">    
     <div class="row">
         <div class="col-md-8 offset-md-2 products-delete">
+        @include('layouts.admin-submenu')
         <div class="admin-top">
             <h3>Delete Product</h3>
             <hr>
