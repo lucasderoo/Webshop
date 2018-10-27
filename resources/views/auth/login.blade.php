@@ -65,7 +65,7 @@
                     </div>
                 </form>
                 <hr>
-                <p>Don't have an account? <a href="#">Sign Up Here</a></p>
+                <p>Don't have an account? <a href="{{ route('register') }}">Sign Up Here</a></p>
             </div>
         </div>
     </div>

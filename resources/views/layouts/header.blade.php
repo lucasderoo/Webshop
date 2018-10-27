@@ -42,7 +42,7 @@
           </li>
         @else
           <li class="nav-item">
-            <a class="nav-link text-light" href="#">Account</a>
+            <a class="nav-link text-light" href="{{ route('account') }}">Account</a>
           </li>
         @endif
         <li class="nav-item">

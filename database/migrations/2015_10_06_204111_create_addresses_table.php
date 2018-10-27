@@ -17,10 +17,10 @@ class CreateAddressesTable extends Migration
             $table->increments('id');
             $table->string('street', '50');
             $table->integer('house_number');
-            $table->string('suffix')->nullable()->change();
+            $table->string('suffix')->nullable();
             $table->string('zipcode');
             $table->string('city');
-            $table->integer('user_id');
+            $table->integer('user_id')->default('0');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

@@ -24,6 +24,23 @@ Route::get('/products/{name}','ShopController@list');
 Route::get('/unauthorized', 'HomeController@unauthorized');
 
 
+Route::group([
+	'prefix' => '/account',
+	'middleware' => 'Customer'
+], function(){
+	Route::get('', 'AccountController@index')->name('account');
+	Route::post('', 'AccountController@update');
+	Route::get('/password', 'AccountController@show_password')->name('account/password');
+	Route::post('/password', 'AccountController@update_password');
+	Route::get('/orders', 'AccountController@orders')->name('account/orders');
+	Route::get('/order/{id}', 'AccountController@show_order')->name('account/order/show');
+	Route::get('/addresses', 'AccountController@adresses')->name('account/addresses');
+	Route::get('/addresses/create', 'AccountController@addresses_create')->name('account/addresses/create');
+	Route::post('/addresses/create', 'AccountController@addresses_store');
+});
+
+
+// manager & admin routes //
 Route::get('/admin', 'AdminController@index')->middleware('Admin')->name('admin');
 Route::group([
 	'prefix' => '/admin/products',

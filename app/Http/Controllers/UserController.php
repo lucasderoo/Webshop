@@ -73,6 +73,7 @@ class UserController extends Controller
             'phonenumber' => 'max:10',
             'user_account_type' => 'in:1,2,3|int',
             'user_activated' => 'in:1,2|int',
+            Rule::unique('users')->ignore($id, 'id')
         ]);
     	$user = User::find($id);
 
@@ -88,6 +89,7 @@ class UserController extends Controller
     	$user->member->initials = $request['initials'];
     	$user->member->phonenumber = $request['phonenumber'];
 
+    	$user->member->save();
         $user->save();
 
         return redirect()->route('admin/users');

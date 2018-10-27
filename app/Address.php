@@ -6,5 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Address extends Model
 {
-    //
+    public $timestamps = false;
+    
+    protected $fillable = [
+        'street', 'house_number', 'suffix', 'zipcode', 'city'
+    ];
+
+
+    public function user()
+    {
+        return $this->BelongsTO('App\User');
+    }
 }

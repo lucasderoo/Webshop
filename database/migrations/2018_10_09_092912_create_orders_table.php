@@ -15,10 +15,10 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('date');
+            $table->decimal('amount');
             $table->string('status');
             $table->string('payment_method');
-            $table->integer('user_id');
+            $table->integer('user_id')->default('0');
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('address_id');
             $table->foreign('address_id')->references('id')->on('addesses');

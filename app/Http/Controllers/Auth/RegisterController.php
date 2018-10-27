@@ -83,8 +83,10 @@ class RegisterController extends Controller
             'user_activated' => 1,
         ]);
 
+        $user->member()->save($member);
+
         $user->save();
 
-        $user->member()->save($member);
+        return $user;
     }
 }
