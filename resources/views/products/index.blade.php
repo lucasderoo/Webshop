@@ -46,7 +46,7 @@
                         <td>{{ $product->created_at }}</td>
                         <td>{{ $product->updated_at }}</td>
                         <td><a class="btn btn-small btn-info" href="{{ route('admin/products/edit', ['id' => $product->id]) }}">Edit</a></td>
-                        <td><a class="btn btn-small btn-danger" href="{{ route('admin/products/edit', ['id' => $product->id]) }}">Delete</a></td>
+                        <td><a class="btn btn-small btn-danger" href="{{ route('admin/products/delete', ['id' => $product->id]) }}">Delete</a></td>
                         <td><a class="btn btn-small btn-warning" href="{{ route('show', ['slug' => $product->slug]) }}">Show</a></td>
                     </tr>
                 @endforeach
