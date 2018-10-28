@@ -15,10 +15,10 @@ class CreateBasketProductsTable extends Migration
     {
         Schema::create('basket_products', function (Blueprint $table) {
             $table->increments('id');
-            $table->smallinteger('quantity');
-            $table->integer('product_id');
+            $table->smallinteger('quantity')->default('1');
+            $table->integer('product_id')->default('0');
             $table->foreign('product_id')->references('id')->on('products');
-            $table->integer('basket_id');
+            $table->integer('basket_id')->default('0');
             $table->foreign('basket_id')->references('id')->on('baskets');
         });
     }

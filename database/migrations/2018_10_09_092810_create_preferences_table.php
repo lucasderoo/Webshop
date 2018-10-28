@@ -15,7 +15,7 @@ class CreatePreferencesTable extends Migration
     {
         Schema::create('preferences', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('genre_id');
+            $table->integer('genre_id')->default('0');
             $table->foreign('genre_id')->references('id')->on('genres');
         });
     }

@@ -20,9 +20,9 @@ class CreateOrdersTable extends Migration
             $table->string('payment_method');
             $table->integer('user_id')->default('0');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('address_id');
+            $table->integer('address_id')->default('0');
             $table->foreign('address_id')->references('id')->on('addesses');
-            $table->integer('billing_address_id');
+            $table->integer('billing_address_id')->default('0');
             $table->foreign('billing_address_id')->references('id')->on('addesses');
             $table->timestamps();
         });

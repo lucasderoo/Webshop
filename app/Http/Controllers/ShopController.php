@@ -64,17 +64,16 @@ class ShopController extends Controller
         }
 
         // productQuery filters here
-
-
         $musicIds = $musicProducts->pluck('id')->toArray();
 
         $minPrice = $request->has('min-price') ? $request->get('min-price') : 0;
-        $maxPrice = $request->has('max-price') ? $request->get('max-price') : (int)Product::max('price');
+        $maxPrice = $request->has('max-price') ? $request->get('max-price') : (int)Product::max('price')+1;
         $productQuery = $productQuery->whereIn('productable_id', $musicIds)
                                      ->where('price', '>=', $minPrice)
                                      ->where('price', '<=', $maxPrice);
 
         $products = $productQuery->get();
+
 
         if(!empty($genresFilter) or !empty($artistsFilter)){
             foreach ($products as $key => $product) {

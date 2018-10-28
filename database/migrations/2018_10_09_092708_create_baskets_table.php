@@ -15,7 +15,7 @@ class CreateBasketsTable extends Migration
     {
         Schema::create('baskets', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
+            $table->integer('user_id')->default('0');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

@@ -116,7 +116,10 @@ h5{
                 		<div class="main-image-buy-btn-wrapper">
                 			<img id="big_image" class="Big_image" src="{{asset('images/uploads/products/product_').$product->id.'/img_'.$product->main_image_url.'.png'}}">
                 			<div class="buy-buttons">
-                				<button class="add-to-cart btn">Add to Cart</button>
+                                <form role="form" method="POST" action="{{ route('cart/create', ['slug' => $product->slug]) }}">
+                                    {{ csrf_field() }}
+                				    <button class="add-to-cart btn" type="submit">Add to Cart</button>
+                                </form>
                 				<button class="buy-now btn">Buy Now</button>
                 			</div>
                 		</div>

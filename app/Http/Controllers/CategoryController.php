@@ -62,7 +62,7 @@ class CategoryController extends Controller
 
     public function destroy($id){
     	$category = Category::find($id);
-    	$category->products()->delete();
+    	$category->Musicproducts()->delete();
     	$category->delete();
 
     	return redirect()->route('admin/categories');

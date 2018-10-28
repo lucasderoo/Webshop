@@ -18,6 +18,8 @@ class CreateReviewsTable extends Migration
             $table->string('title');
             $table->longText('comment');
             $table->smallInteger('rating');
+            $table->integer('product_id')->default('0');
+            $table->foreign('product_id')->references('id')->on('products');
             $table->timestamps();
         });
     }

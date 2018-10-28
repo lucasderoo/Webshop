@@ -23,6 +23,17 @@ Route::get('/products/{name}','ShopController@list');
 
 Route::get('/unauthorized', 'HomeController@unauthorized');
 
+Route::group([
+	'prefix' => '/cart',
+	'middleware' => 'Customer'
+], function(){
+	Route::get('', 'CartController@index')->name('cart');
+	Route::post('/add/{slug}', 'CartController@store')->name('cart/create');
+	Route::post('/update/{slug}', 'CartController@update')->name('cart/update');
+	Route::post('/delete/{slug}', 'CartController@delete')->name('cart/delete');
+	Route::post('/saveforlater/{slug}', 'CartController@save_for_later')->name('cart/saveForLater');
+});
+
 
 Route::group([
 	'prefix' => '/account',
@@ -68,6 +79,20 @@ Route::group([
 	Route::get('/delete/{id}', 'CategoryController@delete')->name('admin/categories/delete');
 	Route::post('/delete/{id}', 'CategoryController@destroy');
 	Route::get('/read/{id}', 'CategoryController@read')->name('admin/categories/read');
+});
+
+Route::group([
+	'prefix' => '/admin/carriers',
+	'middleware' => 'Manager'
+], function(){
+	Route::get('', 'CarrierController@index')->name('admin/carriers');
+	Route::get('/create', 'CarrierController@create')->name('admin/carriers/create');
+	Route::post('/create', 'CarrierController@store');
+	Route::get('/edit/{id}', 'CarrierController@edit')->name('admin/carriers/edit');
+	Route::post('/edit/{id}', 'CarrierController@update');
+	Route::get('/delete/{id}', 'CarrierController@delete')->name('admin/carriers/delete');
+	Route::post('/delete/{id}', 'CarrierController@destroy');
+	Route::get('/read/{id}', 'CarrierController@read')->name('admin/carriers/read');
 });
 
 Route::group([

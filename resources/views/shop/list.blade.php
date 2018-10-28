@@ -141,7 +141,10 @@
                             @endif
                             <div>{{ strlen($product->title) > 18 ? substr($product->title,0,15).'...' : $product->title }}</div>
                             <h5>€{{ $product->price }}</h5>
-                            <button type="button" class="btn btn-primary" style="margin-top:10px; width: 100%;">Add product to cart</button>
+                            <form role="form" method="POST" action="{{ route('cart/create', ['slug' => $product->slug]) }}">
+                                {{ csrf_field() }}
+                                <button type="submit" class="btn btn-primary" style="margin-top:10px; width: 100%;">Add product to cart</button>
+                            </form>
                         </div>
                     </div>
                     @endforeach
