@@ -13,6 +13,7 @@
 <div class="container">    
     <div class="row">
         <div class="col-md-8 offset-md-2 products-index">
+        @include('layouts.feedback')
             <div class="admin-top">
                 <h3>Account Info</h3>
                 <a class="btn btn-warning" href="{{ URL::to('account/password') }}">Edit Password</a>

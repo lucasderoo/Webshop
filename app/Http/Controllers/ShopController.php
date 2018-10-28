@@ -12,6 +12,8 @@ use Auth;
 use App\MusicProduct;
 use Input;
 
+use Session;
+
 class ShopController extends Controller
 {
 

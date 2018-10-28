@@ -15,6 +15,7 @@
 <div class="container">    
     <div class="row">
         <div class="col-md-8 offset-md-2 products-index">
+        @include('layouts.feedback')
         @include('layouts.admin-submenu')
             <div class="admin-top">
                 <h3>Categories</h3>

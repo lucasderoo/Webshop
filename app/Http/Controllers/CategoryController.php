@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Category;
+use Session;
 
 class CategoryController extends Controller
 {
@@ -31,6 +32,7 @@ class CategoryController extends Controller
         ]);
         $category->save();
 
+        Session::flash('feedback_success', 'Category added');
         return redirect()->route('admin/categories');
     }
     public function edit(request $request, $id){
@@ -49,6 +51,7 @@ class CategoryController extends Controller
     	$category->name = $request['name'];
     	$category->save();
     	
+        Session::flash('feedback_success', 'Category updated');
     	return redirect()->route('admin/categories');
     }
 
@@ -65,6 +68,7 @@ class CategoryController extends Controller
     	$category->Musicproducts()->delete();
     	$category->delete();
 
+    	Session::flash('feedback_error', 'Category deleted');
     	return redirect()->route('admin/categories');
     }
 

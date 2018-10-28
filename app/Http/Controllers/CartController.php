@@ -9,6 +9,9 @@ use App\Basket;
 use App\BasketProduct;
 use App\User;
 use Auth;
+
+use Session;
+
 class CartController extends Controller
 {
  
@@ -31,6 +34,11 @@ class CartController extends Controller
 
     	$product = Product::where('slug', $slug)->first();
      	$user = Auth::user();
+
+     	if($product->stock->amount < 1){
+     		Session::flash('feedback_error', 'Product is out of stock!');
+     		return redirect()->back();
+     	}
 
      	if(empty($user->basket)){
      		$basket = Basket::create();
@@ -58,7 +66,7 @@ class CartController extends Controller
      		$cartProduct->save();
      	}
 
-
+     	Session::flash('feedback_success', 'Product added to cart');
      	return redirect()->back();
     }
 

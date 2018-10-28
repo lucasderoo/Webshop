@@ -37,6 +37,7 @@
 <div class="container">    
     <div class="row">
         <div class="col-md-8 offset-md-2 products-index">
+        @include('layouts.feedback')
             <div class="admin-top">
                 <h3>Cart ({{ $productsCount }} products)</h3>
             </div>

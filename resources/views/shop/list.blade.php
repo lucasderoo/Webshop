@@ -44,6 +44,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
+        @include('layouts.feedback')
             <div class="row">
                 <div class="col-8">
                     <h2>Products</h2>

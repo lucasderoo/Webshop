@@ -51,10 +51,20 @@ h5{
                         <div class="form-group">
                             <label for="title">Title</label>
                             <input type="text" class="form-control" name="title">
+                            @if ($errors->has('title'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('title') }}</strong>
+                            </span>
+                            @endif
                         </div>
                         <div class="form-group">
                             <label for="price">Price</label>
                             <input type="text" class="form-control" name="price">
+                            @if ($errors->has('price'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('price') }}</strong>
+                            </span>
+                            @endif
                         </div>
                     </div>
                     <div class="col-md-8">
@@ -86,6 +96,11 @@ h5{
                         <div class="form-group">
                             <label for="release_date">Description</label>
                             <textarea class="form-control" name="description"></textarea>
+                            @if ($errors->has('description'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('description') }}</strong>
+                            </span>
+                            @endif
                         </div>
                         <div class="form-group">
                             <label for="category">Category</label><br>
@@ -94,19 +109,39 @@ h5{
                               <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
                             </select>
+                            @if ($errors->has('category'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('category') }}</strong>
+                            </span>
+                            @endif
                         </div>
                         <div id="music-product">
                             <div class="form-group">
                                 <label for="release_date">Release date</label>
                                 <input type="date" class="form-control" name="release_date">
+                                @if ($errors->has('release_date'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('release_date') }}</strong>
+                                </span>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="artist">Artist</label>
                                 <input type="text" class="form-control" name="artist">
+                                @if ($errors->has('artist'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('artist') }}</strong>
+                                </span>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="genre">Genre</label>
                                 <input type="text" class="form-control" name="genre">
+                                @if ($errors->has('genre'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('genre') }}</strong>
+                                </span>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="carrier">Carrier</label><br>
@@ -115,6 +150,20 @@ h5{
                                   <option value="{{ $carrier->id }}">{{ $carrier->name }}</option>
                                 @endforeach
                                 </select>
+                                @if ($errors->has('carrier'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('carrier') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                            <div class="form-group">
+                                <label for="amount">Amount</label>
+                                <input type="number" class="form-control" name="amount">
+                                @if ($errors->has('amount'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('amount') }}</strong>
+                                </span>
+                                @endif
                             </div>
                         </div>
                         <a href="javascript:{}" onclick="document.getElementById('product-add-form').submit(); return false;" class="btn btn-primary btn-lg btn-block" style="color: white">Save</a>

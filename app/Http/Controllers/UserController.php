@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 
 use App\User;
 use App\Member;
+use Illuminate\Validation\Rule;
 
+use Session;
 
 class UserController extends Controller
 {
@@ -53,6 +55,7 @@ class UserController extends Controller
 
         $user->member()->save($member);
 
+        Session::flash('feedback_succes', 'User saved');
         return redirect()->route('admin/users');
     }
 
@@ -65,7 +68,7 @@ class UserController extends Controller
 
     public function update($id, request $request){
     	$request->validate([
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users,email,'.$id,
             'firstname' => 'required|string|max:50',
             'insertion' => 'string|max:20',
             'lastname' => 'required|string|max:50',
@@ -73,7 +76,6 @@ class UserController extends Controller
             'phonenumber' => 'max:10',
             'user_account_type' => 'in:1,2,3|int',
             'user_activated' => 'in:1,2|int',
-            Rule::unique('users')->ignore($id, 'id')
         ]);
     	$user = User::find($id);
 
@@ -92,6 +94,8 @@ class UserController extends Controller
     	$user->member->save();
         $user->save();
 
+
+        Session::flash('feedback_succes', 'User updated');
         return redirect()->route('admin/users');
     }
 
@@ -112,6 +116,7 @@ class UserController extends Controller
 
         $user->save();
 
+        Session::flash('feedback_succes', 'password updated');
     	return redirect()->route('admin/users/edit', $id);
     }
 
@@ -128,6 +133,7 @@ class UserController extends Controller
     	$user->member->delete();
     	$user->delete();
 
+    	Session::flash('feedback_succes', 'User deleted');
     	return redirect()->route('admin/users');
     }
 

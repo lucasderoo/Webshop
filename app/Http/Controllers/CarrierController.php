@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Carrier;
+use Session;
 
 class CarrierController extends Controller
 {
@@ -31,6 +32,7 @@ class CarrierController extends Controller
         ]);
         $carrier->save();
 
+        Session::flash('feedback_success', 'Carrier saved');
         return redirect()->route('admin/carriers');
     }
 
@@ -50,6 +52,7 @@ class CarrierController extends Controller
     	$carrier->name = $request['name'];
     	$carrier->save();
     	
+    	Session::flash('feedback_success', 'Carrier updated');
     	return redirect()->route('admin/carriers');
     }
 
@@ -66,6 +69,7 @@ class CarrierController extends Controller
     	$carrier->music_products()->delete();
     	$carrier->delete();
 
+    	Session::flash('feedback_success', 'Carrier deleted');
     	return redirect()->route('admin/carriers');
     }
 

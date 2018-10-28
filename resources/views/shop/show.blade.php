@@ -94,6 +94,7 @@ h5{
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
+        @include('layouts.feedback')
             <div class="row top-row">
                 <div class="col-md-8">
                 	<p>Home > {{$product->category->name}} > {{$product->productable->artist}} - {{$product->title}}</p>
@@ -134,6 +135,7 @@ h5{
                 	<p><b>Title:</b> {{$product->title}}</p>
                 	<p><b>Format:</b> {{$product->productable->carrier->name}}</p>
                 	<p><b>Genre:</b> {{$product->productable->genre}}</p>
+                    <p><b>Stock:</b> {{$product->stock->amount}}</p>
                 	<p class="bottom-p"><b>Released:</b> {{$product->productable->release_date}}</p>
                 	</div>
 

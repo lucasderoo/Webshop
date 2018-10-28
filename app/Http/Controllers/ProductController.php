@@ -9,13 +9,16 @@ use App\Carrier;
 use App\Genre;
 use App\MusicProduct;
 use App\Image;
+use App\Stock;
+
+use Session;
 
 use DB;
 use Validator;
 class ProductController extends Controller
 {
     public function index(){
-    	$products = Product::All();
+    	$products = Product::All();  
 
     	return view('products.index')->with(compact('products'));
     }
@@ -36,7 +39,8 @@ class ProductController extends Controller
             'category' => 'required|numeric|max:3',
             'artist' => 'required|string|max:100',
             'genre' => 'required|string|max:50',
-            'carrier' => 'required|string|max:50'
+            'carrier' => 'required|string|max:50',
+            'amount' => 'required|numeric'
         ]);
 
     	$musicProduct = new MusicProduct();
@@ -58,6 +62,12 @@ class ProductController extends Controller
     	$product->created_at;
 
     	$product->save();
+
+        $stock = new Stock();
+        $stock->amount = $request->input('amount');
+
+        $product->stock()->save($stock);
+
 
     	$public_path = public_path();
     	$productsFolder = public_path() . '\images\uploads\products';
@@ -94,6 +104,7 @@ class ProductController extends Controller
     		}
     	}
 
+        Session::flash('feedback_succes', 'Product saved');
     	return redirect('admin/products');
     }
 
@@ -118,7 +129,8 @@ class ProductController extends Controller
             'category' => 'required|numeric|max:3',
             'artist' => 'required|string|max:100',
             'genre' => 'required|string|max:50',
-            'carrier' => 'required|string|max:50'
+            'carrier' => 'required|string|max:50',
+            'amount' => 'required|numeric'
         ]);
 
 
@@ -136,8 +148,10 @@ class ProductController extends Controller
     	$product->title = $request->input('title');
     	$product->price = $request->input('price');
     	$product->category_id = $request->input('category');
+        $product->stock->amount = $request->input('amount');
     	$product->updated_at;
 
+        $product->stock->save();
     	$product->save();
 
     	$public_path = public_path();
@@ -191,6 +205,7 @@ class ProductController extends Controller
             }
     	}
 
+        Session::flash('feedback_succes', 'Product updated');
     	return redirect('admin/products');
     }
 
@@ -220,6 +235,7 @@ class ProductController extends Controller
 
     	$product->delete();
 
+        Session::flash('feedback_succes', 'Product deleted');
     	return redirect('admin/products');
     }
 

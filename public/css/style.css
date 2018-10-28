@@ -8,3 +8,24 @@
     font-size:18px;
     font-weight:bold;
 }
+
+
+
+
+/* feedback boxes */
+.feedback {
+    padding: 30px;
+    margin-bottom: 10px;
+}
+.feedback.success {
+    color: #558f2d;
+    background-color: #ddf2c0;
+}
+.feedback.error {
+    color: #ff7272;
+    background-color: #ffe5e5;
+}
+.feedback.info {
+    color: #00529B;
+    background-color: #BDE5F8;
+}

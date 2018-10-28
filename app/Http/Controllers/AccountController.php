@@ -8,12 +8,13 @@ use Auth;
 use Illuminate\Validation\Rule;
 
 use App\Address;
+use Session;
 class AccountController extends Controller
 {
     
     public function index(){
-
     	$user = Auth::user();
+
     	return view('account.index')->with(compact('user'));
     }
 
@@ -27,8 +28,8 @@ class AccountController extends Controller
     	$user = Auth::user();
 
 		if(!password_verify($request['current_password'], $user->password)){
-			// error message
-			return "current password not correct";
+			Session::flash('feedback_error', 'Current password not correct');
+			return redirect()->route('account');
 		}
 
     	$request->validate([
@@ -39,6 +40,7 @@ class AccountController extends Controller
 
         $user->save();
 
+		Session::flash('feedback_success', 'Current password not correct');
     	return redirect()->route('account');
     }
 
@@ -65,6 +67,7 @@ class AccountController extends Controller
     	$user->member->save();
         $user->save();
 
+        Session::flash('feedback_success', 'Account updated');
         return redirect()->route('account');
     }
 
@@ -106,7 +109,7 @@ class AccountController extends Controller
 
         $user->addresses()->save($address);
 
+        Session::flash('feedback_success', 'Address saved');
         return redirect()->route('account/addresses');
-    	
     }
 }
