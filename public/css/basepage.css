@@ -1,0 +1,68 @@
+* 
+{
+ font-family: Arial;
+} 
+
+body{
+    margin-top: 0;  /* make the website go into the top-left corner/make sure it doesn't have whitespace anywhere */
+    margin-left: 0;
+    margin-right:0;
+    margin-bottom:0;
+}
+
+#main{
+    height:90px; 
+    position: fixed;
+    background: white;
+    border-style: solid;
+    border-width: 1px;
+    border-color:gray;
+    width:100%;
+    top:0;
+    left:0;
+    }
+
+    
+
+#small{
+    height:50px; 
+    position: fixed;
+    background: #3b83f7;
+    width:100%;
+    top:0;
+    left:0;
+    }
+
+
+    .button {
+        background-color: #3b83f7;
+        color: white; /* White text */
+        cursor: pointer;
+        float: right; /* make header elements huddle next to each other */
+        height: 50px;
+        width: 100px;
+        font-size: 20px;
+        text-align:center;
+        text-decoration:none;
+        line-height: 50px; /* trick to center vertically */
+    }
+
+    /* Add a background color on hover */
+    .button:hover {
+        background-color: #46494c;
+    }
+    
+    /* Make the background lighter upon clicking */
+    .button:active{
+      background-color:#646a70;
+    }
+
+    .headertext {
+        color: white; 
+        float: left; /* make header elements huddle next to each other */
+        height: 50px;
+        width: 100px;
+        font-size: 24px;
+        text-align:center;
+        line-height: 50px; /* trick to center vertically */
+    }

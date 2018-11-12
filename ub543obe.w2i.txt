@@ -1,0 +1,109 @@
+﻿Merge branch 'Lucas' into Lou-Anne
+
+# Conflicts:
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+#	.git/MERGE_HEAD
+# and try again.
+
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch Lou-Anne
+# Your branch is up-to-date with 'origin/Lou-Anne'.
+#
+# All conflicts fixed but you are still merging.
+#
+# Changes to be committed:
+#	modified:   .gitignore
+#	new file:   app/Address.php
+#	new file:   app/Basket.php
+#	new file:   app/BasketProduct.php
+#	modified:   app/Carrier.php
+#	modified:   app/Category.php
+#	new file:   app/Http/Controllers/AccountController.php
+#	new file:   app/Http/Controllers/AdminController.php
+#	new file:   app/Http/Controllers/ArtistController.php
+#	modified:   app/Http/Controllers/Auth/RegisterController.php
+#	new file:   app/Http/Controllers/BasketController.php
+#	new file:   app/Http/Controllers/CarrierController.php
+#	new file:   app/Http/Controllers/CartController.php
+#	new file:   app/Http/Controllers/CategoryController.php
+#	new file:   app/Http/Controllers/CheckoutController.php
+#	new file:   app/Http/Controllers/DiscountController.php
+#	modified:   app/Http/Controllers/HomeController.php
+#	new file:   app/Http/Controllers/OrderController.php
+#	modified:   app/Http/Controllers/ProductController.php
+#	new file:   app/Http/Controllers/ReviewController.php
+#	modified:   app/Http/Controllers/ShopController.php
+#	new file:   app/Http/Controllers/UserController.php
+#	modified:   app/Http/Middleware/AdminAuth.php
+#	modified:   app/Http/Middleware/CustomerAuth.php
+#	modified:   app/Http/Middleware/ManagerAuth.php
+#	new file:   app/Image.php
+#	new file:   app/Member.php
+#	modified:   app/MusicProduct.php
+#	new file:   app/Order.php
+#	new file:   app/OrderProduct.php
+#	new file:   app/Preference.php
+#	modified:   app/Product.php
+#	new file:   app/Review.php
+#	new file:   app/Stock.php
+#	modified:   app/User.php
+#	modified:   composer.lock
+#	modified:   database/migrations/2007_10_04_01_create_genres_table.php
+#	modified:   database/migrations/2008_10_07_174830_create_carriers_table.php
+#	modified:   database/migrations/2009_10_02_205910_create_categories_table.php
+#	modified:   database/migrations/2010_10_04_213430_create_artists_table.php
+#	modified:   database/migrations/2011_10_02_195730_create_products_table.php
+#	modified:   database/migrations/2012_10_04_192416_create_music_products_table.php
+#	modified:   database/migrations/2013_10_06_195217_create_users_table.php
+#	modified:   database/migrations/2014_10_06_203802_create_members_table.php
+#	modified:   database/migrations/2015_10_06_204111_create_addresses_table.php
+#	new file:   database/migrations/2018_10_09_092319_create_images_table.php
+#	new file:   database/migrations/2018_10_09_092413_create_reviews_table.php
+#	new file:   database/migrations/2018_10_09_092708_create_baskets_table.php
+#	new file:   database/migrations/2018_10_09_092728_create_basket_products_table.php
+#	new file:   database/migrations/2018_10_09_092810_create_preferences_table.php
+#	new file:   database/migrations/2018_10_09_092850_create_order_products_table.php
+#	new file:   database/migrations/2018_10_09_092912_create_orders_table.php
+#	new file:   database/migrations/2018_10_09_103308_create_stocks_table.php
+#
+# Changes not staged for commit:
+#	modified:   public/css/app.css
+#	modified:   resources/views/auth/login.blade.php
+#	modified:   resources/views/auth/register.blade.php
+#	deleted:    resources/views/home.blade.php
+#	deleted:    resources/views/homepage.blade.php
+#	modified:   resources/views/layouts/footer.blade.php
+#	modified:   resources/views/layouts/header.blade.php
+#	modified:   resources/views/shop/show.blade.php
+#	modified:   routes/web.php
+#
+# Untracked files:
+#	public/css/basepage.css
+#	public/css/croppie.css
+#	public/css/style.css
+#	public/images/
+#	public/js/croppie.js
+#	public/js/product-image-upload.js
+#	resources/views/account/
+#	resources/views/admin/
+#	resources/views/basepage.blade.php
+#	resources/views/carriers/
+#	resources/views/categories/
+#	resources/views/errors/
+#	resources/views/layouts/account-submenu.blade.php
+#	resources/views/layouts/admin-submenu.blade.php
+#	resources/views/layouts/feedback.blade.php
+#	resources/views/layouts/genrefilter.blade.php
+#	resources/views/layouts/product-small.blade.php
+#	resources/views/layouts/searchmenu.blade.php
+#	resources/views/products/
+#	resources/views/shop/cart.blade.php
+#	resources/views/shop/list.blade.php
+#	resources/views/users/
+#
+
