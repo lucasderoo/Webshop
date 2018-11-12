@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerAuth
 {
@@ -15,6 +16,10 @@ class CustomerAuth
      */
     public function handle($request, Closure $next)
     {
+        if (Auth::guest() OR $request->user() && $request->user()->user_account_type < 1 && $request->user()->user_account_type > 3)
+        {
+            return redirect('/unauthorized'); // change later
+        }
         return $next($request);
     }
 }

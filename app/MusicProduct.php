@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class MusicProduct extends Model
 {
     //
+
+    public $timestamps = false;
 	protected $table = 'music_products';
 
 	public function productParent()

@@ -16,8 +16,10 @@ class AdminAuth
      */
     public function handle($request, Closure $next)
     {
-        // if(auth::check()){
-            return $next($request);
-        // }
+        if (Auth::guest() OR $request->user() && $request->user()->user_account_type != 3)
+        {
+            return redirect('/unauthorized');
+        }
+        return $next($request);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Auth;
 
 class ManagerAuth
 {
@@ -15,6 +16,10 @@ class ManagerAuth
      */
     public function handle($request, Closure $next)
     {
+        if (Auth::guest() OR $request->user() && $request->user()->user_account_type != 2 && $request->user()->user_account_type != 3)
+        {
+            return redirect('/unauthorized');
+        }
         return $next($request);
     }
 }

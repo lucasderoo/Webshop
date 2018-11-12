@@ -15,15 +15,10 @@ class CreateMusicProductsTable extends Migration
     {
         Schema::create('music_products', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('suffix');
-            $table->string('barcode');
             $table->date('release_date');
-            $table->string('description');
-            $table->string('format');
-            $table->integer('artist_id');
-            $table->foreign('artist_id')->references('id')->on('artists');
-            $table->integer('genre_id');
-            $table->foreign('genre_id')->references('id')->on('genre');
+            $table->longText('description', '500');
+            $table->string('artist');
+            $table->string('genre');
             $table->integer('carrier_id');
             $table->foreign('carrier_id')->references('id')->on('carriers');
         });
