@@ -39,7 +39,7 @@
         <div class="col-md-8 offset-md-2 products-index">
         @include('layouts.feedback')
             <div class="admin-top">
-                <h3>Cart ({{ $productsCount }} products)</h3>
+                <h3>Cart ({{ $productsCount }} product{{ $productsCount > 1 ? 's' : '' }})</h3>
             </div>
             <hr>
             <div class="row">

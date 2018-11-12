@@ -104,7 +104,7 @@ class ProductController extends Controller
     		}
     	}
 
-        Session::flash('feedback_succes', 'Product saved');
+        Session::flash('feedback_success', 'Product saved');
     	return redirect('admin/products');
     }
 
@@ -205,7 +205,7 @@ class ProductController extends Controller
             }
     	}
 
-        Session::flash('feedback_succes', 'Product updated');
+        Session::flash('feedback_success', 'Product updated');
     	return redirect('admin/products');
     }
 
@@ -235,7 +235,7 @@ class ProductController extends Controller
 
     	$product->delete();
 
-        Session::flash('feedback_succes', 'Product deleted');
+        Session::flash('feedback_success', 'Product deleted');
     	return redirect('admin/products');
     }
 

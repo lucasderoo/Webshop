@@ -55,7 +55,7 @@ class UserController extends Controller
 
         $user->member()->save($member);
 
-        Session::flash('feedback_succes', 'User saved');
+        Session::flash('feedback_success', 'User saved');
         return redirect()->route('admin/users');
     }
 
@@ -95,7 +95,7 @@ class UserController extends Controller
         $user->save();
 
 
-        Session::flash('feedback_succes', 'User updated');
+        Session::flash('feedback_success', 'User updated');
         return redirect()->route('admin/users');
     }
 
@@ -133,7 +133,7 @@ class UserController extends Controller
     	$user->member->delete();
     	$user->delete();
 
-    	Session::flash('feedback_succes', 'User deleted');
+    	Session::flash('feedback_success', 'User deleted');
     	return redirect()->route('admin/users');
     }
 
