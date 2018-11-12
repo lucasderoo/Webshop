@@ -92,10 +92,11 @@ class AccountController extends Controller
     	$user = Auth::user();
     	$request->validate([
             'street' => 'required|string|max:30',
-            'house_number' => 'required|integer',
+            'house_number' => 'required|integer|min:1',
             'suffix' => 'string|nullable',
             'zipcode' => 'required|string|max:20',
             'city' => 'required|string|max:50',
+            'country' => 'required|string|max:255',
         ]);
 
         $address = Address::create([
@@ -104,6 +105,7 @@ class AccountController extends Controller
             'suffix' => $request['suffix'],
             'zipcode' => $request['zipcode'],
             'city' => $request['city'],
+            'country' => $request['country'],
         ]);
         $address->save();
 

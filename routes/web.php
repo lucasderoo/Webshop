@@ -48,8 +48,9 @@ Route::group([
 	Route::get('/addresses', 'AccountController@adresses')->name('account/addresses');
 	Route::get('/addresses/create', 'AccountController@addresses_create')->name('account/addresses/create');
 	Route::post('/addresses/create', 'AccountController@addresses_store');
+	Route::get('/addresses/edit', 'AccountController@adresses_edit');
+	Route::get('/addresses/delete', 'AccountController@addresses_delete');
 });
-
 
 // manager & admin routes //
 Route::get('/admin', 'AdminController@index')->middleware('Admin')->name('admin');

@@ -55,6 +55,10 @@
                                 <td>House number</td>
                                 <td>Zipcode</td>
                                 <td>City</td>
+                                <td>Country</td>
+                                <td>Edit</td>
+                                <td>Delete</td>
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -64,6 +68,9 @@
                                 <td>{{ $address->house_number }}{{ $address->suffix }}</td>
                                 <td>{{ $address->zipcode }}</td>
                                 <td>{{ $address->city }}</td>
+                                <td>{{$address->country}}</td>
+                                <td><a class="btn btn-small btn-info">Edit</a></td>
+                                <td><a class="btn btn-small btn-danger">Delete</a></td>
                             </tr>
                         @endforeach
                         </tbody>

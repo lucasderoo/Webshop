@@ -93,6 +93,15 @@
                             </span>
                             @endif
                         </div>
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <input type="text" class="form-control" name="country" required>
+                            @if ($errors->has('country'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('country') }}</strong>
+                            </span>
+                            @endif
+                        </div>
                         <br>
                         <div class="form-input">
                             <button type="submit" class="btn btn-primary">Save</button>
