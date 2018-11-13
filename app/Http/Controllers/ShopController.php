@@ -12,6 +12,7 @@ use Auth;
 use App\MusicProduct;
 use Input;
 
+use Collection;
 use Session;
 
 class ShopController extends Controller
@@ -44,44 +45,24 @@ class ShopController extends Controller
         $genresFilter = $request->has('genres') ? $request->get('genres') : [];
         $artistsFilter = $request->has('artists') ? $request->get('artists') : [];
 
+        $minPrice = $request->has('min-price') ? $request->get('min-price') : 0;
+        $maxPrice = $request->has('max-price') ? $request->get('max-price') : (int)Product::max('price')+1;
 
         $musicQuery = MusicProduct::query();
 
-        $productQuery = Product::query();
-
-        if(isset($genresFilter)){
-            foreach($genresFilter as $key => $genre){
-                $musicQuery = $key > 0 ? $musicQuery->orwhere('genre', $genre) : $musicQuery->where('genre', $genre);
-            }
+        if(!empty($genresFilter)){
+            $musicQuery = $musicQuery->whereIn('genre', $genresFilter);
         }
-
-        $musicProducts = $musicQuery->get(['id','artist']);
-
         if(!empty($artistsFilter)){
-            foreach($musicProducts as $key => $musicProduct){
-                if(!in_array($musicProduct->artist, $artistsFilter)){
-                    unset($musicProducts[$key]);
-                }
-            }
+            $musicQuery = $musicQuery->whereIn('artist', $artistsFilter);
         }
 
-        // productQuery filters here
-        $musicIds = $musicProducts->pluck('id')->toArray();
+        $musicProducts = $musicQuery->get();
+        $products = collect();
 
-        $minPrice = $request->has('min-price') ? $request->get('min-price') : 0;
-        $maxPrice = $request->has('max-price') ? $request->get('max-price') : (int)Product::max('price')+1;
-        $productQuery = $productQuery->whereIn('productable_id', $musicIds)
-                                     ->where('price', '>=', $minPrice)
-                                     ->where('price', '<=', $maxPrice);
-
-        $products = $productQuery->get();
-
-
-        if(!empty($genresFilter) or !empty($artistsFilter)){
-            foreach ($products as $key => $product) {
-                if(!$musicProducts->contains($product->productable_id)){
-                    unset($products[$key]);
-                }
+        foreach($musicProducts as $product){
+            if($product->productable()->first()->price >= $minPrice AND $product->productable()->first()->price <= $maxPrice){
+                $products->push($product->productable()->first());
             }
         }
 
