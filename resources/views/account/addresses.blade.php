@@ -69,8 +69,8 @@
                                 <td>{{ $address->zipcode }}</td>
                                 <td>{{ $address->city }}</td>
                                 <td>{{$address->country}}</td>
-                                <td><a class="btn btn-small btn-info">Edit</a></td>
-                                <td><a class="btn btn-small btn-danger">Delete</a></td>
+                                <td><a class="btn btn-small btn-info" href="{{ route('account/addresses/edit', ['id' => $address->id]) }}">Edit</a></td>
+                                <td><a class="btn btn-small btn-danger" href="{{ route('account/addresses/delete', ['id' => $address->id]) }}">Delete</a></td>
                             </tr>
                         @endforeach
                         </tbody>

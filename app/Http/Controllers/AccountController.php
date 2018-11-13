@@ -88,6 +88,20 @@ class AccountController extends Controller
     	return view('account.address-create');
     }
 
+    public function addresses_delete($id){
+
+    	$user = Auth::user();
+
+    	return view('address.delete');
+    }
+
+    public function addresses_edit(request $request, $id){
+
+    	$user = Auth::user();
+
+    	return view('address.edit');
+    }
+
     public function addresses_store(request $request){
     	$user = Auth::user();
     	$request->validate([
