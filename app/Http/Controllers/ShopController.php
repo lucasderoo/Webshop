@@ -48,6 +48,10 @@ class ShopController extends Controller
         $minPrice = $request->has('min-price') ? $request->get('min-price') : 0;
         $maxPrice = $request->has('max-price') ? $request->get('max-price') : (int)Product::max('price')+1;
 
+        $minDate = $request->has('min-date') ? $request->get('min-date') : MusicProduct::min('release_date');
+        $maxDate = $request->has('max-date') ? $request->get('max-date') : MusicProduct::max('release_date');
+
+
         $musicQuery = MusicProduct::query();
 
         if(!empty($genresFilter)){
@@ -56,8 +60,11 @@ class ShopController extends Controller
         if(!empty($artistsFilter)){
             $musicQuery = $musicQuery->whereIn('artist', $artistsFilter);
         }
+        $musicQuery = $musicQuery->where('release_date', '>=', $minDate);
+        $musicQuery = $musicQuery->where('release_date', '<=', $maxDate);
 
         $musicProducts = $musicQuery->get();
+
         $products = collect();
 
         foreach($musicProducts as $product){
@@ -66,19 +73,38 @@ class ShopController extends Controller
             }
         }
 
+        $orderBy_ = "";
         $orderBy = $request->has('orderby') ? $request->get('orderby') : "sold";
-
-        if($orderBy == "sold"){
-            $orderby = "id"; // change in future
-        }
-
         $sort = $request->has('sort') ? $request->get('sort') : "DESC";
-        if($sort == "DESC"){
-            $products->sortbydesc($orderBy);
+
+        if($orderBy == "price-high-low"){
+            $orderBy_ = "price";
+            $sort = "DESC";
+        }
+        elseif($orderBy == "price-low-high"){
+            $orderBy_ = "price";
+            $sort = "ASC";
+        }
+        elseif($orderBy == "date-new-old"){
+            $orderBy_ = "created_at"; 
+            $sort = "DESC";
+        }
+        elseif($orderBy == "date-old-new"){
+            $orderBy_ = "created_at";
+            $sort = "ASC";
         }
         else{
-            $products->sortby($orderBy);
+            $orderBy_ = "id";
+            $sort = "ASC";
         }
+
+        if($sort == "DESC"){
+            $products = $products->sortbydesc($orderBy_);
+        }
+        else{
+            $products = $products->sortby($orderBy_);
+        }
+
         
         // keep this at the bottom
         $productsCount = count($products);
@@ -89,6 +115,6 @@ class ShopController extends Controller
             $products = $products->slice($paginationArray['currentpage']*$pagination-$pagination)->take($pagination);
         }
 
-        return view('shop.list')->with(compact('products', 'categories', 'genres', 'artists', 'request', 'maxPrice', 'paginationArray'));
+        return view('shop.list')->with(compact('products', 'categories', 'genres', 'artists', 'request', 'maxPrice', 'paginationArray', 'minDate', 'maxDate', 'orderBy'));
     }
 }

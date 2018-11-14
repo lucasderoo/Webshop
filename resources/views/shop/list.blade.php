@@ -40,32 +40,43 @@
     color: white !important;
     border: 1px solid #2570e8 !important;
 }
+.hide-filter{
+    display: none;
+}
+
+.more-section{
+    color: #0069d9 !important;
+}
+.more-section:hover{
+    text-decoration: underline !important;
+    cursor: pointer;
+}
 </style>
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
         @include('layouts.feedback')
+        <form id="filter-form" action=""> 
             <div class="row">
                 <div class="col-8">
                     <h2>Products</h2>
                 </div>
               	<div class="col-4">
                   	<div class="form-group">
-                      	<select id="pref-orderby" class="form-control">
-                            <option>Price high to low</option>
-                            <option>Price low to high</option>
-                            <option>date new to old</option>
-                            <option>date old to new</option>
-                            <option>most sold</option>
-                          </select>                                
-                      </div>
+                      	<select id="pref-orderby" class="form-control" name="orderby" onchange="this.form.submit()">
+                            <option value="price-high-low" {{ $orderBy == "price-high-low" ? 'selected': '' }}>Price high to low</option>
+                            <option value="price-low-high" {{ $orderBy == "price-low-high" ? 'selected': '' }}>Price low to high</option>
+                            <option value="date-new-old" {{ $orderBy == "date-new-old" ? 'selected': '' }}>Date new to old</option>
+                            <option value="date-old-new" {{ $orderBy == "date-old-new" ? 'selected': '' }}>Date old to new</option>
+                            <option value="sold" {{ $orderBy == "sold" ? 'selected': '' }}>Most sold</option>
+                        </select>                                
+                    </div>
                 </div>
             </div>
 
             <div class="row">
               <div class="col-md-4">
           	     <div class="card">
-                    <form id="filter-form" action="{{ URL::current()}}"> 
                     <!-- <article class="card-group-item">
                         <header class="card-header">
                             <h6 class="title">Category</h6>
@@ -88,12 +99,17 @@
                         </header>
                         <div class="filter-content">
                             <div class="card-body">
-                            <?php $sel_genre = $request->has('genres') ? $request->get('genres') : [];?>
+                            <?php $sel_genre = $request->has('genres') ? $request->get('genres') : []; $g = 1;?>
+
                             @for ($i = 0; $i < count($genres); $i++)
-                            <label class="form-check">
-                                <input name="genres[]" class="form-check-input" type="checkbox" value="{{ $genres[$i] }}" {{ in_array($genres[$i], $sel_genre) ? 'checked' : ''}}>
-                                <span class="form-check-label">{{ $genres[$i] }}</span>
-                            </label>
+                                @if($i == 5*$g)
+                                    <?php $g = $g + 1;?>
+                                    <a class="more-section more-genre-section {{ $g > 2 ? 'hide-filter': '' }}" id={{"more-genre".$g}}>more</a>
+                                @endif
+                                <label class="form-check {{ $i > 4 ? 'hide-filter': '' }} more-genre-section-{{ $i > 4 ? $g: '' }}">
+                                    <input name="genres[]" class="form-check-input" type="checkbox" value="{{ $genres[$i] }}" {{ in_array($genres[$i], $sel_genre) ? 'checked' : ''}}>
+                                    <span class="form-check-label">{{ $genres[$i] }}</span>
+                                </label>
                             @endfor
                             </div>
                         </div>
@@ -105,15 +121,28 @@
                         </header>
                         <div class="filter-content">
                             <div class="card-body">
-                            <?php $sel_artist = $request->has('artists') ? $request->get('artists') : [];?>
+                            <?php $sel_artist = $request->has('artists') ? $request->get('artists') : []; $a = 1;?>
                             @for ($i = 0; $i < count($artists); $i++)
-                            <label class="form-check">
+                            @if($i == 5*$a)
+                                    <?php $a = $a + 1;?>
+                                    <a class="more-section more-artist-section {{ $a > 2 ? 'hide-filter': '' }}" id={{"more-artist".$a}}>more</a>
+                                @endif
+                            <label class="form-check {{ $i > 4 ? 'hide-filter': '' }} more-artist-section-{{ $i > 4 ? $a: '' }}">
                                 <input name="artists[]" class="form-check-input" type="checkbox" value="{{ $artists[$i] }}" {{ in_array($artists[$i], $sel_artist) ? 'checked' : ''}}>
                                 <span class="form-check-label">{{ $artists[$i] }}</span>
                             </label>
                             @endfor
                             </div>
                         </div>
+                    </article> <!-- card-group-item.// -->
+                    <article class="card-group-item">
+                        <header class="card-header">
+                            <h6 class="title">Release Date</h6>
+                        </header>
+                        <label>Min. Date</label>
+                        <input type="date" name="min-date" value="{{ $minDate }}">
+                        <label>Max. Date</label>
+                        <input type="date" name="max-date" value="{{ $maxDate }}">
                     </article> <!-- card-group-item.// -->
                     <article class="card-group-item">
                         <header class="card-header">
@@ -125,10 +154,7 @@
                         <input type="number" name="max-price" value="{{ $request->has('max-price') ? $request->get('max-price') : $maxPrice }}">
                     </article> <!-- card-group-item.// -->
                     <input type="hidden" name="page" id="page" value="1">
-                    <input type="hidden" name="sortby" id="page" value="sold">
-                    <input type="hidden" name="order" id="page" value="DESC">
                     <button type="submit" class="btn btn-block btn-outline-primary" style="margin-top: 52px;">Apply</button>
-                    </form>
                 </div> <!-- card.// -->
               </div>
           	<div class="col-8">
@@ -169,9 +195,38 @@
                         document.getElementById("filter-form").submit();
                     });
 
+                    $(document).on('click', '.more-genre-section', function (e) {
+                        var id = event.target.id;
+                        var id = id.substr(id.length - 1);
+                        $(".more-genre-section-"+id).css("display", "block");
+                        $("#more-genre"+id).css("display", "none");
+                        var id = parseInt(id, 10)+1;
+                        $("#more-genre"+id).css("display", "block");
+                    });
 
+                    $(document).on('click', '.more-artist-section', function (e) {
+                        var id = event.target.id;
+                        var id = id.substr(id.length - 1);
+                        $(".more-artist-section-"+id).css("display", "block");
+                        $("#more-artist"+id).css("display", "none");
+                        var id = parseInt(id, 10)+1;
+                        $("#more-artist"+id).css("display", "block");
+                    });
+
+                    $(document).on('click', '.btn', function (e) {
+                        var id = event.target.id;
+                        document.getElementById("delivery-address").value = id;
+                        document.getElementById("address-form").submit();
+                    });
+
+                    $(document).on('click', '.btn', function (e) {
+                        var id = event.target.id;
+                        document.getElementById("delivery-address").value = id;
+                        document.getElementById("address-form").submit();
+                    });
                 </script>
             </div>
+        </form>
     </div>
 </div>
 @include('layouts.footer')
