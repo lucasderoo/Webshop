@@ -5,9 +5,9 @@
         <div class="row justify-content-center">
             <div class="col-md-12 text-center">
 			<div class="col-xs-12" style="height:100;"></div>
-                <span class="display-1 d-block">404</span>
+                <span class="display-1 d-block">Thanks for ordering.</span>
 				<hr>
-                <div class="mb-4 lead">The page you are looking for was not found.</div>
+                <div class="mb-4 lead">Your order will be processed as soon as possible.</div>
 				<div class="col-xs-12" style="height:50;"></div>
             </div>
         </div>
