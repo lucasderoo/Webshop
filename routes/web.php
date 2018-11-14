@@ -34,6 +34,15 @@ Route::group([
 	Route::post('/saveforlater/{slug}', 'CartController@save_for_later')->name('cart/saveForLater');
 });
 
+Route::group([
+	'prefix' => '/checkout',
+	'middleware' => 'Customer'
+], function(){
+	Route::get('/delivery_address', 'CheckoutController@delivery_address_create')->name('checkout/delivery_address');
+	Route::post('/delivery_address', 'CheckoutController@delivery_address_store');
+	Route::get('/billing_address', 'CheckoutController@billing_address_create')->name('checkout/billing_address');
+	Route::post('/billing_address', 'CheckoutController@billing_address_store');
+});
 
 Route::group([
 	'prefix' => '/account',

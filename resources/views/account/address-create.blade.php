@@ -40,7 +40,7 @@
                 </style>
                 <div class="col-md-2">
                     <ul class="account-menu">
-                        <li>- <a href="{{ route('account') }}">Account info</a></li>
+                        <li>- <a href="{{ route('account') }}">Account info</a></li> 
                         <li>- <a href="{{ route('account/orders') }}">My Orders</a></li>
                         <li>- <a href="{{ route('account/addresses') }}" class="selected-account-info">My Addresses</a></li>
                     </ul>
