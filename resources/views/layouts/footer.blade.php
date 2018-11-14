@@ -35,16 +35,16 @@
 
             <ul class="list-unstyled">
               <li>
-                <a href="#!">Frequently Asked Questions</a>
+                <a href="/faq">Frequently Asked Questions</a>
               </li>
               <li>
-                <a href="#!">Contact our customer service</a>
+                <a href="/customer_service">Contact our customer service</a>
               </li>
               <li>
-                <a href="#!">Account information</a>
+                <a href="/account">Account information</a>
               </li>
               <li>
-                <a href="#!">Privacy information</a>
+                <a href="/privacy">Privacy information</a>
               </li>
             </ul>
 
@@ -59,13 +59,13 @@
 
             <ul class="list-unstyled">
               <li>
-                <a href="#!">About us</a>
+                <a href="/about">About us</a>
               </li>
               <li>
-                <a href="#!">Job offers</a>
+                <a href="/job_offers">Job offers</a>
               </li>
               <li>
-                <a href="#!">Latest news</a>
+                <a href="/latest_news">Latest news</a>
               </li>
             </ul>
 

@@ -20,6 +20,13 @@ Route::get('/product/{slug}', 'ShopController@show')->name('show');
 Route::get('/products', 'ShopController@products')->name('products');
 Route::get('/products/{name}','ShopController@list');
 
+Route::get('/faq', 'ShopController@faq');
+Route::get('/privacy', 'ShopController@privacy');
+Route::get('/customer_service', 'ShopController@service');
+Route::get('/about', 'ShopController@about');
+Route::get('/job_offers', 'ShopController@jobs');
+Route::get('/latest_news', 'ShopController@news');
+
 
 Route::get('/unauthorized', 'HomeController@unauthorized');
 

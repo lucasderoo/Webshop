@@ -62,8 +62,9 @@ body{
           </a>
         </div>
       </div>
-      <div class="row">
-        <div class ="two-small-banners col-12 offset-md-2">
+      <br>
+      <div class="row justify-content-center">
+        <div class ="two-small-banners col-12 offset-md">
           <div class="row">
             <div class="col-md-4" style="margin-right: 25px;">
                 <a href="/products">
@@ -140,7 +141,7 @@ body{
 
       </div>
       <br>
-    <div class="row">
+    <div class="row justify-content-center">
       <div class ="two-small-banners col-12 offset-md-2">
         <div class="row">
           <div class="col-md-4" style=" margin-right: 25px;">
