@@ -18,7 +18,7 @@ Route::get('/home', 'ShopController@index')->name('show');
 
 Route::get('/product/{slug}', 'ShopController@show')->name('show');
 Route::get('/products', 'ShopController@products')->name('products');
-Route::get('/products/{name}','ShopController@list');
+//Route::get('/products/{name}','ShopController@list');
 
 
 Route::get('/unauthorized', 'HomeController@unauthorized');
@@ -109,6 +109,8 @@ Route::group([
 	Route::get('/delete/{id}', 'UserController@delete')->name('admin/users/delete');
 	Route::post('/delete/{id}', 'UserController@destroy');
 	Route::get('/read/{id}', 'UserController@read')->name('admin/users/read');
+	Route::get('/statistics', 'StatisticsController@index')->name('Stats');
 });
+
 
 Auth::routes();
