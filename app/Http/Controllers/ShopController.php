@@ -10,6 +10,7 @@ use App\Product;
 use App\Category;
 use Auth;
 use App\MusicProduct;
+use App\HomePage;
 use Input;
 
 use Collection;
@@ -20,9 +21,9 @@ class ShopController extends Controller
 
     public function index(){
 
-    	$products = Product::all();
+    	$sections = HomePage::all();
 
-    	return view('shop.home')->with(compact('products'));
+    	return view('shop.home')->with(compact('sections'));
     }
 
     public function show($slug){

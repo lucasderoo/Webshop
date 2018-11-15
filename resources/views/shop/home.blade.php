@@ -21,12 +21,12 @@ body{
   text-align: left;
 }
 .prod-image img{
-	margin: auto;
-	display: block;
-  	margin-top: 15px;
-	margin-bottom: 15px;
-	width: 200px;
-	height: 200px;
+  margin: auto;
+  display: block;
+    margin-top: 15px;
+  margin-bottom: 15px;
+  width: 200px;
+  height: 200px;
     /* background-color: lightblue: */
 }
 </style>
@@ -55,67 +55,31 @@ body{
           </div>
         </div>
       </div>
+      @foreach($sections as $section)
       <div class="row">
         <div class="container" style="background-color:#deecee; margin-top:40px; text-align:center;">
-            <h4> Onze favorieten!</h4>
+            <h4>{{ $section->title }}</h4>
               <div class="row justify-content-center">
+                  @foreach($section->products as $product)
                   <div class="col finished">
                       <div class="prod-image">
-                          <a href="/product/queen-ii">
-                          <img src="images/Queen-II-Front.jpg">
+                          <a href="{{ route('show', [ 'slug' => $product->product->slug]) }}">
+                          <img src="{{asset('images/uploads/products/product_').$product->product->id.'/img_'.$product->product->main_image_url.'.png'}}">
                       </div>
                       <div class="text-image-1">
-                        <h6> Queen II: LP
+                        <h6> {{ $product->product->title }}
                           <br>
-                          Price: €99.99
+                          Price: €{{ $product->product->price }}
                         </h6>
                       </div>
                           </a>
-                </div>
-                <div class="col finished">
-                    <div class="prod-image">
-                      <a href="/product/ride-the-lightning">
-                      <img src="images/Metallica_Ride_the_Lightning_front.jpg">
-                    </div>
-                    <div class="text-image-2">
-                        <h6> Metallica: Ride the lightning
-                        <br>
-                        Price: €14.99
-                        </h6>
-                    </div>
-                  </a>
-                </div>
-                <div class="col finished">
-                    <div class="prod-image">
-                      <a href="/product/queen">
-                    <img src="images/Nicky_M_Queen_Front.jpg">
-                    </div>
-                    <div class="text-image-3">
-                        <h6> Nicki Minaj: Queen
-                        <br>
-                        Price: €19.99
-                        </h6>
-                    </div>
-                  </a>
-                </div>
-                <div class="col finished">
-                    <div class="prod-image">
-                      <a href="/product/kamikaze">
-                        <img src="images/Kamikaze_Eminem_Front.jpg">
-                    </div>
-                    <div class="text-image-4">
-                        <h6> Eminem: Kamikaze
-                        <br>
-                        Price: €16.99
-                        </h6>
-                    </div>
-                  </a>
-                </div>
-            </div>
-        </div>
-
+                  </div>
+                  @endforeach
+              </div>
+          </div>
       </div>
-      <br>
+    <br>
+    @endforeach
     <div class="row">
       <div class ="two-small-banners col-12 offset-md-2">
         <div class="row">
