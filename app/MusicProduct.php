@@ -11,9 +11,9 @@ class MusicProduct extends Model
     public $timestamps = false;
 	protected $table = 'music_products';
 
-	public function productParent()
+	public function productable()
     {
-        return $this->morphMany('App\Product', 'productable');
+        return $this->morphOne('App\Product', 'productable');
     }
 
     public function carrier()

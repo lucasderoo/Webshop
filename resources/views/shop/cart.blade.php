@@ -44,6 +44,7 @@
             <hr>
             <div class="row">
                 <div class="col-md-8">
+                @if(!empty($user->basket))
                     @foreach($user->basket->basketproducts as $product)
                     <div class="cart-products">
                         <div class="row">
@@ -63,6 +64,7 @@
                     </div>
                     <br>
                     @endforeach
+                @endif
                 </div>
                 <div class="col-md-4">
                     <div class="cart-price">

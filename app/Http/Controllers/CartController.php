@@ -20,11 +20,12 @@ class CartController extends Controller
     	
     	$productsCount = 0;
     	$price = (float)0.00;
-    	foreach($user->basket->basketproducts as $product){
-    		$productsCount = $productsCount + $product->quantity;
-    		$price = $price + floatval($product->product->price * $product->quantity);
+    	if(!empty($user->basket)){
+	    	foreach($user->basket->basketproducts as $product){
+	    		$productsCount = $productsCount + $product->quantity;
+	    		$price = $price + floatval($product->product->price * $product->quantity);
+	    	}
     	}
-    	$
     	$price = number_format((float)$price, 2, '.', '');
     	return view('shop.cart')->with(compact('user', 'price', 'productsCount'));
     }
@@ -43,7 +44,7 @@ class CartController extends Controller
      	if(empty($user->basket)){
      		$basket = Basket::create();
      		$user->basket()->save($basket);
-     		$user->save();
+     		$user->basket = $basket;
      	}
 
      	$duplicate = false;

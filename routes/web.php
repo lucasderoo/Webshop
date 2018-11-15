@@ -48,6 +48,9 @@ Route::group([
 	Route::get('/addresses', 'AccountController@adresses')->name('account/addresses');
 	Route::get('/addresses/create', 'AccountController@addresses_create')->name('account/addresses/create');
 	Route::post('/addresses/create', 'AccountController@addresses_store');
+	Route::get('/addresses/edit/{id}', 'AccountController@addresses_edit')->name('account/addresses/edit');
+	Route::post('/addresses/edit/{id}', 'AccountController@addresses_update');
+	Route::post('/addresses/delete/{id}', 'AccountController@addresses_update');
 });
 
 
@@ -109,6 +112,20 @@ Route::group([
 	Route::get('/delete/{id}', 'UserController@delete')->name('admin/users/delete');
 	Route::post('/delete/{id}', 'UserController@destroy');
 	Route::get('/read/{id}', 'UserController@read')->name('admin/users/read');
+});
+
+Route::group([
+	'prefix' => '/admin/homepage',
+	'middleware' => 'Admin'
+], function(){
+	Route::get('', 'HomePageController@index')->name('admin/homepage');
+	Route::get('/create', 'HomePageController@create')->name('admin/homepage/create');
+	Route::post('/create', 'HomePageController@store');
+	Route::get('/edit/{id}', 'HomePageController@edit')->name('admin/homepage/edit');
+	Route::post('/edit/{id}', 'HomePageController@update');
+	Route::get('/delete/{id}', 'HomePageController@delete')->name('admin/homepage/delete');
+	Route::post('/delete/{id}', 'HomePageController@destroy');
+	Route::get('/read/{id}', 'HomePageController@read')->name('admin/homepage/read');
 });
 
 Auth::routes();
