@@ -38,7 +38,9 @@
 	left: 2%;
 }
 
-
+.cart-product-delete{
+    float: right !important;
+}
 
 .quantity-input{
     width:40px;
@@ -60,15 +62,30 @@
                         <div class="row">
                             <div class="col-md-12 cart-product">
                                 <div class="cart-product-image">
-                                    <img src="{{ asset('images/uploads/products/product_').$product->product->id.'/img_'.$product->product->main_image_url.'.png'}}" id="afbeelding">
+                                    <a href="{{ route('show', [ 'slug' => $product->product->slug]) }}"><img src="{{ asset('images/uploads/products/product_').$product->product->id.'/img_'.$product->product->main_image_url.'.png'}}" id="afbeelding"></a>
                                 </div>
                                 <div class="cart-product-info">
                                     <p>{{ $product->product->title }}</p>
                                 </div>
+                                <form action="{{ route('cart/update', ['id' => $product->id]) }}" method="POST">
+                                {{ csrf_field() }}
                                 <div class="cart-product-price">
-                                    <input type="number" class="quantity-input" name="quantity" value="{{ $product->quantity }}">
-                                     <p>€ {{ $product->product->price }}</p>
+                                    <!-- <input type="number" class="quantity-input" name="quantity" value="{{ $product->quantity }}"> -->
+                                    <select name="quantity" onchange="this.form.submit()">
+                                    {{ $max = $product->quantity > 3 ? $product->quantity+3 : $product->quantity+4+3-$product->quantity}}
+                                    @for ($i = $product->quantity > 3 ? $product->quantity-3 : 1; $i <= $max; $i++)
+                                        <option value="{{ $i }}" @if($i == $product->quantity) selected @endif>{{ $i }}</option>
+                                    @endfor
+                                    </select>
+                                    <p>€ {{ $product->product->price }}</p>
                                 </div>
+                                </form>
+                                <form action="{{ route('cart/delete', ['id' => $product->id]) }}" method="POST">
+                                {{ csrf_field() }}
+                                <div class="cart-product-delete">
+                                    <button type="submit" class="btn btn-small btn-danger">Remove</button>
+                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -86,7 +103,6 @@
 					<button type="submit" class="btn btn-primary" style="width: 50%;">Check out</button>
                 </div>
             </div>
-			<hr>
         </div>
     </div>
 </div>

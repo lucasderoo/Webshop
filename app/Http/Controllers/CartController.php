@@ -71,17 +71,37 @@ class CartController extends Controller
      	return redirect()->back();
     }
 
-    public function update(Request $request, $slug){
-     	
-    	
+    public function update(Request $request, $id){
+        $user = Auth::user();
+        if(!$user->basket->basketproducts->contains('id', $id)){
+            Session::flash('feedback_error', 'unkown error, please try again');
+            return redirect()->route('cart');
+        }
+        elseif(!$request->has('quantity') OR $request['quantity'] < 1 ){
+            Session::flash('feedback_error', 'quantity has to be at least 1');
+            return redirect()->route('cart');
+        }
 
+        $cartProduct = BasketProduct::find($id);
+        $cartProduct->quantity = $request['quantity'];
+        $cartProduct->save();
 
+        Session::flash('feedback_success', 'Cart updated');
+        return redirect()->route('cart');
     }
 
-    public function destroy($slug){
-     	
+    public function destroy($id){
+     	$user = Auth::user();
+        if(!$user->basket->basketproducts->contains('id', $id)){
+            Session::flash('feedback_error', 'unkown error, please try again');
+            return redirect()->route('cart');
+        }
     		
+        $cartProduct = BasketProduct::find($id);
+        $cartProduct->delete();
 
+        Session::flash('feedback_success', 'Cart updated');
+        return redirect()->route('cart');
 
     }
         

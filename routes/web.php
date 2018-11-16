@@ -29,8 +29,8 @@ Route::group([
 ], function(){
 	Route::get('', 'CartController@index')->name('cart');
 	Route::post('/add/{slug}', 'CartController@store')->name('cart/create');
-	Route::post('/update/{slug}', 'CartController@update')->name('cart/update');
-	Route::post('/delete/{slug}', 'CartController@delete')->name('cart/delete');
+	Route::post('/update/{id}', 'CartController@update')->name('cart/update');
+	Route::post('/delete/{id}', 'CartController@destroy')->name('cart/delete');
 	Route::post('/saveforlater/{slug}', 'CartController@save_for_later')->name('cart/saveForLater');
 });
 
