@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 
 use App\MusicProduct;
+use Laravel\Scout\Searchable;
 
 class Product extends Model
 {
     protected $table = 'products';
     
 	use Sluggable;
+    use Searchable;
 
     public function category()
     {
@@ -22,7 +24,7 @@ class Product extends Model
     {
         return $this->hasOne('App\Stock');
     }
-
+    
     public function images()
     {
         return $this->hasMany('App\Image');

@@ -118,7 +118,33 @@ class ShopController extends Controller
         return view('shop.list')->with(compact('products', 'categories', 'genres', 'artists', 'request', 'maxPrice', 'paginationArray', 'minDate', 'maxDate', 'orderBy'));
     }
 
-    
+    public function search(request $request){
+
+        if(empty($request['s']) OR strlen($request['s']) < 3){
+            Session::flash('feedback_error', 'Minimum of 3 characters');
+            return redirect()->back();
+        }
+        $products = Product::search($request['s'])->get();
+
+        $musicProducts = MusicProduct::search($request['s'])->get();
+
+        $musicProductsResult = collect();
+
+        foreach($musicProducts as $product){
+            $musicProductsResult->push($product->productable()->first());
+        }
+
+        $products = $products->merge($musicProductsResult);
+
+        $products = $products->unique();
+
+        $s = $request['s'];
+
+        return view('shop.search')->with(compact('products', 's'));
+    }
+
+
+
     public function faq() {
       return view ('shop.faq');
     }

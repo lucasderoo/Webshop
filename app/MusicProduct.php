@@ -4,9 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Laravel\Scout\Searchable;
+
 class MusicProduct extends Model
 {
     //
+    use Searchable;
 
     public $timestamps = false;
 	protected $table = 'music_products';
