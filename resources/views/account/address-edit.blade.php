@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-md-8 offset-md-2 products-index">
             <div class="admin-top">
-                <h3>New Address</h3>
+                <h3>Update Address</h3>
             </div>
             <hr>
             <div class="row">
@@ -50,7 +50,7 @@
                     {{ csrf_field() }}
                         <div class="form-group">
                             <label for="street">Street</label>
-                            <input type="street" class="form-control" name="street" required>
+                            <input type="street" class="form-control" name="street" value="{{ $address->street }}" required>
                             @if ($errors->has('street'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('street') }}</strong>
@@ -59,7 +59,7 @@
                         </div>
                         <div class="form-group">
                             <label for="house_number">House number</label>
-                            <input type="number" class="form-control" name="house_number" required>
+                            <input type="number" class="form-control" name="house_number" value="{{ $address->house_number }}"required>
                             @if ($errors->has('house_number'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('house_number') }}</strong>
@@ -68,7 +68,7 @@
                         </div>
                         <div class="form-group">
                             <label for="suffix">Suffix</label>
-                            <input type="text" class="form-control" name="suffix">
+                            <input type="text" class="form-control" name="suffix" value="{{ $address->suffix }}">
                             @if ($errors->has('suffix'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('suffix') }}</strong>
@@ -77,7 +77,7 @@
                         </div>
                         <div class="form-group">
                             <label for="zipcode">Zipcode</label>
-                            <input type="text" class="form-control" name="zipcode" required>
+                            <input type="text" class="form-control" name="zipcode" value="{{ $address->zipcode }}" required>
                             @if ($errors->has('zipcode'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('zipcode') }}</strong>
@@ -86,7 +86,7 @@
                         </div>
                         <div class="form-group">
                             <label for="city">City</label>
-                            <input type="text" class="form-control" name="city" required>
+                            <input type="text" class="form-control" name="city" value="{{ $address->city }}" required>
                             @if ($errors->has('city'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('city') }}</strong>
@@ -95,7 +95,7 @@
                         </div>
                         <div class="form-group">
                             <label for="country">Country</label>
-                            <input type="text" class="form-control" name="country" required>
+                            <input type="text" class="form-control" name="country" value="{{ $address->country }}" required>
                             @if ($errors->has('country'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('country') }}</strong>
@@ -104,7 +104,7 @@
                         </div>
                         <br>
                         <div class="form-input">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </div>
                     </form>
                 </div>

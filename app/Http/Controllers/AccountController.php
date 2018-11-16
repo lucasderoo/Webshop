@@ -88,14 +88,39 @@ class AccountController extends Controller
     	return view('account.address-create');
     }
 
+    public function addresses_delete($id){
+    	$user = Auth::user();
+    	$address = Address::where('user_id', $user->id)->where('id', $id)->first();
+
+    	if(empty($address)){
+    		Session::flash('feedback_error', 'Unkown error, please try again');
+        	return redirect()->route('account/addresses');
+    	}
+
+    	return view('account.address-delete')->with(compact('address'));
+    }
+
+    public function addresses_edit($id){
+    	$user = Auth::user();
+    	$address = Address::where('user_id', $user->id)->where('id', $id)->first();
+
+    	if(empty($address)){
+    		Session::flash('feedback_error', 'Unkown error, please try again');
+        	return redirect()->route('account/addresses');
+    	}
+
+    	return view('account.address-edit')->with(compact('address'));
+    }
+
     public function addresses_store(request $request){
     	$user = Auth::user();
     	$request->validate([
             'street' => 'required|string|max:30',
-            'house_number' => 'required|integer',
+            'house_number' => 'required|integer|min:1',
             'suffix' => 'string|nullable',
             'zipcode' => 'required|string|max:20',
             'city' => 'required|string|max:50',
+            'country' => 'required|string|max:255',
         ]);
 
         $address = Address::create([
@@ -104,12 +129,54 @@ class AccountController extends Controller
             'suffix' => $request['suffix'],
             'zipcode' => $request['zipcode'],
             'city' => $request['city'],
+            'country' => $request['country'],
         ]);
         $address->save();
 
         $user->addresses()->save($address);
 
         Session::flash('feedback_success', 'Address saved');
+        return redirect()->route('account/addresses');
+    }
+
+    public function addresses_update(request $request, $id){
+    	$user = Auth::user();
+    	$request->validate([
+            'street' => 'required|string|max:30',
+            'house_number' => 'required|integer|min:1',
+            'suffix' => 'string|nullable',
+            'zipcode' => 'required|string|max:20',
+            'city' => 'required|string|max:50',
+            'country' => 'required|string|max:255',
+        ]);
+
+        $address = Address::find($id);
+        $address->street = $request['street'];
+        $address->house_number = $request['house_number'];
+        $address->suffix = $request['suffix'];
+        $address->zipcode = $request['zipcode'];
+        $address->city = $request['city'];
+        $address->country = $request['country'];
+        $address->save();
+
+        $user->addresses()->save($address);
+
+        Session::flash('feedback_success', 'Address updated');
+        return redirect()->route('account/addresses');
+    }
+
+    public function addresses_destroy(request $request, $id){
+    	$user = Auth::user();
+    	$address = Address::where('user_id', $user->id)->where('id', $id)->first();
+
+    	if(empty($address)){
+    		Session::flash('feedback_error', 'Unkown error, please try again');
+        	return redirect()->route('account/addresses');
+    	}
+
+        $address->delete();
+
+        Session::flash('feedback_success', 'Address deleted');
         return redirect()->route('account/addresses');
     }
 }
