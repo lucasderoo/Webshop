@@ -106,7 +106,6 @@ class ShopController extends Controller
             $products = $products->sortby($orderBy_);
         }
 
-        
         // keep this at the bottom
         $productsCount = count($products);
         if($productsCount > $pagination){
@@ -117,5 +116,25 @@ class ShopController extends Controller
         }
 
         return view('shop.list')->with(compact('products', 'categories', 'genres', 'artists', 'request', 'maxPrice', 'paginationArray', 'minDate', 'maxDate', 'orderBy'));
+    }
+
+    
+    public function faq() {
+      return view ('shop.faq');
+    }
+    public function privacy() {
+      return view ('shop.privacy');
+    }
+    public function service() {
+      return view ('shop.customerservice');
+    }
+    public function about(){
+      return view ('shop.about');
+    }
+    public function jobs(){
+      return view('shop.joboffers');
+    }
+    public function news(){
+      return view('shop.news');
     }
 }
