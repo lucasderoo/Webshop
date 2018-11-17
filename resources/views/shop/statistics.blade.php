@@ -44,13 +44,12 @@
 
 
 
+
 </table>
 
 
 
-<div class="col-md-6">
-               {!! $chart->html() !!}
-            </div>
+
 
             <br/><br/>
 
@@ -59,6 +58,11 @@
             </div>
 
             <br></br>
+              <div class="col-md-6">
+                           {!! $pie_chart2->html() !!}
+                        </div>
+
+                        <br></br>
 
 
 
@@ -68,21 +72,11 @@
 
            <br/><br/>
 
-           <div class="col-md-6">
-              {!! $areaspline_chart->html() !!}
-           </div>
 
-           <br/><br/>
 
-           <div class="col-md-6">
-              {!! $area_chart->html() !!}
-           </div>
 
-           <br/><br/>
 
-           <div class="col-md-6">
-              {!! $donut_chart->html() !!}
-           </div>
+
 
 
 
@@ -90,16 +84,17 @@
 
 
             {!! Charts::scripts() !!}
-              {!! $chart->script() !!}
+
 
              {!! $pie_chart->script() !!}
+             {!! $pie_chart2->script() !!}
+
              {!! $line_chart->script() !!}
 
-   {!! $areaspline_chart->script() !!}
 
-   {!! $area_chart->script() !!}
 
-   {!! $donut_chart->script() !!}
+
+
 
 
 
