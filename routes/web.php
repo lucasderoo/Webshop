@@ -19,7 +19,7 @@ Route::get('/search', 'ShopController@search')->name('search');
 
 Route::get('/product/{slug}', 'ShopController@show')->name('show');
 Route::get('/products', 'ShopController@products')->name('products');
-Route::get('/products/{name}','ShopController@list');
+//Route::get('/products/{name}','ShopController@list');
 
 Route::get('/faq', 'ShopController@faq');
 Route::get('/privacy', 'ShopController@privacy');
@@ -128,6 +128,7 @@ Route::group([
 	Route::get('/delete/{id}', 'UserController@delete')->name('admin/users/delete');
 	Route::post('/delete/{id}', 'UserController@destroy');
 	Route::get('/read/{id}', 'UserController@read')->name('admin/users/read');
+	Route::get('/statistics', 'StatisticsController@index')->name('Stats');
 });
 
 Route::group([
@@ -143,5 +144,13 @@ Route::group([
 	Route::post('/delete/{id}', 'HomePageController@destroy');
 	Route::get('/read/{id}', 'HomePageController@read')->name('admin/homepage/read');
 });
+
+Route::group([
+	'prefix' => '/admin/statistics',
+	'middleware' => 'Admin'
+], function(){
+	Route::get('/statistics', 'StatisticsController@index')->name('admin/stats');
+});
+
 
 Auth::routes();

@@ -8,11 +8,14 @@ use Auth;
 use Illuminate\Validation\Rule;
 
 use App\Address;
+use App\Order;
+
 use Session;
 class AccountController extends Controller
 {
     
     public function index(){
+
     	$user = Auth::user();
 
     	return view('account.index')->with(compact('user'));

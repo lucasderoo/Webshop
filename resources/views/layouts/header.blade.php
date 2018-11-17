@@ -55,6 +55,7 @@
       <li class="nav-item">
         <a class="nav-link text-light" href="{{ route('cart') }}">Cart🛒</a>
       </li>
+
     </ul>
     <form action="{{ route('search') }}" method="GET" class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" name="s" placeholder="Search for music!" aria-label="Search" style="width:350px;" required>

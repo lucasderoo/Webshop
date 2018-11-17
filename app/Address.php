@@ -17,4 +17,15 @@ class Address extends Model
     {
         return $this->BelongsTO('App\User');
     }
+
+
+    public function order_delivery()
+    {
+        return $this->HasOne('App\Order', 'address_id');
+    }
+
+    public function order_billing()
+    {
+        return $this->HasOne('App\Order', 'billing_address_id');
+    }
 }
