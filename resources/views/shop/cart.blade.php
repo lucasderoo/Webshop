@@ -100,10 +100,14 @@
                         <p>Total amount: € {{ $price }}</p>
                     </div>
 					<hr>
-					<button type="submit" class="btn btn-primary" style="width: 50%;">Check out</button>
+					<form role="form" method="POST" action="{{ route('checkout/delivery_address') }}">
+                                {{ csrf_field() }}
+                                <button type="submit" class="btn btn-primary" style="width: 50%;" >Check out</button>
+                            </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
 @include('layouts.footer')
+
