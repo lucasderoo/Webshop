@@ -122,7 +122,7 @@ body{
       </div>
     </div>
     <div class="row">
-      <div class="container" style="margin-top:40px; background-color:#deecee;">
+      <!-- <div class="container" style="margin-top:40px; background-color:#deecee;">
           <h5> Niet jouw smaak? </h5> <h6>Kies hier je genre dan maar!</h6>
             <div class="row justify-content-center">
                 <div class="col finished">
@@ -161,66 +161,7 @@ body{
           </div>
       </div>
 
-    </div>
-    <div class="row">
-      <div class="container" style="background-color:#deecee; margin-top:40px; text-align:center;">
-          <h5> Is dit misschien iets voor jou? Voor de aankomende vakanties en seizoenen!</h5>
-            <div class="row justify-content-center">
-                <div class="col finished">
-                    <div class="prod-image">
-                        <a href="/product/nightmare-before-christmas-ost">
-                        <img src="images/NMBC_front.jpg">
-                    </div>
-                    <div class="text-image-1">
-                      <h6> Diversen: Nightmare Before Christmas
-                        <br>
-                        Price: €10.99
-                      </h6>
-                    </div>
-                        </a>
-              </div>
-              <div class="col finished">
-                  <div class="prod-image">
-                    <a href="/product/merry-christmas-ii-you">
-                    <img src="images/Mariah_C_Christmas_Front.jpg">
-                  </div>
-                  <div class="text-image-2">
-                      <h6> Mariah Carry: Merry Christmas II You
-                      <br>
-                      Price: €17.99
-                      </h6>
-                  </div>
-                </a>
-              </div>
-              <div class="col finished">
-                  <div class="prod-image">
-                    <a href="/product/now-that-s-what-i-call-christmas">
-                  <img src="images/NTWICChristmas.jpg">
-                  </div>
-                  <div class="text-image-3">
-                      <h6> Diversen: Now That's What I Call Christmas
-                      <br>
-                      Price: €13.99
-                      </h6>
-                  </div>
-                </a>
-              </div>
-              <div class="col finished">
-                  <div class="prod-image">
-                    <a href="/product/monster-halloween-hits">
-                      <img src="images/Halloween_hits_front.jpg">
-                  </div>
-                  <div class="text-image-4">
-                      <h6> Diversen: Monster Halloween Hits
-                      <br>
-                      Price: €6.66
-                      </h6>
-                  </div>
-                </a>
-              </div>
-          </div>
-      </div>
-
+    </div> -->
     </div>
 
   </div>
