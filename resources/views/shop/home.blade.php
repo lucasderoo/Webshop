@@ -67,12 +67,12 @@ body{
         <div class ="two-small-banners col-12 offset-md">
           <div class="row">
             <div class="col-md-4" style="margin-right: 25px;">
-                <a href="/products">
+                <a href="{{ route('products') }}">
                 <img src="images/banner-nieuwste-albums.png" height="110" width="325"/>
                 </a>
             </div>
             <div class="col-md-4"  style="margin-left: 25px;">
-                <a href="/contact">
+                <a href="{{ route('customer_service') }}">
                   <img src="images/banner-contact.png"/>
                 </a>
 

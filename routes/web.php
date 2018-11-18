@@ -13,6 +13,7 @@
 
 
 /* HOME ROUTE */
+
 Route::get('/', 'ShopController@index');
 Route::get('/home', 'ShopController@index')->name('show');
 Route::get('/search', 'ShopController@search')->name('search');
@@ -21,13 +22,17 @@ Route::get('/product/{slug}', 'ShopController@show')->name('show');
 Route::get('/products', 'ShopController@products')->name('products');
 //Route::get('/products/{name}','ShopController@list');
 
-Route::get('/faq', 'ShopController@faq');
-Route::get('/privacy', 'ShopController@privacy');
-Route::get('/customer_service', 'ShopController@service');
-Route::get('/about', 'ShopController@about');
-Route::get('/job_offers', 'ShopController@jobs');
-Route::get('/latest_news', 'ShopController@news');
-
+Route::group([
+	'prefix' => '/info',
+	'middleware' => 'Customer'
+],	function(){
+	Route::get('/faq', 'ShopController@faq')->name('faq');
+	Route::get('/privacy', 'ShopController@privacy')->name('privacy');
+	Route::get('/customer_service', 'ShopController@service')->name('customer_service');
+	Route::get('/about', 'ShopController@about')->name('about');
+	Route::get('/job_offers', 'ShopController@jobs')->name('job_offers');
+	Route::get('/latest_news', 'ShopController@news')->name('latest_news');
+});
 
 Route::get('/unauthorized', 'HomeController@unauthorized');
 

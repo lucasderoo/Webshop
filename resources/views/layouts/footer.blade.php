@@ -35,16 +35,16 @@
 
             <ul class="list-unstyled">
               <li>
-                <a href="/faq">Frequently Asked Questions</a>
+                <a href="{{ route('faq') }}">Frequently Asked Questions</a>
               </li>
               <li>
-                <a href="/customer_service">Contact our customer service</a>
+                <a href="{{ route('customer_service') }}">Contact our customer service</a>
               </li>
               <li>
-                <a href="/account">Account information</a>
+                <a href="{{ route('account') }}">Account information</a>
               </li>
               <li>
-                <a href="/privacy">Privacy information</a>
+                <a href="{{ route('privacy') }}">Privacy information</a>
               </li>
             </ul>
 
@@ -59,13 +59,13 @@
 
             <ul class="list-unstyled">
               <li>
-                <a href="/about">About us</a>
+                <a href="{{ route('about') }}">About us</a>
               </li>
               <li>
-                <a href="/job_offers">Job offers</a>
+                <a href="{{ route('job_offers') }}">Job offers</a>
               </li>
               <li>
-                <a href="/latest_news">Latest news</a>
+                <a href="{{ route('latest_news') }}">Latest news</a>
               </li>
             </ul>
 
