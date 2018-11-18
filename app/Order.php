@@ -27,5 +27,10 @@ class Order extends Model
         return $this->BelongsTO('App\Address');
     }
 
+    public function orderproducts()
+    {
+        return $this->HasMany('App\OrderProduct');
+    }
+
 
 }

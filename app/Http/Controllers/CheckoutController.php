@@ -7,6 +7,7 @@ use Session;
 use Auth;
 use App\Address;
 use App\Order;
+use App\OrderProduct;
 
 class CheckoutController extends Controller
 {
@@ -45,6 +46,22 @@ class CheckoutController extends Controller
         $user->orders()->save($order);
         $user->save();
 
+        
+
+        foreach($user->basket->basketproducts as $product){
+
+            $orderProduct = OrderProduct::Create();
+            $orderProduct->order()->associate($order);
+            $orderProduct->product()->associate($product);
+            $orderProduct->quantity = $product->quantity;
+            $orderProduct->save();
+        }
+
+        foreach($user->basket->basketproducts as $product){
+    		$product->delete();
+    	}
+
+
         return redirect()->route('checkout/confirmation')->with(compact("order"));
         }
     
@@ -53,17 +70,6 @@ class CheckoutController extends Controller
         $user = Auth::User();
 
         return view('shop/checkout/billing_address')->with(compact("user"));
-    }
-
-    public function billing_address_store(request $request){
-        $user = Auth::User();
-        $billingaddress = Address::where('id', '=',(int)$request['billingaddress'])->where('user_id', '=', $user->id)->first();
-        
-        // $billingaddress->order_delivery()->save($order);
-        // $user->orders()->save($order);
-        // $user->save();
-
-        return redirect()->route('checkout/thank_you');
     }
 
     public function thank_you_create(){
@@ -80,8 +86,11 @@ class CheckoutController extends Controller
     		$productsCount = $productsCount + $product->quantity;
     		$price = $price + floatval($product->product->price * $product->quantity);
     	}
-    	$
-    	$price = number_format((float)$price, 2, '.', '');
+        
+
+        
+        $price = number_format((float)$price, 2, '.', '');
+        
         return view('shop/checkout/confirmation')->with(compact('user','price', 'productsCount'));
     }
 
