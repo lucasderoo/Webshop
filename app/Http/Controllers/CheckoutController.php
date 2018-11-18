@@ -17,23 +17,35 @@ class CheckoutController extends Controller
     }
 
     public function delivery_address_store(request $request){
-        $user = Auth::User();     
-        $deliveryaddress = Address::where('id', '=',(int)$request['deliveryaddress'])->where('user_id', '=', $user->id)->first();
+        // return var_dump($request->all());
         
-        if(empty($deliveryaddress)){
+        $user = Auth::User();     
+        $deliveryaddress = Address::where('id', '=',(int)$request['delivery_input'])->where('user_id', '=', $user->id)->first();
+        $billingaddress = Address::where('id', '=',(int)$request['billing_input'])->where('user_id', '=', $user->id)->first();
+        
+        $productsCount = 0;
+        $price = (float)0.00;
+
+    	foreach($user->basket->basketproducts as $product){
+    		$productsCount = $productsCount + $product->quantity;
+    		$price = $price + floatval($product->product->price * $product->quantity);
+    	}
+
+        if(empty($deliveryaddress) or empty($billingaddress)){
             return redirect()->route('checkout/delivery_address');
         }
         
         $order = Order::create([
-            'amount' => 15.00,
+            'amount' => $price,
             'status' => 'paid',
             'payment_method' => 'IDEAL'
         ]);
         $deliveryaddress->order_delivery()->save($order);
+        $billingaddress->order_billing()->save($order);
         $user->orders()->save($order);
         $user->save();
 
-        return redirect()->route('checkout/billing_address')->with(compact("order"));
+        return redirect()->route('checkout/confirmation')->with(compact("order"));
         }
     
 
@@ -47,13 +59,31 @@ class CheckoutController extends Controller
         $user = Auth::User();
         $billingaddress = Address::where('id', '=',(int)$request['billingaddress'])->where('user_id', '=', $user->id)->first();
         
-        $billingaddress->order_delivery()->save($order);
-        $user->orders()->save($order);
-        $user->save();
+        // $billingaddress->order_delivery()->save($order);
+        // $user->orders()->save($order);
+        // $user->save();
 
-        return redirect()->route('show');
+        return redirect()->route('checkout/thank_you');
+    }
+
+    public function thank_you_create(){
+        $user = Auth::User();
+
+        return view('shop/checkout/thank_you')->with(compact("user"));
+    }
+
+    public function confirmation_create(){
+        $user = Auth::User();
+        $productsCount = 0;
+    	$price = (float)0.00;
+    	foreach($user->basket->basketproducts as $product){
+    		$productsCount = $productsCount + $product->quantity;
+    		$price = $price + floatval($product->product->price * $product->quantity);
+    	}
+    	$
+    	$price = number_format((float)$price, 2, '.', '');
+        return view('shop/checkout/confirmation')->with(compact('user','price', 'productsCount'));
     }
 
 
-// && !empty($billingaddress)
 }

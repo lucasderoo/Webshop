@@ -40,8 +40,8 @@ Route::group([
 ], function(){
 	Route::get('/delivery_address', 'CheckoutController@delivery_address_create')->name('checkout/delivery_address');
 	Route::post('/delivery_address', 'CheckoutController@delivery_address_store');
-	Route::get('/billing_address', 'CheckoutController@billing_address_create')->name('checkout/billing_address');
-	Route::post('/billing_address', 'CheckoutController@billing_address_store');
+	route::get('/thank_you', 'CheckoutController@thank_you_create')->name('checkout/thank_you');
+	Route::get('/confirmation', 'CheckoutController@confirmation_create')->name('checkout/confirmation');
 });
 
 Route::group([

@@ -1,4 +1,5 @@
 @include('layouts.header')
+
 <style>
 .admin-top  h3{
     float: left;
@@ -44,12 +45,23 @@
     width:40px;
 }
 </style>
+
+<div class="page-wrap d-flex flex-row align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+			<div class="col-12" style="height:100;"></div>
+                <span class="display-1 d-block">Your order:</span>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container">    
     <div class="row">
         <div class="col-md-8 offset-md-2 products-index">
         @include('layouts.feedback')
             <div class="admin-top">
-                <h3>Cart ({{ $productsCount }} products)</h3>
             </div>
             <hr>
             <div class="row">
@@ -65,7 +77,7 @@
                                     <p>{{ $product->product->title }}</p>
                                 </div>
                                 <div class="cart-product-price">
-                                    <input type="number" class="quantity-input" name="quantity" value="{{ $product->quantity }}">
+                                    <p>quantity: {{ $product->quantity }}</p>
                                      <p>€ {{ $product->product->price }}</p>
                                 </div>
                             </div>
@@ -81,15 +93,11 @@
                         <p>Total amount: € {{ $price }}</p>
                     </div>
 					<hr>
-					<form role="form" method="POST" action="{{ route('checkout/delivery_address') }}">
-                                {{ csrf_field() }}
-                                <button type="submit" class="btn btn-primary" style="width: 50%;" >Check out</button>
-                            </form>
                 </div>
             </div>
 			<hr>
         </div>
     </div>
 </div>
-@include('layouts.footer')
 
+@include('layouts.footer')
