@@ -56,16 +56,6 @@ class CheckoutController extends Controller
         return view('shop/checkout/billing_address')->with(compact("user"));
     }
 
-    public function billing_address_store(request $request){
-        $user = Auth::User();
-        $billingaddress = Address::where('id', '=',(int)$request['billingaddress'])->where('user_id', '=', $user->id)->first();
-        
-        // $billingaddress->order_delivery()->save($order);
-        // $user->orders()->save($order);
-        // $user->save();
-
-        return redirect()->route('checkout/thank_you');
-    }
 
     public function thank_you_create(){
         $user = Auth::User();
@@ -81,7 +71,13 @@ class CheckoutController extends Controller
     		$productsCount = $productsCount + $product->quantity;
     		$price = $price + floatval($product->product->price * $product->quantity);
     	}
-    	$
+        
+
+        // VERY temporary spoof deletion
+        foreach($user->basket->basketproducts as $product){
+            $product->delete();
+        }
+
     	$price = number_format((float)$price, 2, '.', '');
         return view('shop/checkout/confirmation')->with(compact('user','price', 'productsCount'));
     }
