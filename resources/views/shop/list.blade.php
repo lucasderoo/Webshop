@@ -220,6 +220,61 @@
                     var id = parseInt(id, 10)+1;
                     $("#more-artist"+id).css("display", "block");
                 });
+
+                function get(name){
+                   if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+                      return decodeURIComponent(name[1]);
+                }
+
+
+                var genres = {!! json_encode($request['genres']) !!};
+                var artists = {!! json_encode($request['artists']) !!};
+
+                if(genres != null){
+                    for (var i = 0; i <= genres.length-1; i++) {
+
+                            var el = document.querySelectorAll('input[value="'+genres[i]+'"]');
+                            var par = el[0].parentElement;
+
+                            var f = par.classList[par.classList.length-1].match(/\d+$/);
+
+                            if(f != null){
+                                if(f > 2){
+                                    for (var i = 2; i <= f; i++) {
+                                        $("#more-genre"+i).css("display", "none");
+                                        $(".more-genre-section-"+i).css("display", "block");
+                                    }
+                                }
+                                $(".more-genre-section-"+f).css("display", "block");
+                                $("#more-genre"+f).css("display", "none");
+                                var id = parseInt(f, 10)+1;
+                                $("#more-genre"+id).css("display", "block");
+                            }
+                    }
+                }
+
+                if(artists != null){
+                    for (var i = 0; i <= artists.length-1; i++) {
+                            var el = document.querySelectorAll('input[value="'+artists[i]+'"]');
+                            var par = el[0].parentElement;
+
+                            var f = par.classList[par.classList.length-1].match(/\d+$/);
+
+                            if(f != null){
+                                if(f > 2){
+                                    for (var i = 2; i <= f; i++) {
+                                        $("#more-artist"+i).css("display", "none");
+                                        $(".more-artist-section-"+i).css("display", "block");
+                                    }
+                                }
+                                $(".more-artist-section-"+f).css("display", "block");
+                                $("#more-artist"+f).css("display", "none");
+                                var id = parseInt(f, 10)+1;
+                                $("#more-artist"+id).css("display", "block");
+                            }
+                    }
+                }
+
             </script>
         </div>
     </div>
