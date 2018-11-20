@@ -57,6 +57,20 @@
         <div class="col-md-8 offset-md-2">
         @include('layouts.feedback')
         <div class="row">
+            <div class="col-md-12" style="margin-bottom: 10px;">
+            @if(!empty($request['genres']))
+                @foreach($request['genres'] as $genre)
+                <span class="badge badge-secondary" style="background-color: #2570e8; padding: 6px;">{{ $genre }}</span>
+                @endforeach
+            @endif
+            @if(!empty($request['artists']))
+                @foreach($request['artists'] as $artist)
+                <span class="badge badge-secondary" style="background-color: #2570e8; padding: 6px;">{{ $artist }}</span>
+                @endforeach
+            @endif
+            </div>
+        </div>
+        <div class="row">
             <div class="col-8">
                 <h2>Products</h2>
             </div>
@@ -226,24 +240,24 @@
                       return decodeURIComponent(name[1]);
                 }
 
-
                 var genres = {!! json_encode($request['genres']) !!};
                 var artists = {!! json_encode($request['artists']) !!};
 
                 if(genres != null){
                     for (var i = 0; i <= genres.length-1; i++) {
-
                             var el = document.querySelectorAll('input[value="'+genres[i]+'"]');
                             var par = el[0].parentElement;
 
                             var f = par.classList[par.classList.length-1].match(/\d+$/);
 
+                            var r = 0;
                             if(f != null){
-                                if(f > 2){
-                                    for (var i = 2; i <= f; i++) {
+                                if(f > 2 && f > r){
+                                    for (var l = 2; l <= f; l++) {
                                         $("#more-genre"+i).css("display", "none");
                                         $(".more-genre-section-"+i).css("display", "block");
                                     }
+                                    r = f;
                                 }
                                 $(".more-genre-section-"+f).css("display", "block");
                                 $("#more-genre"+f).css("display", "none");
@@ -260,12 +274,14 @@
 
                             var f = par.classList[par.classList.length-1].match(/\d+$/);
 
+                            var r = 0;
                             if(f != null){
-                                if(f > 2){
-                                    for (var i = 2; i <= f; i++) {
+                                if(f > 2 && f > r){
+                                    for (var l = 2; l <= f; l++) {
                                         $("#more-artist"+i).css("display", "none");
                                         $(".more-artist-section-"+i).css("display", "block");
                                     }
+                                    r = f;
                                 }
                                 $(".more-artist-section-"+f).css("display", "block");
                                 $("#more-artist"+f).css("display", "none");
