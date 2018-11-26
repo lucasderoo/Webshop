@@ -248,14 +248,14 @@
                             var el = document.querySelectorAll('input[value="'+genres[i]+'"]');
                             var par = el[0].parentElement;
 
-                            var f = par.classList[par.classList.length-1].match(/\d+$/);
+                            var f = par.classList[par.classList.length-1].match(/\d+$/)[0];
 
                             var r = 0;
                             if(f != null){
                                 if(f > 2 && f > r){
                                     for (var l = 2; l <= f; l++) {
-                                        $("#more-genre"+i).css("display", "none");
-                                        $(".more-genre-section-"+i).css("display", "block");
+                                        $("#more-genre"+l).css("display", "none");
+                                        $(".more-genre-section-"+l).css("display", "block");
                                     }
                                     r = f;
                                 }
@@ -272,14 +272,14 @@
                             var el = document.querySelectorAll('input[value="'+artists[i]+'"]');
                             var par = el[0].parentElement;
 
-                            var f = par.classList[par.classList.length-1].match(/\d+$/);
+                            var f = par.classList[par.classList.length-1].match(/\d+$/)[0];
 
                             var r = 0;
                             if(f != null){
                                 if(f > 2 && f > r){
                                     for (var l = 2; l <= f; l++) {
-                                        $("#more-artist"+i).css("display", "none");
-                                        $(".more-artist-section-"+i).css("display", "block");
+                                        $("#more-artist"+l).css("display", "none");
+                                        $(".more-artist-section-"+l).css("display", "block");
                                     }
                                     r = f;
                                 }
