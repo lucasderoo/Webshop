@@ -248,7 +248,7 @@
                             var el = document.querySelectorAll('input[value="'+genres[i]+'"]');
                             var par = el[0].parentElement;
 
-                            var f = par.classList[par.classList.length-1].match(/\d+$/)[0];
+                            var f = par.classList[par.classList.length-1].match(/\d+$/);
 
                             var r = 0;
                             if(f != null){
@@ -272,7 +272,7 @@
                             var el = document.querySelectorAll('input[value="'+artists[i]+'"]');
                             var par = el[0].parentElement;
 
-                            var f = par.classList[par.classList.length-1].match(/\d+$/)[0];
+                            var f = par.classList[par.classList.length-1].match(/\d+$/);
 
                             var r = 0;
                             if(f != null){
