@@ -21,12 +21,12 @@ body{
   text-align: left;
 }
 .prod-image img{
-	margin: auto;
-	display: block;
-  	margin-top: 15px;
-	margin-bottom: 15px;
-	width: 200px;
-	height: 200px;
+  margin: auto;
+  display: block;
+    margin-top: 15px;
+  margin-bottom: 15px;
+  width: 200px;
+  height: 200px;
     /* background-color: lightblue: */
 }
 </style>
@@ -67,12 +67,12 @@ body{
         <div class ="two-small-banners col-12 offset-md">
           <div class="row">
             <div class="col-md-4" style="margin-right: 25px;">
-                <a href="/products">
+                <a href="{{ route('products') }}">
                 <img src="images/banner-nieuwste-albums.png" height="110" width="325"/>
                 </a>
             </div>
             <div class="col-md-4"  style="margin-left: 25px;">
-                <a href="/contact">
+                <a href="{{ route('customer_service') }}">
                   <img src="images/banner-contact.png"/>
                 </a>
 
@@ -80,68 +80,32 @@ body{
           </div>
         </div>
       </div>
+      @foreach($sections as $section)
       <div class="row">
         <div class="container" style="background-color:#deecee; margin-top:40px; text-align:center;">
-            <h4> Onze favorieten!</h4>
+            <h4>{{ $section->title }}</h4>
               <div class="row justify-content-center">
+                  @foreach($section->products as $product)
                   <div class="col finished">
                       <div class="prod-image">
-                          <a href="/product/queen-ii">
-                          <img src="images/Queen-II-Front.jpg">
+                          <a href="{{ route('show', [ 'slug' => $product->product->slug]) }}">
+                          <img src="{{asset('images/uploads/products/product_').$product->product->id.'/img_'.$product->product->main_image_url.'.png'}}">
                       </div>
                       <div class="text-image-1">
-                        <h6> Queen II: LP
+                        <h6> {{ $product->product->title }}
                           <br>
-                          Price: €99.99
+                          Price: €{{ $product->product->price }}
                         </h6>
                       </div>
                           </a>
-                </div>
-                <div class="col finished">
-                    <div class="prod-image">
-                      <a href="/product/ride-the-lightning">
-                      <img src="images/Metallica_Ride_the_Lightning_front.jpg">
-                    </div>
-                    <div class="text-image-2">
-                        <h6> Metallica: Ride the lightning
-                        <br>
-                        Price: €14.99
-                        </h6>
-                    </div>
-                  </a>
-                </div>
-                <div class="col finished">
-                    <div class="prod-image">
-                      <a href="/product/queen">
-                    <img src="images/Nicky_M_Queen_Front.jpg">
-                    </div>
-                    <div class="text-image-3">
-                        <h6> Nicki Minaj: Queen
-                        <br>
-                        Price: €19.99
-                        </h6>
-                    </div>
-                  </a>
-                </div>
-                <div class="col finished">
-                    <div class="prod-image">
-                      <a href="/product/kamikaze">
-                        <img src="images/Kamikaze_Eminem_Front.jpg">
-                    </div>
-                    <div class="text-image-4">
-                        <h6> Eminem: Kamikaze
-                        <br>
-                        Price: €16.99
-                        </h6>
-                    </div>
-                  </a>
-                </div>
-            </div>
-        </div>
-
+                  </div>
+                  @endforeach
+              </div>
+          </div>
       </div>
-      <br>
-    <div class="row justify-content-center">
+    <br>
+    @endforeach
+    <div class="row justify-content-cente">
       <div class ="two-small-banners col-12 offset-md-2">
         <div class="row">
           <div class="col-md-4" style=" margin-right: 25px;">
@@ -158,7 +122,7 @@ body{
       </div>
     </div>
     <div class="row">
-      <div class="container" style="margin-top:40px; background-color:#deecee;">
+      <!-- <div class="container" style="margin-top:40px; background-color:#deecee;">
           <h5> Niet jouw smaak? </h5> <h6>Kies hier je genre dan maar!</h6>
             <div class="row justify-content-center">
                 <div class="col finished">
@@ -197,66 +161,7 @@ body{
           </div>
       </div>
 
-    </div>
-    <div class="row">
-      <div class="container" style="background-color:#deecee; margin-top:40px; text-align:center;">
-          <h5> Is dit misschien iets voor jou? Voor de aankomende vakanties en seizoenen!</h5>
-            <div class="row justify-content-center">
-                <div class="col finished">
-                    <div class="prod-image">
-                        <a href="/product/nightmare-before-christmas-ost">
-                        <img src="images/NMBC_front.jpg">
-                    </div>
-                    <div class="text-image-1">
-                      <h6> Diversen: Nightmare Before Christmas
-                        <br>
-                        Price: €10.99
-                      </h6>
-                    </div>
-                        </a>
-              </div>
-              <div class="col finished">
-                  <div class="prod-image">
-                    <a href="/product/merry-christmas-ii-you">
-                    <img src="images/Mariah_C_Christmas_Front.jpg">
-                  </div>
-                  <div class="text-image-2">
-                      <h6> Mariah Carry: Merry Christmas II You
-                      <br>
-                      Price: €17.99
-                      </h6>
-                  </div>
-                </a>
-              </div>
-              <div class="col finished">
-                  <div class="prod-image">
-                    <a href="/product/now-that-s-what-i-call-christmas">
-                  <img src="images/NTWICChristmas.jpg">
-                  </div>
-                  <div class="text-image-3">
-                      <h6> Diversen: Now That's What I Call Christmas
-                      <br>
-                      Price: €13.99
-                      </h6>
-                  </div>
-                </a>
-              </div>
-              <div class="col finished">
-                  <div class="prod-image">
-                    <a href="/product/monster-halloween-hits">
-                      <img src="images/Halloween_hits_front.jpg">
-                  </div>
-                  <div class="text-image-4">
-                      <h6> Diversen: Monster Halloween Hits
-                      <br>
-                      Price: €6.66
-                      </h6>
-                  </div>
-                </a>
-              </div>
-          </div>
-      </div>
-
+    </div> -->
     </div>
 
   </div>

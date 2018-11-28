@@ -10,8 +10,10 @@ use App\Product;
 use App\Category;
 use Auth;
 use App\MusicProduct;
+use App\HomePage;
 use Input;
 
+use Collection;
 use Session;
 
 class ShopController extends Controller
@@ -19,9 +21,9 @@ class ShopController extends Controller
 
     public function index(){
 
-    	$products = Product::all();
+    	$sections = HomePage::all();
 
-    	return view('shop.home')->with(compact('products'));
+    	return view('shop.home')->with(compact('sections'));
     }
 
     public function show($slug){
@@ -44,59 +46,64 @@ class ShopController extends Controller
         $genresFilter = $request->has('genres') ? $request->get('genres') : [];
         $artistsFilter = $request->has('artists') ? $request->get('artists') : [];
 
+        $minPrice = $request->has('min-price') ? $request->get('min-price') : 0;
+        $maxPrice = $request->has('max-price') ? $request->get('max-price') : (int)Product::max('price')+1;
+
+        $minDate = $request->has('min-date') ? $request->get('min-date') : MusicProduct::min('release_date');
+        $maxDate = $request->has('max-date') ? $request->get('max-date') : MusicProduct::max('release_date');
+
 
         $musicQuery = MusicProduct::query();
 
-        $productQuery = Product::query();
-
-        if(isset($genresFilter)){
-            foreach($genresFilter as $key => $genre){
-                $musicQuery = $key > 0 ? $musicQuery->orwhere('genre', $genre) : $musicQuery->where('genre', $genre);
-            }
+        if(!empty($genresFilter)){
+            $musicQuery = $musicQuery->whereIn('genre', $genresFilter);
         }
-
-        $musicProducts = $musicQuery->get(['id','artist']);
-
         if(!empty($artistsFilter)){
-            foreach($musicProducts as $key => $musicProduct){
-                if(!in_array($musicProduct->artist, $artistsFilter)){
-                    unset($musicProducts[$key]);
-                }
+            $musicQuery = $musicQuery->whereIn('artist', $artistsFilter);
+        }
+        $musicQuery = $musicQuery->where('release_date', '>=', $minDate);
+        $musicQuery = $musicQuery->where('release_date', '<=', $maxDate);
+
+        $musicProducts = $musicQuery->get();
+
+        $products = collect();
+
+        foreach($musicProducts as $product){
+            if($product->productable()->first()->price >= $minPrice AND $product->productable()->first()->price <= $maxPrice){
+                $products->push($product->productable()->first());
             }
         }
 
-        // productQuery filters here
-        $musicIds = $musicProducts->pluck('id')->toArray();
-
-        $minPrice = $request->has('min-price') ? $request->get('min-price') : 0;
-        $maxPrice = $request->has('max-price') ? $request->get('max-price') : (int)Product::max('price')+1;
-        $productQuery = $productQuery->whereIn('productable_id', $musicIds)
-                                     ->where('price', '>=', $minPrice)
-                                     ->where('price', '<=', $maxPrice);
-
-        $products = $productQuery->get();
-
-
-        if(!empty($genresFilter) or !empty($artistsFilter)){
-            foreach ($products as $key => $product) {
-                if(!$musicProducts->contains($product->productable_id)){
-                    unset($products[$key]);
-                }
-            }
-        }
-
+        $orderBy_ = "";
         $orderBy = $request->has('orderby') ? $request->get('orderby') : "sold";
-
-        if($orderBy == "sold"){
-            $orderby = "id"; // change in future
-        }
-
         $sort = $request->has('sort') ? $request->get('sort') : "DESC";
-        if($sort == "DESC"){
-            $products->sortbydesc($orderBy);
+
+        if($orderBy == "price-high-low"){
+            $orderBy_ = "price";
+            $sort = "DESC";
+        }
+        elseif($orderBy == "price-low-high"){
+            $orderBy_ = "price";
+            $sort = "ASC";
+        }
+        elseif($orderBy == "date-new-old"){
+            $orderBy_ = "created_at"; 
+            $sort = "DESC";
+        }
+        elseif($orderBy == "date-old-new"){
+            $orderBy_ = "created_at";
+            $sort = "ASC";
         }
         else{
-            $products->sortby($orderBy);
+            $orderBy_ = "id";
+            $sort = "ASC";
+        }
+
+        if($sort == "DESC"){
+            $products = $products->sortbydesc($orderBy_);
+        }
+        else{
+            $products = $products->sortby($orderBy_);
         }
 
         // keep this at the bottom
@@ -108,8 +115,36 @@ class ShopController extends Controller
             $products = $products->slice($paginationArray['currentpage']*$pagination-$pagination)->take($pagination);
         }
 
-        return view('shop.list')->with(compact('products', 'categories', 'genres', 'artists', 'request', 'maxPrice', 'paginationArray'));
+        return view('shop.list')->with(compact('products', 'categories', 'genres', 'artists', 'request', 'maxPrice', 'paginationArray', 'minDate', 'maxDate', 'orderBy'));
     }
+
+    public function search(request $request){
+
+        if(empty($request['s']) OR strlen($request['s']) < 3){
+            Session::flash('feedback_error', 'Minimum of 3 characters');
+            return redirect()->back();
+        }
+        $products = Product::search($request['s'])->get();
+
+        $musicProducts = MusicProduct::search($request['s'])->get();
+
+        $musicProductsResult = collect();
+
+        foreach($musicProducts as $product){
+            $musicProductsResult->push($product->productable()->first());
+        }
+
+        $products = $products->merge($musicProductsResult);
+
+        $products = $products->unique();
+
+        $s = $request['s'];
+
+        return view('shop.search')->with(compact('products', 's'));
+    }
+
+
+
     public function faq() {
       return view ('shop.faq');
     }

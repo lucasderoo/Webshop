@@ -55,6 +55,10 @@
                                 <td>House number</td>
                                 <td>Zipcode</td>
                                 <td>City</td>
+                                <td>Country</td>
+                                <td>Edit</td>
+                                <td>Delete</td>
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -64,6 +68,9 @@
                                 <td>{{ $address->house_number }}{{ $address->suffix }}</td>
                                 <td>{{ $address->zipcode }}</td>
                                 <td>{{ $address->city }}</td>
+                                <td>{{$address->country}}</td>
+                                <td><a class="btn btn-small btn-info" href="{{ route('account/addresses/edit', ['id' => $address->id]) }}">Edit</a></td>
+                                <td><form style="margin: 0;" action="{{ route('account/addresses/delete', ['id' => $address->id]) }}" method="POST">{{ csrf_field() }}<button class="btn btn-small btn-danger" onclick="return confirm('Are you sure you want to delete this address?')" type="submit">Delete</button></form></td>
                             </tr>
                         @endforeach
                         </tbody>

@@ -4,16 +4,19 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Laravel\Scout\Searchable;
+
 class MusicProduct extends Model
 {
     //
+    use Searchable;
 
     public $timestamps = false;
 	protected $table = 'music_products';
 
-	public function productParent()
+	public function productable()
     {
-        return $this->morphMany('App\Product', 'productable');
+        return $this->morphOne('App\Product', 'productable');
     }
 
     public function carrier()

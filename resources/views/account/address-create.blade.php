@@ -40,7 +40,7 @@
                 </style>
                 <div class="col-md-2">
                     <ul class="account-menu">
-                        <li>- <a href="{{ route('account') }}">Account info</a></li>
+                        <li>- <a href="{{ route('account') }}">Account info</a></li> 
                         <li>- <a href="{{ route('account/orders') }}">My Orders</a></li>
                         <li>- <a href="{{ route('account/addresses') }}" class="selected-account-info">My Addresses</a></li>
                     </ul>
@@ -90,6 +90,15 @@
                             @if ($errors->has('city'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('city') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <input type="text" class="form-control" name="country" required>
+                            @if ($errors->has('country'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('country') }}</strong>
                             </span>
                             @endif
                         </div>

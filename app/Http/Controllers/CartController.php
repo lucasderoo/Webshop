@@ -20,11 +20,12 @@ class CartController extends Controller
     	
     	$productsCount = 0;
     	$price = (float)0.00;
-    	foreach($user->basket->basketproducts as $product){
-    		$productsCount = $productsCount + $product->quantity;
-    		$price = $price + floatval($product->product->price * $product->quantity);
+    	if(!empty($user->basket)){
+	    	foreach($user->basket->basketproducts as $product){
+	    		$productsCount = $productsCount + $product->quantity;
+	    		$price = $price + floatval($product->product->price * $product->quantity);
+	    	}
     	}
-    	$
     	$price = number_format((float)$price, 2, '.', '');
     	return view('shop.cart')->with(compact('user', 'price', 'productsCount'));
     }
@@ -43,7 +44,7 @@ class CartController extends Controller
      	if(empty($user->basket)){
      		$basket = Basket::create();
      		$user->basket()->save($basket);
-     		$user->save();
+     		$user->basket = $basket;
      	}
 
      	$duplicate = false;
@@ -70,17 +71,37 @@ class CartController extends Controller
      	return redirect()->back();
     }
 
-    public function update(Request $request, $slug){
-     	
-    	
+    public function update(Request $request, $id){
+        $user = Auth::user();
+        if(!$user->basket->basketproducts->contains('id', $id)){
+            Session::flash('feedback_error', 'unkown error, please try again');
+            return redirect()->route('cart');
+        }
+        elseif(!$request->has('quantity') OR $request['quantity'] < 1 ){
+            Session::flash('feedback_error', 'quantity has to be at least 1');
+            return redirect()->route('cart');
+        }
 
+        $cartProduct = BasketProduct::find($id);
+        $cartProduct->quantity = $request['quantity'];
+        $cartProduct->save();
 
+        Session::flash('feedback_success', 'Cart updated');
+        return redirect()->route('cart');
     }
 
-    public function destroy($slug){
-     	
+    public function destroy($id){
+     	$user = Auth::user();
+        if(!$user->basket->basketproducts->contains('id', $id)){
+            Session::flash('feedback_error', 'unkown error, please try again');
+            return redirect()->route('cart');
+        }
     		
+        $cartProduct = BasketProduct::find($id);
+        $cartProduct->delete();
 
+        Session::flash('feedback_success', 'Cart updated');
+        return redirect()->route('cart');
 
     }
         

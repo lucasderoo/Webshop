@@ -13,20 +13,26 @@
 
 
 /* HOME ROUTE */
+
 Route::get('/', 'ShopController@index');
 Route::get('/home', 'ShopController@index')->name('show');
+Route::get('/search', 'ShopController@search')->name('search');
 
 Route::get('/product/{slug}', 'ShopController@show')->name('show');
 Route::get('/products', 'ShopController@products')->name('products');
-Route::get('/products/{name}','ShopController@list');
+//Route::get('/products/{name}','ShopController@list');
 
-Route::get('/faq', 'ShopController@faq');
-Route::get('/privacy', 'ShopController@privacy');
-Route::get('/customer_service', 'ShopController@service');
-Route::get('/about', 'ShopController@about');
-Route::get('/job_offers', 'ShopController@jobs');
-Route::get('/latest_news', 'ShopController@news');
-
+Route::group([
+	'prefix' => '/info',
+	'middleware' => 'Customer'
+],	function(){
+	Route::get('/faq', 'ShopController@faq')->name('faq');
+	Route::get('/privacy', 'ShopController@privacy')->name('privacy');
+	Route::get('/customer_service', 'ShopController@service')->name('customer_service');
+	Route::get('/about', 'ShopController@about')->name('about');
+	Route::get('/job_offers', 'ShopController@jobs')->name('job_offers');
+	Route::get('/latest_news', 'ShopController@news')->name('latest_news');
+});
 
 Route::get('/unauthorized', 'HomeController@unauthorized');
 
@@ -36,11 +42,20 @@ Route::group([
 ], function(){
 	Route::get('', 'CartController@index')->name('cart');
 	Route::post('/add/{slug}', 'CartController@store')->name('cart/create');
-	Route::post('/update/{slug}', 'CartController@update')->name('cart/update');
-	Route::post('/delete/{slug}', 'CartController@delete')->name('cart/delete');
+	Route::post('/update/{id}', 'CartController@update')->name('cart/update');
+	Route::post('/delete/{id}', 'CartController@destroy')->name('cart/delete');
 	Route::post('/saveforlater/{slug}', 'CartController@save_for_later')->name('cart/saveForLater');
 });
 
+Route::group([
+	'prefix' => '/checkout',
+	'middleware' => 'Customer'
+], function(){
+	Route::get('/delivery_address', 'CheckoutController@delivery_address_create')->name('checkout/delivery_address');
+	Route::post('/delivery_address', 'CheckoutController@delivery_address_store');
+	route::get('/thank_you', 'CheckoutController@thank_you_create')->name('checkout/thank_you');
+	Route::get('/confirmation', 'CheckoutController@confirmation_create')->name('checkout/confirmation');
+});
 
 Route::group([
 	'prefix' => '/account',
@@ -55,8 +70,10 @@ Route::group([
 	Route::get('/addresses', 'AccountController@adresses')->name('account/addresses');
 	Route::get('/addresses/create', 'AccountController@addresses_create')->name('account/addresses/create');
 	Route::post('/addresses/create', 'AccountController@addresses_store');
+	Route::get('/addresses/edit/{id}', 'AccountController@addresses_edit')->name('account/addresses/edit');
+	Route::post('/addresses/edit/{id}', 'AccountController@addresses_update');
+	Route::post('/addresses/delete/{id}', 'AccountController@addresses_destroy')->name('account/addresses/delete');
 });
-
 
 // manager & admin routes //
 Route::get('/admin', 'AdminController@index')->middleware('Admin')->name('admin');
@@ -116,6 +133,29 @@ Route::group([
 	Route::get('/delete/{id}', 'UserController@delete')->name('admin/users/delete');
 	Route::post('/delete/{id}', 'UserController@destroy');
 	Route::get('/read/{id}', 'UserController@read')->name('admin/users/read');
+	Route::get('/statistics', 'StatisticsController@index')->name('Stats');
 });
+
+Route::group([
+	'prefix' => '/admin/homepage',
+	'middleware' => 'Admin'
+], function(){
+	Route::get('', 'HomePageController@index')->name('admin/homepage');
+	Route::get('/create', 'HomePageController@create')->name('admin/homepage/create');
+	Route::post('/create', 'HomePageController@store');
+	Route::get('/edit/{id}', 'HomePageController@edit')->name('admin/homepage/edit');
+	Route::post('/edit/{id}', 'HomePageController@update');
+	Route::get('/delete/{id}', 'HomePageController@delete')->name('admin/homepage/delete');
+	Route::post('/delete/{id}', 'HomePageController@destroy');
+	Route::get('/read/{id}', 'HomePageController@read')->name('admin/homepage/read');
+});
+
+Route::group([
+	'prefix' => '/admin/statistics',
+	'middleware' => 'Admin'
+], function(){
+	Route::get('/statistics', 'StatisticsController@index')->name('admin/stats');
+});
+
 
 Auth::routes();

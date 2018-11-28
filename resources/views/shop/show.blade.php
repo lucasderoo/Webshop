@@ -60,8 +60,7 @@ font-size: 18px
 
 }
 .x100_pic{
-	max-width: 100px;
-	max-height: 100px;
+	width: 75px;
     border: 2px solid grey;
     cursor: pointer;
 }
