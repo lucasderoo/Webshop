@@ -48,10 +48,21 @@
                     <div class="form-input">
                         <label for="email" class="control-label">E-Mail Address</label>
                         <input id="email" type="email" class="form-control" name="email" required>
+                        @if ($errors->has('email'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('email') }}</strong>
+                            </span>
+                        @endif
                     </div>
+
                     <div class="form-input">
-                        <label for="email" class="control-label">Password</label>
-                        <input id="email" type="password" class="form-control" name="password" required>
+                        <label for="password" class="control-label">Password</label>
+                        <input id="password" type="password" class="form-control" name="password" required>
+                        @if ($errors->has('password'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('password') }}</strong>
+                            </span>
+                        @endif
                         <a href="#" class="a-link">Forgot password?</a>
                     </div>
                     <div class="form-input">

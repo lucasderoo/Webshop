@@ -38,7 +38,6 @@ Route::get('/unauthorized', 'HomeController@unauthorized');
 
 Route::group([
 	'prefix' => '/cart',
-	'middleware' => 'Customer'
 ], function(){
 	Route::get('', 'CartController@index')->name('cart');
 	Route::post('/add/{slug}', 'CartController@store')->name('cart/create');

@@ -56,31 +56,41 @@
             <hr>
             <div class="row">
                 <div class="col-md-8">
-                @if(!empty($user->basket))
-                    @foreach($user->basket->basketproducts as $product)
+                @if(!empty($products))
+                    @foreach($products as $key => $product)
                     <div class="cart-products">
                         <div class="row">
                             <div class="col-md-12 cart-product">
                                 <div class="cart-product-image">
+                                    @if(Auth::guest())
+                                    <a href="{{ route('show', [ 'slug' => $product['slug']])  }}"><img src="{{ asset('images/uploads/products/product_').$key.'/img_'.$product['main_image_url'].'.png' }}" id="afbeelding"></a>
+                                    @else
                                     <a href="{{ route('show', [ 'slug' => $product->product->slug]) }}"><img src="{{ asset('images/uploads/products/product_').$product->product->id.'/img_'.$product->product->main_image_url.'.png'}}" id="afbeelding"></a>
+                                    @endif
                                 </div>
                                 <div class="cart-product-info">
-                                    <p>{{ $product->product->title }}</p>
+                                    <p>{{ $guest ? $product['title'] : $product->product->title }}</p>
                                 </div>
-                                <form action="{{ route('cart/update', ['id' => $product->id]) }}" method="POST">
+                                <form action="{{ route('cart/update', ['id' => $guest ? $key : $product->product->id]) }}" method="POST">
                                 {{ csrf_field() }}
                                 <div class="cart-product-price">
-                                    <!-- <input type="number" class="quantity-input" name="quantity" value="{{ $product->quantity }}"> -->
                                     <select name="quantity" onchange="this.form.submit()">
+                                    @if(Auth::guest())
+                                        {{ $max = $product['quantity'] > 3 ? $product['quantity']+3 : $product['quantity']+4+3-$product['quantity']}}
+                                    @for ($i = $product['quantity'] > 3 ? $product['quantity']-3 : 1; $i <= $max; $i++)
+                                        <option value="{{ $i }}" @if($i == $product['quantity']) selected @endif>{{ $i }}</option>
+                                    @endfor
+                                    @else
                                     {{ $max = $product->quantity > 3 ? $product->quantity+3 : $product->quantity+4+3-$product->quantity}}
                                     @for ($i = $product->quantity > 3 ? $product->quantity-3 : 1; $i <= $max; $i++)
                                         <option value="{{ $i }}" @if($i == $product->quantity) selected @endif>{{ $i }}</option>
                                     @endfor
+                                    @endif
                                     </select>
-                                    <p>€ {{ $product->product->price }}</p>
+                                    <p>€ {{ $guest ? $product['price'] : $product->product->price }}</p>
                                 </div>
                                 </form>
-                                <form action="{{ route('cart/delete', ['id' => $product->id]) }}" method="POST">
+                                <form action="{{ route('cart/delete', ['id' => $guest ? $key : $product->product->id]) }}" method="POST">
                                 {{ csrf_field() }}
                                 <div class="cart-product-delete">
                                     <button type="submit" class="btn btn-small btn-danger">Remove</button>
