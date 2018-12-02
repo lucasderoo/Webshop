@@ -31,7 +31,7 @@ height: 25px;
 }
 .buy-buttons button{
 	color: white;
-	width: 40%;
+	width: 50%;
 	height: 50px;
 }
 .add-to-cart{
@@ -51,8 +51,8 @@ height: 25px;
 	height: 50px;
 }
 .Big_image{
-max-width: 400px;
-max-height: 400px;
+width: 100%;
+height: auto;
 
 }
 .normal_sized_p{
@@ -113,7 +113,7 @@ h5{
                 		<div class="main-image-buy-btn-wrapper">
                 			<img id="big_image" class="Big_image" src="{{asset('images/uploads/products/product_').$product->id.'/img_'.$product->main_image_url.'.png'}}">
 										</div>
-										<div class="col-md-4">
+										<div class="col-md-12">
                 			<div class="buy-buttons">
                                 <form role="form" method="POST" action="{{ route('cart/create', ['slug' => $product->slug]) }}">
                                     {{ csrf_field() }}
