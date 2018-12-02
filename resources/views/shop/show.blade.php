@@ -51,8 +51,8 @@ height: 25px;
 	height: 50px;
 }
 .Big_image{
-width: 400px;
-height: 400px;
+max-width: 400px;
+max-height: 400px;
 
 }
 .normal_sized_p{
@@ -95,11 +95,8 @@ h5{
         <div class="col-md-8 offset-md-2">
         @include('layouts.feedback')
             <div class="row top-row">
-                <div class="col-md-8">
+                <div class="col-md-12">
                 	<p>Home > {{$product->category->name}} > {{$product->productable->artist}} - {{$product->title}}</p>
-                </div>
-                <div class="col-md-4">
-                	<h5>{{$product->productable->artist}} - {{$product->title}}</h5>
                 </div>
             </div>
             <div class="row">
@@ -115,6 +112,8 @@ h5{
                 	<div class="main-image-buy-btn">
                 		<div class="main-image-buy-btn-wrapper">
                 			<img id="big_image" class="Big_image" src="{{asset('images/uploads/products/product_').$product->id.'/img_'.$product->main_image_url.'.png'}}">
+										</div>
+										<div class="col-md-4">
                 			<div class="buy-buttons">
                                 <form role="form" method="POST" action="{{ route('cart/create', ['slug' => $product->slug]) }}">
                                     {{ csrf_field() }}
@@ -125,7 +124,9 @@ h5{
                 		</div>
                 	</div>
                 </div>
+
                 <div class="col-md-4">
+									<h5>{{$product->productable->artist}} - {{$product->title}}</h5>
         			<b> €{{$product->price}}</b>
         			<hr>
                 	<h5>Product description</h5>
