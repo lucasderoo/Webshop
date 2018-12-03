@@ -129,11 +129,13 @@
                         </div>
                         <div class="cart-product-price">
                             <p>{{ $guest ? $product['quantity'] : $product->quantity }}</p>
-                            <p>€ {{ $guest ? $product['price'] : $product->product->price }}</p>
+                            <p>€{{ $guest ? $product['price'] : $product->product->price }}</p>
                         </div>
                     </div>
                 @endforeach
                 </div>
+                <hr>
+                <p>Total price: €{{ $price }}</p>
                 <div class="row">
                     <div class="col-md-12">
                         <button style="float: right" type="submit" class="btn btn-primary">Confirm</button>

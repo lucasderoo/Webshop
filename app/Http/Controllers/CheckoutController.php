@@ -152,6 +152,7 @@ class CheckoutController extends Controller
     public function confirm(){
         
         $user = Auth::user();
+        $price = (float)0.00;
         if(!session('order')){
         	Session::flash('feedback_error', 'unknown error, please try again');
         	return redirect()->route('checkout');
@@ -167,11 +168,19 @@ class CheckoutController extends Controller
 
         if(session('basket')){
         	$products = session('basket');
+        	foreach(session('basket') as $product){
+                $price = $price + floatval($product['price'] * $product['quantity']);
+            }
         }
         else{
         	$products = $user->basket->basketproducts;
+        	foreach($user->basket->basketproducts as $product){
+                $price = $price + floatval($product->product->price * $product->quantity);
+            }
         }
-        return view('shop.checkout.confirm')->with(compact("addresses", "products", "guest", "user"));
+        $price = number_format((float)$price, 2, '.', '');
+
+        return view('shop.checkout.confirm')->with(compact("addresses", "products", "guest", "user", "price"));
     }
 
     public function confirm_store(){
