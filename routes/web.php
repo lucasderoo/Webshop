@@ -48,12 +48,12 @@ Route::group([
 
 Route::group([
 	'prefix' => '/checkout',
-	'middleware' => 'Customer'
 ], function(){
-	Route::get('/delivery_address', 'CheckoutController@delivery_address_create')->name('checkout/delivery_address');
-	Route::post('/delivery_address', 'CheckoutController@delivery_address_store');
-	route::get('/thank_you', 'CheckoutController@thank_you_create')->name('checkout/thank_you');
-	Route::get('/confirmation', 'CheckoutController@confirmation_create')->name('checkout/confirmation');
+	Route::get('', 'CheckoutController@checkout')->name('checkout');
+	Route::post('', 'CheckoutController@checkout_store');
+	Route::get('/confirm', 'CheckoutController@confirm')->name('checkout/confirm');;
+	Route::post('/confirm', 'CheckoutController@confirm_store');
+	route::get('/thank_you/{id}', 'CheckoutController@thank_you')->name('checkout/thank_you');
 });
 
 Route::group([

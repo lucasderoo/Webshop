@@ -110,10 +110,7 @@
                         <p>Total amount: € {{ $price }}</p>
                     </div>
 					<hr>
-					<form role="form" method="POST" action="{{ route('checkout/delivery_address') }}">
-                                {{ csrf_field() }}
-                                <button type="submit" class="btn btn-primary" style="width: 50%;" >Check out</button>
-                            </form>
+                    <a class="btn btn-small btn-info" href="{{ route('checkout') }}">Checkout</a>
                 </div>
             </div>
         </div>

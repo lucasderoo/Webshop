@@ -10,8 +10,15 @@ class Order extends Model
         'amount',
         'status',
         'payment_method',
+        'email',
+        'firstname',
+        'lastname'
     ];
 
+    public function orderproducts()
+    {
+        return $this->hasMany('App\OrderProduct');
+    }
 
     public function user()
     {
