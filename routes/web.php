@@ -15,7 +15,7 @@
 /* HOME ROUTE */
 
 Route::get('/', 'ShopController@index');
-Route::get('/home', 'ShopController@index')->name('show');
+Route::get('/home', 'ShopController@index')->name('home');
 Route::get('/search', 'ShopController@search')->name('search');
 
 Route::get('/product/{slug}', 'ShopController@show')->name('show');

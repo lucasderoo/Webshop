@@ -241,22 +241,23 @@ class CheckoutController extends Controller
         	}
         	if(is_array(session('order')['billing_address'])){
         		$billing_address = Address::create([
-		            'street' => session('order')['delivery_address']['street'],
-		            'house_number' => session('order')['delivery_address']['house_number'],
-		            'suffix' => session('order')['delivery_address']['suffix'],
-		            'zipcode' => session('order')['delivery_address']['zipcode'],
-		            'city' => session('order')['delivery_address']['city'],
-		            'country' => session('order')['delivery_address']['country'],
+		            'street' => session('order')['billing_address']['street'],
+		            'house_number' => session('order')['billing_address']['house_number'],
+		            'suffix' => session('order')['billing_address']['suffix'],
+		            'zipcode' => session('order')['billing_address']['zipcode'],
+		            'city' => session('order')['billing_address']['city'],
+		            'country' => session('order')['billing_address']['country'],
         		]);
         		$billing_address->save();
         		$billing_address->order_billing()->save($order);
         	}
         	elseif(session('order')['billing_address'] == "same"){
+        		$delivery_address = Address::find((int)session('order')['delivery_address']);
         		$delivery_address->order_billing()->save($order);
         	}
         	else{
         		$billing_address = Address::find((int)session('order')['billing_address']);
-        		$billing_address->order_delivery()->save($order);
+        		$billing_address->order_billing()->save($order);
         	}
 
         	$order->save();

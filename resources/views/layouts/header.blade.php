@@ -23,7 +23,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link text-light" href="{{ route('login') }}">Home</a>
+        <a class="nav-link text-light" href="{{ route('home') }}">Home</a>
       </li>
       <li class="nav-item">
         <a class="nav-link text-light" href="{{ route('products') }}">Products</a>
