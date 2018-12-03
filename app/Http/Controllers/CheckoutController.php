@@ -166,7 +166,7 @@ class CheckoutController extends Controller
 
         $guest = Auth::guest();
 
-        if(session('basket')){
+        if(session('basket') && Auth::guest()){
         	$products = session('basket');
         	foreach(session('basket') as $product){
                 $price = $price + floatval($product['price'] * $product['quantity']);
@@ -196,6 +196,8 @@ class CheckoutController extends Controller
 	            'lastname' => session('order')['info']['lastname'],
         	]);
 
+
+
         	if(Auth::guest()){
         		foreach(session('basket') as $key => $product){
         			$orderProduct = OrderProduct::create([
@@ -217,6 +219,8 @@ class CheckoutController extends Controller
 	    	     	$orderProduct->product()->associate($product);
 	    	     	$orderProduct->save();
         		}
+
+        		$user->orders()->save($order);
         	}
 
         	if(is_array(session('order')['delivery_address'])){
