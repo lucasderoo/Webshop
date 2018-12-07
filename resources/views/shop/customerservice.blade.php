@@ -62,9 +62,9 @@
 <form>
 <legend><span class="glyphicon glyphicon-globe"></span> Our office</legend>
 <address>
-<strong>MUZEN Inc.</strong><br>
-795 Folsom Ave, Suite 600<br>
-San Francisco, CA 94107<br>
+<strong>Logo Here</strong><br>
+1600 Amphitheatre Pkwy<br>
+Mountain View, CA 94043<br>
 <abbr title="Phone">
 P:</abbr>
 (123) 456-7890
