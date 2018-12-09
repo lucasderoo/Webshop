@@ -80,7 +80,7 @@
 
             <br></br>
              <div class="col-md-6">
-        <!--      {!! $line_chart3->html() !!} -->
+              {!! $line_chart3->html() !!} 
              </div>
 
 

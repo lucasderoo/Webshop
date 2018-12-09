@@ -124,6 +124,8 @@ class StatisticsController extends Controller{
     $EarningsPerMonthAndYear = DB::table('orders')
     ->select(DB::raw('SUM(amount) as total_expense'), DB::raw("CONCAT_WS('-',MONTH(created_at),YEAR(created_at)) as monthyear"))
     ->groupBy(DB::raw('YEAR(created_at) ASC, MONTH(created_at) ASC, monthyear'))
+    ->where( 'created_at', '>=', DB::raw( 'LAST_DAY(CURRENT_DATE) + INTERVAL 1 DAY - INTERVAL 1 YEAR',
+      'AND', 'created_at',  '<', ' LAST_DAY(CURRENT_DATE) + INTERVAL 1 DAY'))
   //  ->orderByRaw('')
     ->pluck('monthyear')
    ->toArray();
@@ -131,6 +133,8 @@ class StatisticsController extends Controller{
     $EarningsResult= DB::table('orders')
     ->select(DB::raw('SUM(amount) as total_expense, MONTH(created_at) as month, YEAR(created_at) as year'))
     ->groupBy(DB::raw('YEAR(created_at) ASC, MONTH(created_at) ASC'))
+    ->where( 'created_at', '>=', DB::raw( 'LAST_DAY(CURRENT_DATE) + INTERVAL 1 DAY - INTERVAL 1 YEAR',
+      'AND', 'created_at',  '<', ' LAST_DAY(CURRENT_DATE) + INTERVAL 1 DAY'))
     ->pluck('total_expense','month')
     ->toArray();
 
@@ -138,8 +142,9 @@ class StatisticsController extends Controller{
     $EarningsPerDay = DB::table('orders')
     ->select(DB::raw('SUM(amount) as total_expense'), DB::raw("CONCAT_WS('-',DAY(created_at),MONTH(created_at),YEAR(created_at)) as daymonthyear"))
     ->groupBy(DB::raw('YEAR(created_at) ASC, MONTH(created_at) ASC,DAY(created_at) ASC, daymonthyear'))
-    ->take(5)
-    ->pluck('daymonthyear')
+    ->where( 'created_at', '>=', DB::raw( 'LAST_DAY(CURRENT_DATE) + INTERVAL 1 DAY - INTERVAL 1 MONTH',
+      'AND', 'created_at',  '<', ' LAST_DAY(CURRENT_DATE) + INTERVAL 1 DAY'))
+      ->pluck('daymonthyear')
     ->toArray();
 
 
@@ -147,12 +152,11 @@ class StatisticsController extends Controller{
     $EarningsPerDayResult = DB::table('orders')
     ->select(DB::raw('SUM(amount) as total_expense, MONTH(created_at) as month, YEAR(created_at) as year,DAY(created_at) as day'))
     ->groupBy(DB::raw('YEAR(created_at) ASC, MONTH(created_at) ASC,DAY(created_at) ASC'))
-    ->take(5)
+    ->where( 'created_at', '>=', DB::raw( 'LAST_DAY(CURRENT_DATE) + INTERVAL 1 DAY - INTERVAL 1 MONTH',
+      'AND', 'created_at',  '<', ' LAST_DAY(CURRENT_DATE) + INTERVAL 1 DAY'))
     ->pluck('total_expense', 'day')
     ->toArray();
 
-$reverseDay= array_reverse($EarningsPerDay, true);
-$reverseResult= array_reverse($EarningsPerDayResult, true);
 
 
 //    Payement::groupBy(DB::raw('MONTH(created_at)'))->get();
@@ -261,7 +265,7 @@ var_dump($seats);
 			  //  ->values($productsStocks)
 			    ->dimensions(1000,500)
 			    ->responsive(true)
-          ->lastByDay();
+          ->lastByDay(30);
 
           //$Ads=$Ads->where('created_at','>',Carbon::now()->subDays(30));
 //$activeAdsIds=$Ads->pluck('id');
@@ -269,7 +273,7 @@ var_dump($seats);
 
 //groupBy(required string $column, optional string $relationColumn, optional array $labelsMapping)
 
-//Omzet
+//Omzet per maand in de huidige jaar
     $line_chart2 = Charts::create('bar', 'highcharts')
           ->title('Overall turnover per month')
           ->elementLabel('€ ')
@@ -285,14 +289,13 @@ var_dump($seats);
           ->dimensions(1000,500)
           ->responsive(true);
 
-          $line_chart3 = Charts::create('bar', 'highcharts')
-                ->title('Overall turnover per month')
-                ->elementLabel('€ ')
-                ->labels($reverseDay)
-                ->colors(['#FF6633', '#FF2699', '#FF33FF', '#FFFF99', '#00B3E6',
-            '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
-            '#80B300', '#809900'])
-                ->values($reverseResult)
+//omzet per dag in de huidige maand
+          $line_chart3 = Charts::create('area', 'c3')
+                ->title('Turnover per day')
+                ->elementLabel('Overall turnover € ')
+                ->labels($EarningsPerDay)
+                ->colors(['#809900'])
+                ->values($EarningsPerDayResult)
 
             //    ->labels($productsArrayo)
 
