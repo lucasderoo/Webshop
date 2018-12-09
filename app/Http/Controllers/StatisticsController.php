@@ -318,7 +318,7 @@ var_dump($seats);
 //Omzet per maand in de huidige jaar
     $line_chart2 = Charts::create('bar', 'highcharts')
           ->title('Overall turnover per month')
-          ->elementLabel('€ ')
+          ->elementLabel('Overall turnover € ')
           ->labels($EarningsPerMonthAndYear)
           ->colors(['#FF6633', '#FF2699', '#FF33FF', '#FFFF99', '#00B3E6',
 		  '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
