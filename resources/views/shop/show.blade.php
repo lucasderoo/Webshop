@@ -38,7 +38,11 @@ height: 25px;
 	float: left;
 	background-color: #00ACED;
 }
-.buy-now{
+.add-to-favourites{
+	float:left;
+	background-color: #00ACED;
+}
+.favourites-now{
 	float: right;
 	background-color: #FF9900;
 }
@@ -118,9 +122,13 @@ h5{
                                 <form role="form" method="POST" action="{{ route('cart/create', ['slug' => $product->slug]) }}">
                                     {{ csrf_field() }}
                 				    <button class="add-to-cart btn" type="submit">Add to Cart</button>
-                                </form>
-                				<button class="buy-now btn">Buy Now</button>
+													</form>
                 			</div>
+											<div class="buy-buttons">
+												<form class="form" method="POST" action="{{route('favourites/create', ['slug' => $product->slug]) }}">
+													<button class="favourites-now btn" type="submit">Add to favourites</button>
+												</form>
+											</div>
                 		</div>
                 	</div>
                 </div>

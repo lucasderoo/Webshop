@@ -66,7 +66,7 @@ body{
       <div class="card-deck justify-content-center" >
         <div class="card" style="width:100%">
           {{-- <a href="{{route('products')}}"> --}}
-            <img class="card-img-top" src="images/banner-nieuwste-albums.png"/ alt="Card image cap">
+            <img class="card-img-top" src="images/banner-aanrader.png"/ alt="Card image cap">
           {{-- </a> --}}
         </div>
         <div class="card" style="width: 100%">

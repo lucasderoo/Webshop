@@ -15,16 +15,16 @@
 
 
 <nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background-color: #2570e8;">
-  <a class="navbar-brand" href="#">LOGO HERE</a>
+  <a class="navbar-brand" href="{{ route('login') }}">LOGO HERE</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link text-light" href="{{ route('login') }}">Home</a>
-      </li>
+      </li> --}}
       <li class="nav-item">
         <a class="nav-link text-light" href="{{ route('products') }}">Products</a>
       </li>
@@ -41,9 +41,14 @@
             <a class="nav-link text-light" href="{{ route('admin') }}">Admin</a>
           </li>
         @else
+          @if(Auth::user()->user_account_type < 3)
           <li class="nav-item">
             <a class="nav-link text-light" href="{{ route('account') }}">Account</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="{{route('favourites')}}">Favourites</a>
+          </li>
+          @endif
         @endif
         <li class="nav-item">
             <a class="nav-link text-light" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
