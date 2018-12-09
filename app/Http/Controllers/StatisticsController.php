@@ -175,8 +175,24 @@ class StatisticsController extends Controller{
     ->groupBy('stocks.amount', 'products.title')
     ->orderBy('products.title', 'asc')
     ->pluck('stocks.amount')->toArray();
-//    Payement::groupBy(DB::raw('MONTH(created_at)'))->get();
 
+
+    $CategoryPerMonthDate =DB::table('products')
+    ->join('categories', 'products.category_id', '=' ,'categories.id')
+    ->join('order_products', 'products.id', '=', 'order_products.product_id')
+    ->select(DB::raw('SUM(order_products.quantity) as total'), 'categories.name')
+    ->groupBy('categories.name')
+    ->pluck('total')
+   ->toArray();
+
+    $CategoryPerMonthName= DB::table('products')
+    ->join('categories', 'products.category_id', '=' ,'categories.id')
+    ->join('order_products', 'products.id', '=', 'order_products.product_id')
+    ->select(DB::raw('SUM(order_products.quantity) as total'), 'categories.name')
+    ->groupBy('categories.name')
+    ->pluck('categories.name')
+    ->toArray();
+//    Payement::groupBy(DB::raw('MONTH(created_at)'))->get();
     /*
 Setup to get the charts.
 1. in your cmd composer require Consoletvs/charts:5.0
@@ -252,7 +268,7 @@ var_dump($seats);
 				->responsive(true);*/
 
 
-//the stock categorized by genre in a pie chart
+//the stock categorized by category in a pie chart
         $pie_chart = Charts::create('pie', 'highcharts')
             ->title('The stock')
             ->labels($GenreName)
@@ -262,18 +278,28 @@ var_dump($seats);
 
 
 //the top 5 sold products
-        $pie_chart2 = Charts::create('pie', 'highcharts')
+      /*  $pie_chart2 = Charts::create('pie', 'highcharts')
             ->title('The top 5 sold products')
             ->labels( $SoldName)
             ->values($Sold)
             ->dimensions(600,500)
-            ->responsive(false);
+            ->responsive(false);*/
+
+
+            $pie_chart2 = Charts::create('pie', 'highcharts')
+                ->title('The sold products categorized by category')
+                ->labels($CategoryPerMonthName)
+                ->values($CategoryPerMonthDate)
+                ->dimensions(600,500)
+                ->responsive(false);
+            //
+
 
 
 
 //Orders  in the last 7 days
 		$line_chart = Charts::database(order::all(),'line', 'highcharts')
-			    ->title('Orders in the last 7 days')
+			    ->title('Orders in the last 30 days')
 			    ->elementLabel('Orders')
 
       //    ->labels($productsArrayo)
