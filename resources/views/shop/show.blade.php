@@ -31,14 +31,18 @@ height: 25px;
 }
 .buy-buttons button{
 	color: white;
-	width: 40%;
+	width: 50%;
 	height: 50px;
 }
 .add-to-cart{
 	float: left;
 	background-color: #00ACED;
 }
-.buy-now{
+.add-to-favourites{
+	float:left;
+	background-color: #00ACED;
+}
+.favourites-now{
 	float: right;
 	background-color: #FF9900;
 }
@@ -51,8 +55,8 @@ height: 25px;
 	height: 50px;
 }
 .Big_image{
-width: 400px;
-height: 400px;
+width: 100%;
+height: auto;
 
 }
 .normal_sized_p{
@@ -95,11 +99,8 @@ h5{
         <div class="col-md-8 offset-md-2">
         @include('layouts.feedback')
             <div class="row top-row">
-                <div class="col-md-8">
+                <div class="col-md-12">
                 	<p>Home > {{$product->category->name}} > {{$product->productable->artist}} - {{$product->title}}</p>
-                </div>
-                <div class="col-md-4">
-                	<h5>{{$product->productable->artist}} - {{$product->title}}</h5>
                 </div>
             </div>
             <div class="row">
@@ -115,17 +116,26 @@ h5{
                 	<div class="main-image-buy-btn">
                 		<div class="main-image-buy-btn-wrapper">
                 			<img id="big_image" class="Big_image" src="{{asset('images/uploads/products/product_').$product->id.'/img_'.$product->main_image_url.'.png'}}">
+										</div>
+										<div class="col-md-12">
                 			<div class="buy-buttons">
                                 <form role="form" method="POST" action="{{ route('cart/create', ['slug' => $product->slug]) }}">
                                     {{ csrf_field() }}
                 				    <button class="add-to-cart btn" type="submit">Add to Cart</button>
-                                </form>
-                				<button class="buy-now btn">Buy Now</button>
+													</form>
                 			</div>
+											<div class="buy-buttons">
+												<form class="form" method="POST" action="{{route('favourites/create', ['slug' => $product->slug]) }}">
+																		{{ csrf_field() }}
+													<button class="favourites-now btn" type="submit">Add to favourites</button>
+												</form>
+											</div>
                 		</div>
                 	</div>
                 </div>
+
                 <div class="col-md-4">
+									<h5>{{$product->productable->artist}} - {{$product->title}}</h5>
         			<b> €{{$product->price}}</b>
         			<hr>
                 	<h5>Product description</h5>

@@ -158,5 +158,16 @@ Route::group([
 	Route::get('/statistics', 'StatisticsController@index')->name('admin/stats');
 });
 
+Route::group([
+	'prefix' => '/favourites',
+	'middleware' => 'Customer'
+], function(){
+	Route::get('', 'FavouritesController@index')->name('favourites');
+	Route::post('/add/{slug}', 'FavouritesController@store')->name('favourites/create');
+	Route::post('/update/{id}', 'FavouritesController@update')->name('favourites/update');
+	Route::post('/delete/{id}', 'FavouritesController@destroy')->name('favourites/delete');
+	Route::post('/saveforlater/{slug}', 'FavouritesController@save_for_later')->name('favourites/saveForLater');
+});
+
 
 Auth::routes();

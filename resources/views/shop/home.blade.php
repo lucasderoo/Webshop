@@ -63,21 +63,16 @@ body{
         </div>
       </div>
       <br>
-      <div class="row justify-content-center">
-        <div class ="two-small-banners col-12 offset-md">
-          <div class="row">
-            <div class="col-md-4" style="margin-right: 25px;">
-                <a href="{{ route('products') }}">
-                <img src="images/banner-nieuwste-albums.png" height="110" width="325"/>
-                </a>
-            </div>
-            <div class="col-md-4"  style="margin-left: 25px;">
-                <a href="{{ route('customer_service') }}">
-                  <img src="images/banner-contact.png"/>
-                </a>
-
-            </div>
-          </div>
+      <div class="card-deck justify-content-center" >
+        <div class="card" style="width:100%">
+          {{-- <a href="{{route('products')}}"> --}}
+            <img class="card-img-top" src="images/banner-aanrader.png"/ alt="Card image cap">
+          {{-- </a> --}}
+        </div>
+        <div class="card" style="width: 100%">
+          {{-- <a href="{{route('customer_service')}}" --}}
+            <img class="card-img-top" src="images/banner-contact.png"/ alt="Card image cap">
+          {{-- </a> --}}
         </div>
       </div>
       @foreach($sections as $section)
@@ -105,7 +100,17 @@ body{
       </div>
     <br>
     @endforeach
-    <div class="row justify-content-cente">
+    <div class="card-deck justify-content-center" >
+      <div class="card" style="width:100%">
+        <a href="https://www.youtube.com/watch?v=YT516h7QwA4">
+          <img class="card-img-top" src="images/banner-aanrader.png" alt="Card image cap">
+        </a>
+      </div>
+      <div class="card" style="width: 100%">
+        <img class="card-img-top" src="images/banner-info-album.png"/ alt="Card image cap">
+      </div>
+    </div>
+    {{-- <div class="row justify-content-center">
       <div class ="two-small-banners col-12 offset-md-2">
         <div class="row">
           <div class="col-md-4" style=" margin-right: 25px;">
@@ -120,7 +125,7 @@ body{
           </div>
         </div>
       </div>
-    </div>
+    </div> --}}
     <div class="row">
       <!-- <div class="container" style="margin-top:40px; background-color:#deecee;">
           <h5> Niet jouw smaak? </h5> <h6>Kies hier je genre dan maar!</h6>
