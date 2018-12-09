@@ -11,6 +11,14 @@ class MusicProduct extends Model
     //
     use Searchable;
 
+    protected $fillable = [ 
+        'release_date',
+        'description',
+        'artist',
+        'genre',
+        'carrier_id'
+    ];
+
     public $timestamps = false;
 	protected $table = 'music_products';
 

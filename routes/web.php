@@ -81,6 +81,8 @@ Route::group([
 	'middleware' => 'Manager'
 ], function(){
 	Route::get('', 'ProductController@index')->name('admin/products');
+	Route::get('/create_bulk', 'ProductController@create_bulk')->name('admin/products/create_bulk');
+	Route::post('/create_bulk', 'ProductController@store_bulk');
 	Route::get('/create', 'ProductController@create')->name('admin/products/create');
 	Route::post('/create', 'ProductController@store');
 	Route::get('/edit/{id}', 'ProductController@edit')->name('admin/products/edit');
