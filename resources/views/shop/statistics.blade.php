@@ -73,6 +73,17 @@
            <br/><br/>
 
 
+           <br></br>
+            <div class="col-md-6">
+             {!! $line_chart2->html() !!}
+            </div>
+
+            <br></br>
+             <div class="col-md-6">
+        <!--      {!! $line_chart3->html() !!} -->
+             </div>
+
+
 
 
 
@@ -91,6 +102,8 @@
 
              {!! $line_chart->script() !!}
 
+             {!! $line_chart2->script() !!}
+             {!! $line_chart3->script() !!}
 
 
 

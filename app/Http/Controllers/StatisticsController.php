@@ -17,6 +17,9 @@ use App\Order;
 
 use ConsoleTVs\Charts\Facades\Charts;
 
+
+use Carbon\Carbon;
+
 use Session;
 use Countable;
 
@@ -118,8 +121,43 @@ class StatisticsController extends Controller{
 
 
 
+    $EarningsPerMonthAndYear = DB::table('orders')
+    ->select(DB::raw('SUM(amount) as total_expense'), DB::raw("CONCAT_WS('-',MONTH(created_at),YEAR(created_at)) as monthyear"))
+    ->groupBy(DB::raw('YEAR(created_at) ASC, MONTH(created_at) ASC, monthyear'))
+  //  ->orderByRaw('')
+    ->pluck('monthyear')
+   ->toArray();
 
-/*
+    $EarningsResult= DB::table('orders')
+    ->select(DB::raw('SUM(amount) as total_expense, MONTH(created_at) as month, YEAR(created_at) as year'))
+    ->groupBy(DB::raw('YEAR(created_at) ASC, MONTH(created_at) ASC'))
+    ->pluck('total_expense','month')
+    ->toArray();
+
+
+    $EarningsPerDay = DB::table('orders')
+    ->select(DB::raw('SUM(amount) as total_expense'), DB::raw("CONCAT_WS('-',DAY(created_at),MONTH(created_at),YEAR(created_at)) as daymonthyear"))
+    ->groupBy(DB::raw('YEAR(created_at) ASC, MONTH(created_at) ASC,DAY(created_at) ASC, daymonthyear'))
+    ->take(5)
+    ->pluck('daymonthyear')
+    ->toArray();
+
+
+
+    $EarningsPerDayResult = DB::table('orders')
+    ->select(DB::raw('SUM(amount) as total_expense, MONTH(created_at) as month, YEAR(created_at) as year,DAY(created_at) as day'))
+    ->groupBy(DB::raw('YEAR(created_at) ASC, MONTH(created_at) ASC,DAY(created_at) ASC'))
+    ->take(5)
+    ->pluck('total_expense', 'day')
+    ->toArray();
+
+$reverseDay= array_reverse($EarningsPerDay, true);
+$reverseResult= array_reverse($EarningsPerDayResult, true);
+
+
+//    Payement::groupBy(DB::raw('MONTH(created_at)'))->get();
+
+    /*
 Setup to get the charts.
 1. in your cmd composer require Consoletvs/charts:5.0
 2. Check if this is in your config/app.php
@@ -206,17 +244,17 @@ var_dump($seats);
 //the top 5 sold products
         $pie_chart2 = Charts::create('pie', 'highcharts')
             ->title('The top 5 sold products')
-            ->labels($SoldName)
+            ->labels( $SoldName)
             ->values($Sold)
             ->dimensions(600,500)
             ->responsive(false);
 
 
 
-//Products sold in the last 7 days
+//Orders  in the last 7 days
 		$line_chart = Charts::database(order::all(),'line', 'highcharts')
-			    ->title('Products sold in the last 7 days')
-			    ->elementLabel('Products sold')
+			    ->title('Orders in the last 7 days')
+			    ->elementLabel('Orders')
 
       //    ->labels($productsArrayo)
 
@@ -224,6 +262,43 @@ var_dump($seats);
 			    ->dimensions(1000,500)
 			    ->responsive(true)
           ->lastByDay();
+
+          //$Ads=$Ads->where('created_at','>',Carbon::now()->subDays(30));
+//$activeAdsIds=$Ads->pluck('id');
+
+
+//groupBy(required string $column, optional string $relationColumn, optional array $labelsMapping)
+
+//Omzet
+    $line_chart2 = Charts::create('bar', 'highcharts')
+          ->title('Overall turnover per month')
+          ->elementLabel('€ ')
+          ->labels($EarningsPerMonthAndYear)
+          ->colors(['#FF6633', '#FF2699', '#FF33FF', '#FFFF99', '#00B3E6',
+		  '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
+		  '#80B300', '#809900'])
+          ->values($EarningsResult)
+
+      //    ->labels($productsArrayo)
+
+        //  ->values($productsStocks)
+          ->dimensions(1000,500)
+          ->responsive(true);
+
+          $line_chart3 = Charts::create('bar', 'highcharts')
+                ->title('Overall turnover per month')
+                ->elementLabel('€ ')
+                ->labels($reverseDay)
+                ->colors(['#FF6633', '#FF2699', '#FF33FF', '#FFFF99', '#00B3E6',
+            '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
+            '#80B300', '#809900'])
+                ->values($reverseResult)
+
+            //    ->labels($productsArrayo)
+
+              //  ->values($productsStocks)
+                ->dimensions(1000,500)
+                ->responsive(true);
 
 /*	$areaspline_chart = Charts::multi('areaspline', 'highcharts')
 				    ->title('Areaspline Chart Demo')
@@ -261,6 +336,8 @@ var_dump($seats);
     return view('shop.statistics', compact('users','customers','admins','managers','products','stock',
     'pie_chart', 'line_chart', 'percentage_chart',
      'geo_chart', 'donut_chart',
+     'line_chart2',    'line_chart3',
+
    'productsPrice','productsArray','productsStocks', 'chart',
     'pie_chart2'));
   }
