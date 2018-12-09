@@ -42,6 +42,17 @@
               <td>{{$stock}}</td>
         </tr>
 
+        @for($i=0, $count = count($Lessthan50Name);$i<$count;$i++)
+
+
+
+  <tr bgcolor="red">
+    <td>Less than 50 in the inventory</td>
+    <td>{{$Lessthan50Name[$i]}}</td> <td>{{$Lessthan50[$i]}}</td>
+      </tr>
+
+  @endfor
+
 
 
 
@@ -80,7 +91,7 @@
 
             <br></br>
              <div class="col-md-6">
-              {!! $line_chart3->html() !!} 
+              {!! $line_chart3->html() !!}
              </div>
 
 

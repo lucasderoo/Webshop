@@ -159,6 +159,22 @@ class StatisticsController extends Controller{
 
 
 
+
+    $Lessthan50Name = DB::table('stocks')
+    ->join('products', 'stocks.product_id', '=' ,'products.id')
+    ->select('stocks.amount' ,'products.title')
+    ->where('stocks.amount' , '<=', '50')
+    ->groupBy('stocks.amount', 'products.title')
+    ->orderBy('products.title', 'asc')
+    ->pluck('products.title')->toArray();
+
+    $Lessthan50 = DB::table('stocks')
+    ->join('products', 'stocks.product_id', '=' ,'products.id')
+    ->select('stocks.amount' ,'products.title')
+    ->where('stocks.amount' , '<=', '50')
+    ->groupBy('stocks.amount', 'products.title')
+    ->orderBy('products.title', 'asc')
+    ->pluck('stocks.amount')->toArray();
 //    Payement::groupBy(DB::raw('MONTH(created_at)'))->get();
 
     /*
@@ -340,7 +356,7 @@ var_dump($seats);
     'pie_chart', 'line_chart', 'percentage_chart',
      'geo_chart', 'donut_chart',
      'line_chart2',    'line_chart3',
-
+     'Lessthan50','Lessthan50Name',
    'productsPrice','productsArray','productsStocks', 'chart',
     'pie_chart2'));
   }
