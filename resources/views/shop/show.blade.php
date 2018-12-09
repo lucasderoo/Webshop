@@ -126,6 +126,7 @@ h5{
                 			</div>
 											<div class="buy-buttons">
 												<form class="form" method="POST" action="{{route('favourites/create', ['slug' => $product->slug]) }}">
+																		{{ csrf_field() }}
 													<button class="favourites-now btn" type="submit">Add to favourites</button>
 												</form>
 											</div>

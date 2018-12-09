@@ -38,7 +38,7 @@
 	left: 2%;
 }
 
-.favourites-product-delete{
+.favourites-product-btns{
     float: right !important;
 }
 
@@ -51,7 +51,7 @@
         <div class="col-md-8 offset-md-2 products-index">
         @include('layouts.feedback')
             <div class="admin-top">
-                <h3>Favourites ({{ $productsCount }} product{{ $productsCount > 1 ? 's' : '' }})</h3>
+                <h3>Favourites</h3>
             </div>
             <hr>
             <div class="row">
@@ -71,19 +71,24 @@
                                 {{ csrf_field() }}
                                 <div class="favourites-product-price">
                                     <!-- <input type="number" class="quantity-input" name="quantity" value="{{ $product->quantity }}"> -->
-                                    <select name="quantity" onchange="this.form.submit()">
+                                    {{-- <select name="quantity" onchange="this.form.submit()">
                                     {{ $max = $product->quantity > 3 ? $product->quantity+3 : $product->quantity+4+3-$product->quantity}}
                                     @for ($i = $product->quantity > 3 ? $product->quantity-3 : 1; $i <= $max; $i++)
                                         <option value="{{ $i }}" @if($i == $product->quantity) selected @endif>{{ $i }}</option>
                                     @endfor
-                                    </select>
+                                    </select> --}}
+                                    <br>
                                     <p>€ {{ $product->product->price }}</p>
                                 </div>
                                 </form>
                                 <form action="{{ route('favourites/delete', ['id' => $product->id]) }}" method="POST">
                                 {{ csrf_field() }}
-                                <div class="favourites-product-delete">
+                                <div class="favourites-product-btns">
                                     <button type="submit" class="btn btn-small btn-danger">Remove</button>
+                                    <form role="form" method="POST" action="{{ route('cart/create', ['slug' => $product->slug]) }}">
+                                        {{ csrf_field() }}
+                                <button class="add-to-cart btn" type="submit">Add to Cart</button>
+                              </form>
                                 </div>
                                 </form>
                             </div>

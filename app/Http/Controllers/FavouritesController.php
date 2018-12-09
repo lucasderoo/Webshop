@@ -35,11 +35,11 @@ class FavouritesController extends Controller
 
     	$product = Product::where('slug', $slug)->first();
      	$user = Auth::user();
-
-     	if($product->stock->amount < 1){
-     		Session::flash('feedback_error', 'Product is out of stock!');
-     		return redirect()->back();
-     	}
+      //
+     	// if($product->stock->amount < 1){
+     	// 	Session::flash('feedback_error', 'Product is out of stock!');
+     	// 	return redirect()->back();
+     	// }
 
      	if(empty($user->favourites)){
      		$favourites = Favourites::create();
