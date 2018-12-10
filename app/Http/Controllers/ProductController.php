@@ -253,7 +253,7 @@ class ProductController extends Controller
 
     public function store_bulk(request $request){
         request()->validate([
-            'file' => 'required|mimes:csv'
+            'file' => 'required|mimes:csv,txt'
         ]);
         $path = request()->file('file')->getRealPath();
         // $file = file($path);
