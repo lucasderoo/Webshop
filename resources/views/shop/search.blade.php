@@ -34,7 +34,7 @@
 <script>
 $('.product-img').each(function(){
     jQuery(this)[0].onerror = function() {
-        jQuery(this)[0].src = "/images/stock_image.png";
+        jQuery(this)[0].src = "{{ asset('images/stock_image.png') }}";
     }
 });
 </script>
