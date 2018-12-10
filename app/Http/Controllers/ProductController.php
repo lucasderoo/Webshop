@@ -286,7 +286,7 @@ class ProductController extends Controller
 
             $product->stock()->save($stock);
         }
-
+        Session::flash('feedback_success', 'products added!');
         return redirect("admin/products");
 
     }
