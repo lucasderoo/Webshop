@@ -15,7 +15,7 @@ class CreateOrderProductsTable extends Migration
     {
         Schema::create('order_products', function (Blueprint $table) {
             $table->increments('id');
-            $table->smallinteger('quantity');
+            $table->smallinteger('quantity')->default('1');;
             $table->integer('product_id')->default('0');
             $table->foreign('product_id')->references('id')->on('products');
             $table->integer('order_id')->default('0');

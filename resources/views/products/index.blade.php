@@ -20,6 +20,7 @@
             <div class="admin-top">
                 <h3>Products</h3>
                 <a class="btn btn-small btn-success" href="{{ URL::to('admin/products/create') }}">Create</a>
+                <a class="btn btn-small btn-primary" href="{{ URL::to('admin/products/create_bulk') }}" style="margin-right: 10px;">Create Bulk</a>
             </div>
             <hr>
             <table class="table table-striped table-bordered">

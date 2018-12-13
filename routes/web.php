@@ -15,7 +15,7 @@
 /* HOME ROUTE */
 
 Route::get('/', 'ShopController@index');
-Route::get('/home', 'ShopController@index')->name('show');
+Route::get('/home', 'ShopController@index')->name('home');
 Route::get('/search', 'ShopController@search')->name('search');
 
 Route::get('/product/{slug}', 'ShopController@show')->name('show');
@@ -38,7 +38,6 @@ Route::get('/unauthorized', 'HomeController@unauthorized');
 
 Route::group([
 	'prefix' => '/cart',
-	'middleware' => 'Customer'
 ], function(){
 	Route::get('', 'CartController@index')->name('cart');
 	Route::post('/add/{slug}', 'CartController@store')->name('cart/create');
@@ -49,12 +48,12 @@ Route::group([
 
 Route::group([
 	'prefix' => '/checkout',
-	'middleware' => 'Customer'
 ], function(){
-	Route::get('/delivery_address', 'CheckoutController@delivery_address_create')->name('checkout/delivery_address');
-	Route::post('/delivery_address', 'CheckoutController@delivery_address_store');
-	route::get('/thank_you', 'CheckoutController@thank_you_create')->name('checkout/thank_you');
-	Route::get('/confirmation', 'CheckoutController@confirmation_create')->name('checkout/confirmation');
+	Route::get('', 'CheckoutController@checkout')->name('checkout');
+	Route::post('', 'CheckoutController@checkout_store');
+	Route::get('/confirm', 'CheckoutController@confirm')->name('checkout/confirm');;
+	Route::post('/confirm', 'CheckoutController@confirm_store');
+	route::get('/thank_you/{id}', 'CheckoutController@thank_you')->name('checkout/thank_you');
 });
 
 Route::group([
@@ -82,6 +81,8 @@ Route::group([
 	'middleware' => 'Manager'
 ], function(){
 	Route::get('', 'ProductController@index')->name('admin/products');
+	Route::get('/create_bulk', 'ProductController@create_bulk')->name('admin/products/create_bulk');
+	Route::post('/create_bulk', 'ProductController@store_bulk');
 	Route::get('/create', 'ProductController@create')->name('admin/products/create');
 	Route::post('/create', 'ProductController@store');
 	Route::get('/edit/{id}', 'ProductController@edit')->name('admin/products/edit');

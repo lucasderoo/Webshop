@@ -243,4 +243,51 @@ class ProductController extends Controller
     	return redirect('admin/products');
     }
 
+
+
+
+    public function create_bulk(){
+        return view('products.bulk_create')->with(compact('records'));
+
+    }
+
+    public function store_bulk(request $request){
+        request()->validate([
+            'file' => 'required|mimes:csv,txt'
+        ]);
+        $path = request()->file('file')->getRealPath();
+        // $file = file($path);
+
+        $fileHandle = fopen($path, "r");
+ 
+        while (($row = fgetcsv($fileHandle, 0, ",")) !== FALSE) {
+            $musicProduct = MusicProduct::Create([
+                'release_date' => $row[3],
+                'description' => $row[4],
+                'artist' => $row[5],
+                'genre' => $row[6],
+                'carrier_id' => $row[7]
+            ]);
+            $musicProduct->save();
+
+            $product = new Product();
+            $product->title = $row[0];
+            $product->price = $row[1];
+            $product->category_id = $row[2];
+            $product->productable_id = $musicProduct->id;
+            $product->productable_type = "App\MusicProduct";
+            $product->updated_at;
+            $product->created_at;
+
+            $product->save();
+
+            $stock = new Stock();
+            $stock->amount = $row[8];
+
+            $product->stock()->save($stock);
+        }
+
+        return redirect("admin/products");
+
+    }
 }

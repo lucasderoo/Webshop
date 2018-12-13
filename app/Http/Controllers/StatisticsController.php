@@ -17,6 +17,9 @@ use App\Order;
 
 use ConsoleTVs\Charts\Facades\Charts;
 
+
+use Carbon\Carbon;
+
 use Session;
 use Countable;
 
@@ -118,8 +121,79 @@ class StatisticsController extends Controller{
 
 
 
+    $EarningsPerMonthAndYear = DB::table('orders')
+    ->select(DB::raw('SUM(amount) as total_expense'), DB::raw("CONCAT_WS('-',MONTH(created_at),YEAR(created_at)) as monthyear"))
+    ->groupBy(DB::raw('YEAR(created_at) ASC, MONTH(created_at) ASC, monthyear'))
+    ->where( 'created_at', '>=', DB::raw( 'LAST_DAY(CURRENT_DATE) + INTERVAL 1 DAY - INTERVAL 1 YEAR',
+      'AND', 'created_at',  '<', ' LAST_DAY(CURRENT_DATE) + INTERVAL 1 DAY'))
+  //  ->orderByRaw('')
+    ->pluck('monthyear')
+   ->toArray();
 
-/*
+    $EarningsResult= DB::table('orders')
+    ->select(DB::raw('SUM(amount) as total_expense, MONTH(created_at) as month, YEAR(created_at) as year'))
+    ->groupBy(DB::raw('YEAR(created_at) ASC, MONTH(created_at) ASC'))
+    ->where( 'created_at', '>=', DB::raw( 'LAST_DAY(CURRENT_DATE) + INTERVAL 1 DAY - INTERVAL 1 YEAR',
+      'AND', 'created_at',  '<', ' LAST_DAY(CURRENT_DATE) + INTERVAL 1 DAY'))
+    ->pluck('total_expense','month')
+    ->toArray();
+
+
+    $EarningsPerDay = DB::table('orders')
+    ->select(DB::raw('SUM(amount) as total_expense'), DB::raw("CONCAT_WS('-',DAY(created_at),MONTH(created_at),YEAR(created_at)) as daymonthyear"))
+    ->groupBy(DB::raw('YEAR(created_at) ASC, MONTH(created_at) ASC,DAY(created_at) ASC, daymonthyear'))
+    ->where( 'created_at', '>=', DB::raw( 'LAST_DAY(CURRENT_DATE) + INTERVAL 1 DAY - INTERVAL 1 MONTH',
+      'AND', 'created_at',  '<', ' LAST_DAY(CURRENT_DATE) + INTERVAL 1 DAY'))
+      ->pluck('daymonthyear')
+    ->toArray();
+
+
+
+    $EarningsPerDayResult = DB::table('orders')
+    ->select(DB::raw('SUM(amount) as total_expense, MONTH(created_at) as month, YEAR(created_at) as year,DAY(created_at) as day'))
+    ->groupBy(DB::raw('YEAR(created_at) ASC, MONTH(created_at) ASC,DAY(created_at) ASC'))
+    ->where( 'created_at', '>=', DB::raw( 'LAST_DAY(CURRENT_DATE) + INTERVAL 1 DAY - INTERVAL 1 MONTH',
+      'AND', 'created_at',  '<', ' LAST_DAY(CURRENT_DATE) + INTERVAL 1 DAY'))
+    ->pluck('total_expense', 'day')
+    ->toArray();
+
+
+
+
+    $Lessthan50Name = DB::table('stocks')
+    ->join('products', 'stocks.product_id', '=' ,'products.id')
+    ->select('stocks.amount' ,'products.title')
+    ->where('stocks.amount' , '<=', '50')
+    ->groupBy('stocks.amount', 'products.title')
+    ->orderBy('products.title', 'asc')
+    ->pluck('products.title')->toArray();
+
+    $Lessthan50 = DB::table('stocks')
+    ->join('products', 'stocks.product_id', '=' ,'products.id')
+    ->select('stocks.amount' ,'products.title')
+    ->where('stocks.amount' , '<=', '50')
+    ->groupBy('stocks.amount', 'products.title')
+    ->orderBy('products.title', 'asc')
+    ->pluck('stocks.amount')->toArray();
+
+
+    $CategoryPerMonthDate =DB::table('products')
+    ->join('categories', 'products.category_id', '=' ,'categories.id')
+    ->join('order_products', 'products.id', '=', 'order_products.product_id')
+    ->select(DB::raw('SUM(order_products.quantity) as total'), 'categories.name')
+    ->groupBy('categories.name')
+    ->pluck('total')
+   ->toArray();
+
+    $CategoryPerMonthName= DB::table('products')
+    ->join('categories', 'products.category_id', '=' ,'categories.id')
+    ->join('order_products', 'products.id', '=', 'order_products.product_id')
+    ->select(DB::raw('SUM(order_products.quantity) as total'), 'categories.name')
+    ->groupBy('categories.name')
+    ->pluck('categories.name')
+    ->toArray();
+//    Payement::groupBy(DB::raw('MONTH(created_at)'))->get();
+    /*
 Setup to get the charts.
 1. in your cmd composer require Consoletvs/charts:5.0
 2. Check if this is in your config/app.php
@@ -194,7 +268,7 @@ var_dump($seats);
 				->responsive(true);*/
 
 
-//the stock categorized by genre in a pie chart
+//the stock categorized by category in a pie chart
         $pie_chart = Charts::create('pie', 'highcharts')
             ->title('The stock')
             ->labels($GenreName)
@@ -204,26 +278,72 @@ var_dump($seats);
 
 
 //the top 5 sold products
-        $pie_chart2 = Charts::create('pie', 'highcharts')
+      /*  $pie_chart2 = Charts::create('pie', 'highcharts')
             ->title('The top 5 sold products')
-            ->labels($SoldName)
+            ->labels( $SoldName)
             ->values($Sold)
             ->dimensions(600,500)
-            ->responsive(false);
+            ->responsive(false);*/
+
+
+            $pie_chart2 = Charts::create('pie', 'highcharts')
+                ->title('The sold products categorized by category')
+                ->labels($CategoryPerMonthName)
+                ->values($CategoryPerMonthDate)
+                ->dimensions(600,500)
+                ->responsive(false);
+            //
 
 
 
-//Products sold in the last 7 days
+
+//Orders  in the last 7 days
 		$line_chart = Charts::database(order::all(),'line', 'highcharts')
-			    ->title('Products sold in the last 7 days')
-			    ->elementLabel('Products sold')
+			    ->title('Orders in the last 30 days')
+			    ->elementLabel('Orders')
 
       //    ->labels($productsArrayo)
 
 			  //  ->values($productsStocks)
 			    ->dimensions(1000,500)
 			    ->responsive(true)
-          ->lastByDay();
+          ->lastByDay(30);
+
+          //$Ads=$Ads->where('created_at','>',Carbon::now()->subDays(30));
+//$activeAdsIds=$Ads->pluck('id');
+
+
+//groupBy(required string $column, optional string $relationColumn, optional array $labelsMapping)
+
+//Omzet per maand in de huidige jaar
+    $line_chart2 = Charts::create('bar', 'highcharts')
+          ->title('Overall turnover per month')
+          ->elementLabel('Overall turnover € ')
+          ->labels($EarningsPerMonthAndYear)
+          ->colors(['#FF6633', '#FF2699', '#FF33FF', '#FFFF99', '#00B3E6',
+		  '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
+		  '#80B300', '#809900'])
+          ->values($EarningsResult)
+
+      //    ->labels($productsArrayo)
+
+        //  ->values($productsStocks)
+          ->dimensions(1000,500)
+          ->responsive(true);
+
+//omzet per dag in de huidige maand
+          $line_chart3 = Charts::create('area', 'c3')
+                ->title('Turnover per day')
+                ->elementLabel('Overall turnover € ')
+                ->labels($EarningsPerDay)
+                ->colors(['#809900'])
+                ->values($EarningsPerDayResult)
+
+            //    ->labels($productsArrayo)
+
+              //  ->values($productsStocks)
+                ->dimensions(1000,500)
+                ->responsive(true);
 
 /*	$areaspline_chart = Charts::multi('areaspline', 'highcharts')
 				    ->title('Areaspline Chart Demo')
@@ -261,6 +381,8 @@ var_dump($seats);
     return view('shop.statistics', compact('users','customers','admins','managers','products','stock',
     'pie_chart', 'line_chart', 'percentage_chart',
      'geo_chart', 'donut_chart',
+     'line_chart2',    'line_chart3',
+     'Lessthan50','Lessthan50Name',
    'productsPrice','productsArray','productsStocks', 'chart',
     'pie_chart2'));
   }
