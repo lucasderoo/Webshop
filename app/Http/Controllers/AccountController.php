@@ -80,6 +80,13 @@ class AccountController extends Controller
     	return view('account.orders')->with(compact('user'));
     }
 
+    public function show_order($id){
+    	$user = Auth::user();
+    	$order = Order::where('user_id', $user->id)->where('id', $id)->first();
+
+    	return view('account.order')->with(compact('order', 'user'));
+    }
+
     public function adresses(){
     	$user = Auth::user();
 

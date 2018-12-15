@@ -199,9 +199,9 @@ class CheckoutController extends Controller
 
 
         	if(Auth::guest()){
-        		foreach(session('basket') as $key => $product){
+        		foreach(session('basket') as $key => $bproduct){
         			$orderProduct = OrderProduct::create([
-        				'quantity' => $product['quantity'],
+        				'quantity' => $bproduct['quantity'],
         			]);
 	    	     	$orderProduct->order()->associate($order);
 	    	     	$product = Product::find($key);
@@ -211,12 +211,12 @@ class CheckoutController extends Controller
         	}
         	else{
         		$user = Auth::user();
-        		foreach($user->basket->basketproducts as $product){
+        		foreach($user->basket->basketproducts as $bproduct){
         			$orderProduct = OrderProduct::create([
-        				'quantity' => $product->quantity,
+        				'quantity' => $bproduct->quantity,
         			]);
 	    	     	$orderProduct->order()->associate($order);
-	    	     	$orderProduct->product()->associate($product);
+	    	     	$orderProduct->product()->associate($bproduct->product);
 	    	     	$orderProduct->save();
         		}
 

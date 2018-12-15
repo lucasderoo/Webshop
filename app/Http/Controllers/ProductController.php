@@ -256,7 +256,6 @@ class ProductController extends Controller
             'file' => 'required|mimes:csv,txt'
         ]);
         $path = request()->file('file')->getRealPath();
-        // $file = file($path);
 
         $fileHandle = fopen($path, "r");
  
