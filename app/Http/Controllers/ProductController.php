@@ -301,6 +301,11 @@ class ProductController extends Controller
                 Session::flash('feedback_error', 'invalid price on row '.$rowCount);
                 return redirect("admin/products/create_bulk");
             }
+            
+            if(!is_numeric($row[8])){
+                Session::flash('feedback_error', 'invalid stock on row '.$rowCount);
+                return redirect("admin/products/create_bulk");
+            }
 
             $musicProduct = MusicProduct::Create([
                 'release_date' => $row[3],
