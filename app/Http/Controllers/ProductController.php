@@ -258,8 +258,50 @@ class ProductController extends Controller
         $path = request()->file('file')->getRealPath();
 
         $fileHandle = fopen($path, "r");
- 
+        
+
+        $rowCount = 1;
         while (($row = fgetcsv($fileHandle, 0, ",")) !== FALSE) {
+
+            if(count($row) != 9){
+                Session::flash('feedback_error', 'csv must have 8 comma\'s on a row');
+                return redirect("admin/products/create_bulk");
+            }
+
+            if(count(explode('/', $row[3])) == 3 OR count(explode('-', $row[3])) == 3){
+                if(count(explode('/', $row[3])) == 3){
+                    $check_date = explode('/', $row[3]);
+                }
+                else{
+                    $check_date = explode('-', $row[3]);
+                }
+            }
+            else{
+                Session::flash('feedback_error', 'date input error on row '.$rowCount);
+                return redirect("admin/products/create_bulk");
+            }
+
+            if(!checkdate((int)$check_date[1], (int)$check_date[2], (int)$check_date[0])){
+                Session::flash('feedback_error', 'date not valid on row '.$rowCount);
+                return redirect("admin/products/create_bulk");
+            }
+
+            if(empty($row[4]) OR empty($row[5]) OR empty($row[6]) OR empty($row[0])){
+                Session::flash('feedback_error', 'empty title, description, artist or genre on row '.$rowCount);
+                return redirect("admin/products/create_bulk");
+            }
+
+            if(empty(Carrier::find($row[7])) OR empty(Category::find($row[2]))){
+                Session::flash('feedback_error', 'invalid carrier_id or category_id on'.$rowCount);
+                return redirect("admin/products/create_bulk");
+            }
+
+
+            if(is_float($row[1]) OR strlen(explode('.',$row[1])[1]) != 2){
+                Session::flash('feedback_error', 'invalid price on row '.$rowCount);
+                return redirect("admin/products/create_bulk");
+            }
+
             $musicProduct = MusicProduct::Create([
                 'release_date' => $row[3],
                 'description' => $row[4],
@@ -284,6 +326,8 @@ class ProductController extends Controller
             $stock->amount = $row[8];
 
             $product->stock()->save($stock);
+
+            $rowCount++;
         }
         Session::flash('feedback_success', 'products added!');
         return redirect("admin/products");
