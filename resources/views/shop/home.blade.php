@@ -1,11 +1,6 @@
 @include('layouts.header')
 
 <style>
-body{
-  background-color: #f5f7f9 ;
-  /* width: 960px; */
-  margin: 0 auto;
-}
 .main-story {
   background-image: url("images/bg-banner-metallica.jpg");
   background-repeat: no-repeat;
@@ -29,13 +24,36 @@ body{
   height: 200px;
     /* background-color: lightblue: */
 }
+.img-fluid{
+  max-width: 100%;
+  height: auto;
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  height: 100px;
+  background-size: 100%, 100%;
+  background-image: none;
+}
+
+.carousel-control-next-icon:after
+{
+  content: '>';
+  font-size: 50px;
+  color: gray;
+}
+
+.carousel-control-prev-icon:after {
+  content: '<';
+  font-size: 50px;
+  color: gray;
+}
 </style>
 
 <div class ="container">
   <div class="row">
     <div class="col-md-8 offset-md-2">
-      <div class="row">
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <div class="row justify-content-center">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="border:1.5px solid lightgray;">
           <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -63,16 +81,16 @@ body{
         </div>
       </div>
       <br>
-      <div class="card-deck justify-content-center" >
-        <div class="card" style="width:100%">
-          {{-- <a href="{{route('products')}}"> --}}
-            <img class="card-img-top" src="images/banner-aanrader.png"/ alt="Card image cap">
-          {{-- </a> --}}
+      <div class="row justify-content-around">
+          <div class="col-4">
+          <a href="{{route('products')}}">
+            <img class="img-fluid"  src="images/banner-aanrader.png"/ alt="Card image cap">
+          </a>
         </div>
-        <div class="card" style="width: 100%">
-          {{-- <a href="{{route('customer_service')}}" --}}
-            <img class="card-img-top" src="images/banner-contact.png"/ alt="Card image cap">
-          {{-- </a> --}}
+        <div class="col-4">
+          <a href="{{route('customer_service')}}">
+            <img class="img-fluid" src="images/banner-contact.png"/ alt="Card image cap">
+          </a>
         </div>
       </div>
       @foreach($sections as $section)
@@ -100,7 +118,19 @@ body{
       </div>
     <br>
     @endforeach
-    <div class="card-deck justify-content-center" >
+    <div class="row justify-content-around">
+        <div class="col-4">
+          <a href="https://www.youtube.com/watch?v=YT516h7QwA4">
+            <img class="img-fluid" src="images/banner-aanrader.png" alt="Card image cap">
+          </a>
+        </div>
+        <div class="col-4">
+          <a href="{{ route('show', 'hardwired-to-self-destruct')}}">
+            <img class="img-fluid" src="images/banner-info-album.png"/ alt="Card image cap">
+          </a>
+        </div>
+    </div>
+    {{-- <div class="card-deck justify-content-center" >
       <div class="card" style="width:100%">
         <a href="https://www.youtube.com/watch?v=YT516h7QwA4">
           <img class="card-img-top" src="images/banner-aanrader.png" alt="Card image cap">
@@ -109,7 +139,7 @@ body{
       <div class="card" style="width: 100%">
         <img class="card-img-top" src="images/banner-info-album.png"/ alt="Card image cap">
       </div>
-    </div>
+    </div> --}}
     {{-- <div class="row justify-content-center">
       <div class ="two-small-banners col-12 offset-md-2">
         <div class="row">
