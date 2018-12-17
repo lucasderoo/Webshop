@@ -28,11 +28,13 @@ height: 25px;
 }
 .buy-buttons{
 	margin-top: 40px;
+
 }
 .buy-buttons button{
 	color: white;
-	width: 50%;
+	width: 45%;
 	height: 50px;
+	margin:10px;
 }
 .add-to-cart{
 	float: left;
