@@ -13,7 +13,7 @@ use App\Order;
 use Session;
 class AccountController extends Controller
 {
-    
+
     public function index(){
 
     	$user = Auth::user();
@@ -52,7 +52,7 @@ class AccountController extends Controller
     	$request->validate([
             'email' => 'required|string|email|max:255',
             'firstname' => 'required|string|max:50',
-            'insertion' => 'string|max:20',
+            'insertion' => 'sometimes|nullable|string|max:20',
             'lastname' => 'required|string|max:50',
             'initials' => 'required|string|max:50',
             'phonenumber' => 'max:10',
