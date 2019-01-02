@@ -15,3 +15,5 @@ composer\.lock
 
 public/images/uploads/products/
 config/scout.php
+
+config/scout\.php

@@ -13,9 +13,8 @@
 </head>
 <body>
 
-
 <nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background-color: #2570e8;">
-  <a class="navbar-brand" href="{{ route('login') }}">LOGO HERE</a>
+  <a class="navbar-brand"> LOGO HERE</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -26,7 +25,7 @@
         <a class="nav-link text-light" href="{{ route('home') }}">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-light" href="{{ route('products') }}">Products</a>
+        <a class="nav-link text-light" href="{{ route('products') }}">All Music</a>
       </li>
       @guest
       <li class="nav-item">
