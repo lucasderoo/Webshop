@@ -14,56 +14,65 @@
 <body>
 
 
-<nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background-color: #2570e8;">
-  <a class="navbar-brand" href="{{ route('login') }}">LOGO HERE</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+<nav class="navbar navbar-expand-lg sticky-top main-nav" style="background-color: #2570e8;">
+  <a class="navbar-brand" href="{{ route('home') }}">LOGO HERE</a>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <!-- <div class="navbar-collapse" id="navbarSupportedContent"> -->
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link text-light" href="{{ route('home') }}">Home</a>
-      </li>
       <li class="nav-item">
         <a class="nav-link text-light" href="{{ route('products') }}">Products</a>
       </li>
-      @guest
-      <li class="nav-item">
-        <a class="nav-link text-light" href="{{ route('login') }}">Login</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-light" href="{{ route('register') }}">Register</a>
-      </li>
-      @else
-        @if(Auth::user()->user_account_type > 1)
-          <li class="nav-item">
-            <a class="nav-link text-light" href="{{ route('admin') }}">Admin</a>
-          </li>
-        @else
-          @if(Auth::user()->user_account_type < 3)
-          <li class="nav-item">
-            <a class="nav-link text-light" href="{{ route('account') }}">Account</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-light" href="{{route('favourites')}}">Favourites</a>
-          </li>
-          @endif
-        @endif
-        <li class="nav-item">
-            <a class="nav-link text-light" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-        </li>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            {{ csrf_field() }}
-        </form>
-      @endif
-      <li class="nav-item">
-        <a class="nav-link text-light" href="{{ route('cart') }}">Cart🛒</a>
-      </li>
-
     </ul>
-    <form action="{{ route('search') }}" method="GET" class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" name="s" placeholder="Search for music!" aria-label="Search" style="width:350px;" required>
-    </form>
-  </div>
+    <ul class="navbar-nav nav-search">
+      <li class="nav-item">
+        <form id="search-form" action="{{ route('search') }}" method="GET" class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" name="s" placeholder="Search for music!" aria-label="Search" style="width:350px;" required>
+        </form>
+      </li>
+    </ul>
+    <ul class="navbar-nav nav-right">
+      <li class="nav-item dropdown" style="cursor:pointer;">
+          <img src="{{asset('images/user_icon.svg') }}">
+          <small class="icon_text">
+          @if(Auth::guest())
+          Login
+          @elseif(!Auth::guest() AND Auth::user()->user_account_type == 1)
+          Account
+          @elseif(!Auth::guest() AND Auth::user()->user_account_type == 2)
+          Manager
+          @elseif(!Auth::guest() AND Auth::user()->user_account_type == 3)
+          Admin
+          @endif</small>
+          <div id="myDropdown" class="dropdown-content">
+            @if(Auth::guest())
+              <a href="{{ route('login') }}">Login</a>
+              <a href="{{ route('register') }}">Register</a>
+            @elseif(!Auth::guest() AND Auth::user()->user_account_type == 1)
+              <a href="{{ route('account') }}">Account</a>
+              <a href="{{ route('account/orders') }}">Orders</a>
+            @elseif(!Auth::guest() AND Auth::user()->user_account_type == 2 OR Auth::user()->user_account_type == 3)
+              <a href="{{ route('admin') }}">{{ Auth::user()->user_account_type == 2 ? 'Manager' : 'Admin' }}</a>
+            @endif
+            @if(!Auth::guest())
+              <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                  {{ csrf_field() }}
+              </form>
+            @endif
+          </div>
+      </li>
+      @if(!Auth::guest() AND Auth::user()->user_account_type == 1)
+      <a href="{{ route('favourites') }}"><li class="nav-item" style="padding-left: 6px !important; margin-left: 9px !important;">
+          <img src="{{asset('images/fav_icon.svg') }}">
+          <small style="margin-left: -6px;" class="icon_text">Favourites</small>
+      </li></a>
+      @endif
+      <a href="{{ route('cart') }}"><li class="nav-item">
+          <img src="{{asset('images/cart_icon.svg') }}">
+          <span style="text-decoration: none !important;"class='badge badge-warning' id='lblCartCount'> 5 </span>
+          <small class="icon_text">Cart</small>
+      </li></a>
+    </ul>
+  <!-- </div> -->
 </nav>
