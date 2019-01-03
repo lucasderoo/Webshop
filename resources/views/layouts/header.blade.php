@@ -13,11 +13,8 @@
 </head>
 <body>
 
-
 <nav class="navbar navbar-expand-lg sticky-top main-nav" style="background-color: #2570e8;">
   <a class="navbar-brand" href="{{ route('home') }}">LOGO HERE</a>
-  </button>
-
   <!-- <div class="navbar-collapse" id="navbarSupportedContent"> -->
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">

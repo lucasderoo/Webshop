@@ -1,5 +1,16 @@
+<style>
+.headerlink {
+  color:white;
+  text-decoration:underline;
+}
+
+.headerlink:hover{
+  color:#aaaaaa;
+}
+</style>
+
 <!-- Footer -->
-<footer class="page-footer font-small blue pt-4" style="margin-top: 100px;">
+<footer class="page-footer font-small blue pt-4" style="margin-top: 100px; background-color:#494D4E; color:white;">
 
     <!-- Footer Links -->
     <div class="container-fluid text-center text-md-left">
@@ -35,16 +46,16 @@
 
             <ul class="list-unstyled">
               <li>
-                <a href="{{ route('faq') }}">Frequently Asked Questions</a>
+                <a href="{{ route('faq') }}" class="headerlink">Frequently Asked Questions</a>
               </li>
               <li>
-                <a href="{{ route('customer_service') }}">Contact our customer service</a>
+                <a href="{{ route('customer_service') }}" class="headerlink">Contact our customer service</a>
               </li>
               <li>
-                <a href="{{ route('account') }}">Account information</a>
+                <a href="{{ route('account') }}" class="headerlink">Account information</a>
               </li>
               <li>
-                <a href="{{ route('privacy') }}">Privacy information</a>
+                <a href="{{ route('privacy') }}" class="headerlink">Privacy information</a>
               </li>
             </ul>
 
@@ -59,13 +70,13 @@
 
             <ul class="list-unstyled">
               <li>
-                <a href="{{ route('about') }}">About us</a>
+                <a href="{{ route('about') }}" class="headerlink">About us</a>
               </li>
               <li>
-                <a href="{{ route('job_offers') }}">Job offers</a>
+                <a href="{{ route('job_offers') }}" class="headerlink">Job offers</a>
               </li>
               <li>
-                <a href="{{ route('latest_news') }}">Latest news</a>
+                <a href="{{ route('latest_news') }}" class="headerlink">Latest news</a>
               </li>
             </ul>
 
