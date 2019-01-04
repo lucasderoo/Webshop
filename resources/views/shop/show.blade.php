@@ -166,6 +166,16 @@ $(".image-select").on("click", "img", function (event) {
     $("#big_image").attr('src', $("#"+event.target.id).attr('src'));
 });
 
+$('.Big_image').each(function(){
+    jQuery(this)[0].onerror = function() {
+        jQuery(this)[0].src = "{{ asset('images/stock_image.png') }}";
+    }
+});
 
+$('.x100_pic').each(function(){
+    jQuery(this)[0].onerror = function() {
+        jQuery(this)[0].src = "{{ asset('images/stock_image.png') }}";
+    }
+});
 </script>
 @include('layouts.footer')
