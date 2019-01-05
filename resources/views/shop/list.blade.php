@@ -179,12 +179,11 @@
                 @foreach($products as $product)
                 <div class="col-md-4" style="margin-bottom: 30px;">
                     <div class="product-div">
-                        <a href="{{ route('show', [ 'slug' => $product->slug]) }}"><img class="product-img" style="width: 100%;" src="{{asset('images/uploads/products/product_').$product->id.'/img_'.$product->main_image_url.'.png'}}">
+                        <a class="product-link" href="{{ route('show', [ 'slug' => $product->slug]) }}"><img class="product-img" style="width: 100%;" src="{{asset('images/uploads/products/product_').$product->id.'/img_'.$product->main_image_url.'.png'}}">
                         
                         <div>{{ strlen($product->title) > 18 ? substr($product->title,0,15).'...' : $product->title }}</div>
-                        </a>
                         @if($product->productable_type == "App\MusicProduct")
-                            <div>{{ strlen($product->productable->artist) > 18 ? substr($product->productable->artist,0,15).'...' : $product->productable->artist }}</div>
+                            <div>{{ strlen($product->productable->artist) > 18 ? substr($product->productable->artist,0,15).'...' : $product->productable->artist }}</div></a>
                         @endif
                         <h5>€{{ $product->price }}</h5>
                         <form role="form" method="POST" action="{{ route('cart/create', ['slug' => $product->slug]) }}">

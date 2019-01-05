@@ -104,8 +104,16 @@
     }
 }
 
+/* list page */
+.product-link{
+    text-decoration: none;
+    color: black;
+}
 
-
+.product-link:hover{
+    text-decoration: none;
+    color: black;
+}
 
 /* end header */
 /* feedback boxes */
