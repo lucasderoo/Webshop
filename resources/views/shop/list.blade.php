@@ -90,7 +90,8 @@
         <div class="row">
           <div class="col-md-4">
       	     <div class="card">
-                <form id="filter-form" action="{{ URL::current()}}">
+                <form id="filter-form" action="{{ URL::current()}}" style="margin: 0px;">
+                <button style="margin-bottom: 15px;" type="submit" class="btn btn-block btn-outline-primary">Apply</button>
                 <!-- <article class="card-group-item">
                     <header class="card-header">
                         <h6 class="title">Category</h6>
@@ -169,7 +170,7 @@
                 </article> <!-- card-group-item.// -->
                 <input type="hidden" name="page" id="page" value="1">
                 <input type="hidden" name="orderby" id="orderby" value="sold">
-                <button type="submit" class="btn btn-block btn-outline-primary" style="margin-top: 52px;">Apply</button>
+                <button type="submit" class="btn btn-block btn-outline-primary" style="margin-top: 15px;">Apply</button>
             </form>
             </div> <!-- card.// -->
           </div>

@@ -144,7 +144,7 @@ h5{
                 	<p><b>Title:</b> {{$product->title}}</p>
                 	<p><b>Format:</b> {{$product->productable->carrier->name}}</p>
                 	<p><b>Genre:</b> {{$product->productable->genre}}</p>
-                    <p><b>Stock:</b> {{$product->stock->amount}}</p>
+                    <p><b>Stock:</b> @if($product->stock->amount > 0) <strong style="color: green">In stock</strong> @else <strong style="color: red">Out of stock</strong> @endif</p>
                 	<p class="bottom-p"><b>Released:</b> {{$product->productable->release_date}}</p>
                 	</div>
 
