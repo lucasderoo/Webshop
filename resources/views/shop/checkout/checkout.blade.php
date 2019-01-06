@@ -149,9 +149,9 @@
                     </div>
                     <div class="col-md-6">
                         <h2>Billing address</h2>
-                        <input type="checkbox" name="billing_address" onchange="hide_billing()">
+                        <input type="checkbox" name="billing_address" onchange="show_billing()" checked>
                         <label for="billing_address">Same as delivery address</label>
-                        <div id="billing-address-form">
+                        <div id="billing-address-form" style="display:none">
                             <div class="form-group">
                                 <label for="street">Street</label>
                                 <input type="street" class="form-control" name="street_billing">
@@ -220,17 +220,17 @@
                         <p>{{ $address->zipcode }}</p>
                         <p>{{ $address->country }}</p> 
 
-                        <input name="delivery_input[]" class="delivery-input" type="checkbox" value="{{ $address->id }}">
+                        <input name="delivery_input[]" class="delivery-input" type="checkbox" value="{{ $address->id }}" checked>
                         <span class="form-check-label font-weight-bold">Deliver here</span>  
                     </div>
                     @endforeach
                 </div>
                 <br>
                 <h2>Billing address</h2>
-                <input type="checkbox" name="billing_address" onchange="hide_billing()">
+                <input type="checkbox" name="billing_address" onchange="show_billing()" checked>
                 <label for="billing_address">Same as delivery address</label>
                 <hr>
-                <div class="row" id="billing-address-form">
+                <div class="row" id="billing-address-form" style="display:none">
                     @foreach($user->addresses as $address)
                     <div class="col-md-3 address-div">
                         <p>{{ $address->street }} {{ $address->house_number }}{{ $address->suffix }}</p>
@@ -259,7 +259,8 @@
 </div>
 
 <script>
-function hide_billing(){
+
+function show_billing(){
     var x = document.getElementById("billing-address-form");
     if (x.style.display === "none") {
         if(x.className != "row"){
@@ -272,8 +273,6 @@ function hide_billing(){
         x.style.display = "none";
     }
 }
-
-
 $("input[name='delivery_input[]'").change(function (event) {
     var checkboxes = document.getElementsByName("delivery_input[]");
 
