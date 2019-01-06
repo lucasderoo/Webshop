@@ -18,7 +18,7 @@ use Validator;
 class ProductController extends Controller
 {
     public function index(){
-    	$products = Product::All();  
+    	$products = Product::All();
 
     	return view('products.index')->with(compact('products'));
     }
@@ -77,7 +77,7 @@ class ProductController extends Controller
             mkdir($productFolder);
         }
 
-    	for ($i=1; $i <= 4; $i++) { 
+    	for ($i=1; $i <= 4; $i++) {
     		if(!empty($request->input('product-image-' . $i))){
     			$data = $request->input('product-image-' . $i);
 
@@ -93,7 +93,7 @@ class ProductController extends Controller
             		$product->main_image_url = $i;
             		$product->save();
             	}
-            	
+
         		$image = new Image();
         		$image->image_url = "img_" . $i;
         		$image->product_id = $product->id;
@@ -162,7 +162,7 @@ class ProductController extends Controller
             mkdir($productFolder);
         }
 
-    	for ($i=1; $i <= 4; $i++) { 
+    	for ($i=1; $i <= 4; $i++) {
 
     		$imagePath = $productFolder . "/img_" . $i .".png";
 
@@ -221,7 +221,7 @@ class ProductController extends Controller
 
     	$product = Product::find($id);
 
-    	$product->productable()->delete();	
+    	$product->productable()->delete();
 
     	$public_path = public_path();
     	$productsFolder = public_path() . '\images\uploads\products';
@@ -258,7 +258,7 @@ class ProductController extends Controller
         $path = request()->file('file')->getRealPath();
 
         $fileHandle = fopen($path, "r");
-        
+
 
         $rowCount = 1;
         while (($row = fgetcsv($fileHandle, 0, ",")) !== FALSE) {
@@ -301,7 +301,7 @@ class ProductController extends Controller
                 Session::flash('feedback_error', 'invalid price on row '.$rowCount);
                 return redirect("admin/products/create_bulk");
             }
-            
+
             if(!is_numeric($row[8])){
                 Session::flash('feedback_error', 'invalid stock on row '.$rowCount);
                 return redirect("admin/products/create_bulk");
