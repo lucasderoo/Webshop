@@ -226,8 +226,9 @@
                             <p>{{ $address->country }}</p> 
                         <input name="delivery_input[]" class="delivery-input" type="checkbox" value="{{ $address->id }}" checked>
                         <span class="form-check-label font-weight-bold">Deliver here</span>  
-                    </div>
-                    @endforeach
+                        </div>
+                        @endforeach
+                    @endif
                 </div>
                 <br>
                 @if(!$user->addresses->isEmpty())
@@ -256,6 +257,7 @@
                 </div>
                 </form>
             </div>
+            @endif
 		<hr>
     </div>
 </div>
