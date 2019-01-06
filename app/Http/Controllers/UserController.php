@@ -29,7 +29,7 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'firstname' => 'required|string|max:50',
-            'insertion' => 'string|max:20',
+            'insertion' => 'sometimes|nullable|string|max:20',
             'lastname' => 'required|string|max:50',
             'initials' => 'required|string|max:50',
             'phonenumber' => 'max:10',
@@ -70,7 +70,7 @@ class UserController extends Controller
     	$request->validate([
             'email' => 'required|string|email|max:255|unique:users,email,'.$id,
             'firstname' => 'required|string|max:50',
-            'insertion' => 'string|max:20',
+            'insertion' => 'sometimes|nullable|string|max:20',
             'lastname' => 'required|string|max:50',
             'initials' => 'required|string|max:50',
             'phonenumber' => 'max:10',

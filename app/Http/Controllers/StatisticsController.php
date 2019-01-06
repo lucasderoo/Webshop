@@ -298,7 +298,7 @@ var_dump($seats);
 
 
 //Orders  in the last 7 days
-		$line_chart = Charts::database(order::all(),'line', 'highcharts')
+		$line_chart = Charts::database(order::all(),'bar', 'highcharts')
 			    ->title('Orders in the last 30 days')
 			    ->elementLabel('Orders')
 
@@ -316,7 +316,7 @@ var_dump($seats);
 //groupBy(required string $column, optional string $relationColumn, optional array $labelsMapping)
 
 //Omzet per maand in de huidige jaar
-    $line_chart2 = Charts::create('bar', 'highcharts')
+    $line_chart2 = Charts::create('line', 'highcharts')
           ->title('Overall turnover per month')
           ->elementLabel('Overall turnover € ')
           ->labels($EarningsPerMonthAndYear)
@@ -332,7 +332,7 @@ var_dump($seats);
           ->responsive(true);
 
 //omzet per dag in de huidige maand
-          $line_chart3 = Charts::create('area', 'c3')
+          $line_chart3 = Charts::create('line', 'highcharts')
                 ->title('Turnover per day')
                 ->elementLabel('Overall turnover € ')
                 ->labels($EarningsPerDay)

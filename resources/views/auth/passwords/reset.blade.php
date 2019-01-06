@@ -38,6 +38,7 @@
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
                                 @endif
+                                <small><b>The password must contain at least 6 characters. </b> </small>
                             </div>
                         </div>
 
