@@ -7,6 +7,8 @@
     <!-- CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('css/style.css') }}">
+    <!-- ICONS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <!-- JS -->
     <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -18,13 +20,14 @@
   <!-- <div class="navbar-collapse" id="navbarSupportedContent"> -->
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link text-light" href="{{ route('products') }}">Products</a>
+      <li class="nav-item">
+        <a class="nav-link text-light" href="{{ route('products') }}">Music</a>
       </li>
     </ul>
     <ul class="navbar-nav nav-search">
       <li class="nav-item">
         <form id="search-form" action="{{ route('search') }}" method="GET" class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" name="s" placeholder="Search for music!" aria-label="Search" style="width:350px;" required>
+          <input class="form-control mr-sm-2" type="search" name="s" placeholder="Search..." aria-label="Search" style="width:350px;" required>
         </form>
       </li>
     </ul>

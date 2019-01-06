@@ -28,11 +28,13 @@ height: 25px;
 }
 .buy-buttons{
 	margin-top: 40px;
+
 }
 .buy-buttons button{
 	color: white;
-	width: 50%;
+	width: 45%;
 	height: 50px;
+	margin:10px;
 }
 .add-to-cart{
 	float: left;
@@ -57,6 +59,7 @@ height: 25px;
 .Big_image{
 width: 100%;
 height: auto;
+border:1.5px solid lightgray;
 
 }
 .normal_sized_p{
@@ -147,7 +150,7 @@ h5{
                 	<p class="bottom-p"><b>Released:</b> {{$product->productable->release_date}}</p>
                 	</div>
 
-                	<div class="product-desc" style="height: 300px;">
+                	<div class="product-desc" style="height: auto;">
                 	<br>
                 		<textarea readonly="readonly">{{$product->productable->description}}</textarea>
                 	</div>
