@@ -114,6 +114,9 @@
     text-decoration: none;
     color: black;
 }
+.input-filter{
+    width: 85px;
+}
 
 /* end header */
 /* feedback boxes */

@@ -163,10 +163,10 @@
                     <header class="card-header">
                         <h6 class="title">Price</h6>
                     </header>
-                    <label>Min. Price</label>
-                    <input type="number" name="min-price" value="{{ $request->has('min-price') ? $request->get('min-price') : 0 }}">
-                    <label>Max. Price</label>
-                    <input type="number" name="max-price" value="{{ $request->has('max-price') ? $request->get('max-price') : $maxPrice }}">
+                    <label>Min. Price  &nbsp;€</label>
+                    <input class="input-filter" type="number" name="min-price" value="{{ $request->has('min-price') ? $request->get('min-price') : 0 }}">
+                    <label>Max. Price €</label>
+                    <input class="input-filter" type="number" name="max-price" value="{{ $request->has('max-price') ? $request->get('max-price') : $maxPrice }}">
                 </article> <!-- card-group-item.// -->
                 <input type="hidden" name="page" id="page" value="1">
                 <input type="hidden" name="orderby" id="orderby" value="sold">
