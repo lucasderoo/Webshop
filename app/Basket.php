@@ -24,11 +24,17 @@ class Basket extends Model
     public static function calculate_items(){
     	$cartItems = 0;
     	if(Auth::guest()){
+
     		$cartItems = count(session('basket'));
+    		foreach(session('basket') as $product){
+    			$cartItems = $cartItems + $product['quantity'];
+    		}
     	}
     	else{
     		if(Auth::user()->basket){
-    			$cartItems = count(Auth::user()->basket->basketproducts);
+    			foreach(Auth::user()->basket->basketproducts as $product){
+    				$cartItems = $cartItems + $product->quantity;
+    			}
     		}
     	}
     	return $cartItems;
