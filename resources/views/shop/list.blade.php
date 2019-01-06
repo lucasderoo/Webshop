@@ -51,6 +51,10 @@
     text-decoration: underline !important;
     cursor: pointer;
 }
+/* .btn-favourites{
+  color: red;
+} */
+
 </style>
 <div class="container">
     <div class="row">
@@ -82,7 +86,7 @@
                         <option value="date-new-old" {{ $orderBy == "date-new-old" ? 'selected': '' }}>Date new to old</option>
                         <option value="date-old-new" {{ $orderBy == "date-old-new" ? 'selected': '' }}>Date old to new</option>
                         <option value="sold" {{ $orderBy == "sold" ? 'selected': '' }}>Most sold</option>
-                    </select>                                
+                    </select>
                 </div>
             </div>
         </div>
@@ -91,6 +95,7 @@
           <div class="col-md-4">
       	     <div class="card">
                 <form id="filter-form" action="{{ URL::current()}}">
+                  <button type="submit" class="btn btn-block btn-outline-primary" style="margin-top: 15px;">Apply</button>
                 <!-- <article class="card-group-item">
                     <header class="card-header">
                         <h6 class="title">Category</h6>
@@ -103,10 +108,10 @@
                               <span class="form-check-label">{{ $category->name }}</span>
                             </label>
                             @endforeach
-                        </div> 
+                        </div>
                     </div>
                 </article> -->
-                
+
                 <article class="card-group-item">
                     <header class="card-header">
                         <h6 class="title">Genre</h6>
@@ -178,12 +183,22 @@
                 @foreach($products as $product)
                 <div class="col-md-4" style="margin-bottom: 30px;">
                     <div class="product-div">
-                        <a href="{{ route('show', [ 'slug' => $product->slug]) }}"><img class="product-img" style="width: 100%;" src="{{asset('images/uploads/products/product_').$product->id.'/img_'.$product->main_image_url.'.png'}}"></a>
+                        <a href="{{ route('show', [ 'slug' => $product->slug]) }}"><img class="product-img" style="width: 100%;" src="{{asset('images/uploads/products/product_').$product->id.'/img_'.$product->main_image_url.'.png'}}">
+                        </a>
+                        <form role="form" method="POST" action="{{ route('favourites/create', ['slug' => $product->slug]) }}">
+                          {{ csrf_field() }}
+                          <button type="submit" class="btn btn-danger float-right" style="margin-top:5px; width: 22%; ">
+                            <i class="far fa-heart"></i>
+                          </button>
+                        </form>
+                        <a href="{{ route('show', [ 'slug' => $product->slug]) }}">
+
                         @if($product->productable_type == "App\MusicProduct")
                             <div>{{ strlen($product->productable->artist) > 18 ? substr($product->productable->artist,0,15).'...' : $product->productable->artist }}</div>
                         @endif
                         <div>{{ strlen($product->title) > 18 ? substr($product->title,0,15).'...' : $product->title }}</div>
                         <h5>€{{ $product->price }}</h5>
+                        </a>
                         <form role="form" method="POST" action="{{ route('cart/create', ['slug' => $product->slug]) }}">
                             {{ csrf_field() }}
                             <button type="submit" class="btn btn-primary" style="margin-top:10px; width: 100%;">Add product to cart</button>
@@ -209,7 +224,7 @@
 
                 $(".pages").on('click', 'a', function (e) {
                     document.getElementById("page").value = e.target.id;
-                    document.getElementById("filter-form").submit(); 
+                    document.getElementById("filter-form").submit();
                 });
 
                 $('#select-orderby').on('change', function(e) {

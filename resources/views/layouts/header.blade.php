@@ -7,6 +7,8 @@
     <!-- CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('css/style.css') }}">
+    <!-- ICONS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <!-- JS -->
     <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -26,7 +28,7 @@
         <a class="nav-link text-light" href="{{ route('home') }}">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-light" href="{{ route('products') }}">Products</a>
+        <a class="nav-link text-light" href="{{ route('products') }}">Music</a>
       </li>
       @guest
       <li class="nav-item">
@@ -43,7 +45,7 @@
         @else
           @if(Auth::user()->user_account_type < 3)
           <li class="nav-item">
-            <a class="nav-link text-light" href="{{ route('account') }}">Account</a>
+            <a class="nav-link text-light" href="{{ route('account') }}">Account</i></a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-light" href="{{route('favourites')}}">Favourites</a>
@@ -63,7 +65,12 @@
 
     </ul>
     <form action="{{ route('search') }}" method="GET" class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" name="s" placeholder="Search for music!" aria-label="Search" style="width:350px;" required>
+      <input class="form-control mr-sm-2" type="search" name="s" placeholder="Search..." aria-label="Search" style="width:350px;" required>
+      <div class=" input-group-btn">
+        <button class="btn btn-default" type="submit" style="margin-left:-8px; height:37px;">
+          <span><i class="fas fa-search"></i></span>
+        </button>
+      </div>
     </form>
   </div>
 </nav>
