@@ -37,7 +37,7 @@
             <div class="card-body">
               <h5 class="card-title">New Staff Member!</h5>
               <p class="card-text">We're proud to welcome John Doe to our team! He'll be working at our Customer Service, so should you have any questions regarding products, shipping, delivery times, or payments, He'll be happy to answer all your questions.</p>
-              <a href="/customer_service" class="btn btn-primary">Click here</a>
+              <a href="{{ route('customer_service') }}" class="btn btn-primary">Click here</a>
             </div>
           </div>
         </div>

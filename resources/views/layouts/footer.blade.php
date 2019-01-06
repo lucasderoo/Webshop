@@ -21,7 +21,23 @@
 
         <!-- Content -->
         <h5 class="text-uppercase">Social Media</h5>
-        <p>Here you can use rows and columns here to organize your footer content.</p>
+        <ul class="list-unstyled">
+          <li>
+            <a href="www.facebook.com">
+              <i class="fab fa-facebook-square"></i> Check out our Facebook page!
+            </a>
+        </li>
+        <li>
+            <a href="www.twitter.com">
+              <i class="fab fa-twitter"></i> Check out our twitter page!
+            </a>
+        </li>
+        <li>
+          <a href="www.instagram.com">
+            <i class="fab fa-instagram"></i> Check out our instagram!
+          </a>
+        </li>
+        </ul>
 
         </div
 
