@@ -188,6 +188,10 @@ class CheckoutController extends Controller
 
 
         if(session('order')){
+
+
+
+
         	$order = Order::create([
 	            'amount' => session('order')['info']['price'],
 	            'status' => 'paid',
@@ -252,8 +256,7 @@ class CheckoutController extends Controller
         		$billing_address->order_billing()->save($order);
         	}
         	elseif(session('order')['billing_address'] == "same"){
-        		$delivery_address = Address::find((int)session('order')['delivery_address']);
-        		$delivery_address->order_billing()->save($order);
+        		$order->address()->first()->order_billing()->save($order);
         	}
         	else{
         		$billing_address = Address::find((int)session('order')['billing_address']);

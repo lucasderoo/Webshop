@@ -224,7 +224,7 @@
                             <p>{{ $address->city }}</p>
                             <p>{{ $address->zipcode }}</p>
                             <p>{{ $address->country }}</p> 
-                        <input name="delivery_input[]" class="delivery-input" type="checkbox" value="{{ $address->id }}" checked>
+                        <input name="delivery_input[]" class="delivery-input" type="checkbox" value="{{ $address->id }}" {{ $loop->first ? 'checked' : '' }}>
                         <span class="form-check-label font-weight-bold">Deliver here</span>  
                         </div>
                         @endforeach
@@ -250,14 +250,14 @@
                     @endforeach
                 </div>
                 @endif
-                <div class="row">
-                    <div class="col-md-12">
-                        <button style="float: right" type="submit" class="btn btn-primary">Next</button>
-                    </div>
-                </div>
-                </form>
-            </div>
             @endif
+            <div class="row">
+                <div class="col-md-12">
+                    <button style="float: right" type="submit" class="btn btn-primary">Next</button>
+                </div>
+            </div>
+            </form>
+        </div>
 		<hr>
     </div>
 </div>

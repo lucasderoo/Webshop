@@ -27,7 +27,9 @@ class Basket extends Model
     		$cartItems = count(session('basket'));
     	}
     	else{
-    		$cartItems = count(Auth::user()->basket->basketproducts);
+    		if(Auth::user()->basket){
+    			$cartItems = count(Auth::user()->basket->basketproducts);
+    		}
     	}
     	return $cartItems;
     }	
