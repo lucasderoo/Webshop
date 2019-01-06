@@ -213,23 +213,31 @@
                 <h2>Delivery address</h2>
                 <hr>
                 <div class="row">
-                    @foreach($user->addresses as $address)
-                    <div class="col-md-3 address-div">
-                        <p>{{ $address->street }} {{ $address->house_number }}{{ $address->suffix }}</p>
-                        <p>{{ $address->city }}</p>
-                        <p>{{ $address->zipcode }}</p>
-                        <p>{{ $address->country }}</p> 
+                    @if($user->addresses->isEmpty())
+                        <div class="col-md-12 address-div">
+                            <p>No Addresses found. <a href="{{ route('account/addresses/create') }}">Click here</a> to add a address</p>
+                        </div>
+                    @else
+                        @foreach($user->addresses as $address)
+                        <div class="col-md-3 address-div">
+                            <p>{{ $address->street }} {{ $address->house_number }}{{ $address->suffix }}</p>
+                            <p>{{ $address->city }}</p>
+                            <p>{{ $address->zipcode }}</p>
+                            <p>{{ $address->country }}</p> 
 
-                        <input name="delivery_input[]" class="delivery-input" type="checkbox" value="{{ $address->id }}">
-                        <span class="form-check-label font-weight-bold">Deliver here</span>  
-                    </div>
-                    @endforeach
+                            <input name="delivery_input[]" class="delivery-input" type="checkbox" value="{{ $address->id }}">
+                            <span class="form-check-label font-weight-bold">Deliver here</span>  
+                        </div>
+                        @endforeach
+                    @endif
                 </div>
                 <br>
+                @if(!$user->addresses->isEmpty())
                 <h2>Billing address</h2>
                 <input type="checkbox" name="billing_address" onchange="hide_billing()">
                 <label for="billing_address">Same as delivery address</label>
                 <hr>
+                @endif
                 <div class="row" id="billing-address-form">
                     @foreach($user->addresses as $address)
                     <div class="col-md-3 address-div">
@@ -242,10 +250,7 @@
                         <span class="form-check-label font-weight-bold">Bill here</span>  
                     </div>
                     @endforeach
-
                 </div>
-
-
                 @endif
                 <div class="row">
                     <div class="col-md-12">

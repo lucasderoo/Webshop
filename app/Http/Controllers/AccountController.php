@@ -89,7 +89,6 @@ class AccountController extends Controller
 
     public function adresses(){
     	$user = Auth::user();
-
     	return view('account.addresses')->with(compact('user'));
     }
 

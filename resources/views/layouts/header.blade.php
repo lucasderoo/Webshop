@@ -48,6 +48,7 @@
             @elseif(!Auth::guest() AND Auth::user()->user_account_type == 1)
               <a href="{{ route('account') }}">Account</a>
               <a href="{{ route('account/orders') }}">Orders</a>
+              <a href="{{ route('account/addresses') }}">Addresses</a>
             @elseif(!Auth::guest() AND Auth::user()->user_account_type == 2 OR Auth::user()->user_account_type == 3)
               <a href="{{ route('admin') }}">{{ Auth::user()->user_account_type == 2 ? 'Manager' : 'Admin' }}</a>
             @endif
