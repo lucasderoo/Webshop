@@ -68,7 +68,7 @@
       @endif
       <a href="{{ route('cart') }}"><li class="nav-item">
           <img src="{{asset('images/cart_icon.svg') }}">
-          <span style="text-decoration: none !important;"class='badge badge-warning' id='lblCartCount'> 5 </span>
+          <span style="text-decoration: none !important;"class='badge badge-warning' id='lblCartCount'> {{ $cart_items }} </span>
           <small class="icon_text">Cart</small>
       </li></a>
     </ul>
