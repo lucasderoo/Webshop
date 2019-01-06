@@ -67,7 +67,7 @@ class FavouritesController extends Controller
      		$favouritesProduct->save();
      	}
 
-     	Session::flash('feedback_success', 'Product added to favourites');
+     	Session::flash('feedback_success_favo_add', 'Product added to favourites');
      	return redirect()->back();
     }
 
@@ -86,7 +86,7 @@ class FavouritesController extends Controller
         $favouritesProduct->quantity = $request['quantity'];
         $favouritesProduct->save();
 
-        Session::flash('feedback_success', 'Favourites updated');
+        Session::flash('feedback_success_favo_change', 'Favourites updated');
         return redirect()->route('favourites');
     }
 
@@ -100,7 +100,7 @@ class FavouritesController extends Controller
         $favouritesProduct = FavouritesProduct::find($id);
         $favouritesProduct->delete();
 
-        Session::flash('feedback_success', 'Favourites updated');
+        Session::flash('feedback_success_favo', 'Favourites updated');
         return redirect()->route('favourites');
 
     }

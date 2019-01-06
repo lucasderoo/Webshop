@@ -14,7 +14,7 @@ use Session;
 
 class CartController extends Controller
 {
- 
+
     public function index(){
 
         $products = [];
@@ -69,22 +69,22 @@ class CartController extends Controller
                 ];
 
                 session()->put('basket', $basket);
- 
+
                 session::flash('feedback_success', 'Product added to cart');
                 return redirect()->back();
             }
 
             // if cart not empty then check if this product exist then increment quantity
             if(isset($basket[$product->id])) {
-                
+
                 $basket[$product->id]['quantity']++;
-     
+
                 session()->put('basket', $basket);
-     
+
                 session::flash('feedback_success', 'Product added to cart');
                 return redirect()->back();
             }
- 
+
             // if item not exist in cart then add to cart with quantity = 1
             $basket[$product->id] = [
                 "slug" => $product->slug,
@@ -93,9 +93,9 @@ class CartController extends Controller
                 "quantity" => 1,
                 "price" => $product->price
             ];
-     
+
             session()->put('basket', $basket);
-     
+
             session::flash('feedback_success', 'Product added to cart');
             return redirect()->back();
         }
@@ -160,7 +160,7 @@ class CartController extends Controller
             $cartProduct->save();
         }
 
-        Session::flash('feedback_success', 'Cart updated');
+        Session::flash('feedback_success_updated', 'Cart updated');
         return redirect()->route('cart');
     }
 
@@ -180,14 +180,14 @@ class CartController extends Controller
                 Session::flash('feedback_error', 'unkown error, please try again');
                 return redirect()->route('cart');
             }
-        		
+
             $cartProduct = BasketProduct::where('product_id', $id)->where('basket_id', $user->basket->id)->first();
             $cartProduct->delete();
         }
 
-        Session::flash('feedback_success', 'Cart updated');
+        Session::flash('feedback_success_updated', 'Cart updated');
         return redirect()->route('cart');
 
     }
-        
+
 }
