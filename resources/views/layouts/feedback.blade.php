@@ -13,5 +13,3 @@
 @if(Session::has('feedback_error'))
     <div class="alert alert-danger"><p>{{ Session::get('feedback_error') }}</p></div>
 @endif
-
-checkout
