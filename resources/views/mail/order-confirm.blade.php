@@ -21,6 +21,8 @@
 
 
 <strong>Ordered products</strong>
+@if(!empty($basketDetails) OR !$basketDetails->isEmpty())
 @foreach($basketDetails as $key => $product)
 <p>{{ $loop->index+1 }}. {{ $guest ? $product['title'] : $product->product->title }} - €{{ $guest ? $product['price'] : $product->product->price }}({{ $guest ? $product['quantity'] : $product->quantity }})</p>
 @endforeach
+@endif
