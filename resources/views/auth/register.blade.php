@@ -47,7 +47,7 @@
                 {{ csrf_field() }}
                     <div class="form-input">
                         <label for="firstname" class="control-label">First name</label>
-                        <input id="first_name" type="text" class="form-control" name="firstname" required>
+                        <input id="first_name" type="text" class="form-control" name="firstname" value="{{ old('firstname') }}" required>
                         @if ($errors->has('firstname'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('firstname') }}</strong>
@@ -56,7 +56,7 @@
                     </div>
                     <div class="form-input">
                         <label for="insertion" class="control-label">Insertion</label>
-                        <input id="insetion" type="text" class="form-control" name="insertion">
+                        <input id="insertion" type="text" class="form-control" value="{{ old('insertion') }}" name="insertion">
                         @if ($errors->has('insertion'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('insertion') }}</strong>
@@ -65,7 +65,7 @@
                     </div>
                     <div class="form-input">
                         <label for="lastname" class="control-label">Last name</label>
-                        <input id="last_name" type="text" class="form-control" name="lastname" required>
+                        <input id="last_name" type="text" class="form-control" value="{{ old('lastname') }}" name="lastname" required>
                         @if ($errors->has('lastname'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('lastname') }}</strong>
@@ -74,7 +74,7 @@
                     </div>
                     <div class="form-input">
                         <label for="initials" class="control-label">Initials</label>
-                        <input id="initials" type="text" class="form-control" name="initials" required>
+                        <input id="initials" type="text" class="form-control" value="{{ old('initials') }}" name="initials" required>
                         @if ($errors->has('initials'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('initials') }}</strong>
@@ -83,7 +83,7 @@
                     </div>
                     <div class="form-input">
                         <label for="phonenumber" class="control-label">Phone Number</label>
-                        <input id="phone_number" type="text" class="form-control" name="phonenumber">
+                        <input id="phone_number" type="text" class="form-control" value="{{ old('phonenumber') }}" name="phonenumber">
                         @if ($errors->has('phonenumber'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('phonenumber') }}</strong>
@@ -92,7 +92,7 @@
                     </div>
                     <div class="form-input">
                         <label for="email" class="control-label">E-Mail Address</label>
-                        <input id="email" type="email" class="form-control" name="email" required>
+                        <input id="email" type="email" class="form-control" value="{{ old('email') }}" name="email" required>
                         @if ($errors->has('email'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('email') }}</strong>

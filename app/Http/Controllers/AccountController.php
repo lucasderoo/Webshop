@@ -52,7 +52,7 @@ class AccountController extends Controller
     	$request->validate([
             'email' => 'required|string|email|max:255',
             'firstname' => 'required|string|max:50',
-            'insertion' => 'string|max:20',
+            'insertion' => 'string|max:20|nullable',
             'lastname' => 'required|string|max:50',
             'initials' => 'required|string|max:50',
             'phonenumber' => 'max:10',

@@ -136,3 +136,6 @@
     color: #00529B;
     background-color: #BDE5F8;
 }
+.help-block strong{
+    color: red !important;
+}
