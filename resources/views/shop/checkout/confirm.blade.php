@@ -47,7 +47,7 @@
     width:40px;
 }
 </style>
-
+<br>
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
@@ -56,18 +56,16 @@
             {{ csrf_field() }}
                 <div class="row">
                 @if(Auth::guest())
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <h4>Info</h4>
                         <br>
                         <p>{{ session('order')['info']['email']}}</p>
                         <p>{{ session('order')['info']['firstname']}} {{ session('order')['info']['lastname']}}</p>
                     </div>
-                    <div class="col-md-3 address-div">
+                    <div class="col-md-4 address-div">
                         <h4>Delivery address</h4>
                         <br>
-                        <p>{{ session('order')['delivery_address']['street']}}</p>
-                        <p>{{ session('order')['delivery_address']['house_number']}}</p>
-                        <p>{{ session('order')['delivery_address']['suffix']}}</p>
+                        <p>{{ session('order')['delivery_address']['street']}} {{ session('order')['delivery_address']['house_number']}} {{ session('order')['delivery_address']['suffix']}} </p>
                         <p>{{ session('order')['delivery_address']['zipcode']}}</p>
                         <p>{{ session('order')['delivery_address']['city']}}</p>
                         <p>{{ session('order')['delivery_address']['country']}}</p>
@@ -78,34 +76,36 @@
                     @if(session('order')['billing_address'] == "same")
                         <p>Same as delivery address</p>
                     @else
-                        <p>{{ session('order')['billing_address']['street']}}</p>
-                        <p>{{ session('order')['billing_address']['house_number']}}</p>
-                        <p>{{ session('order')['billing_address']['suffix']}}</p>
+                        <p>{{ session('order')['billing_address']['street']}} {{ session('order')['billing_address']['house_number']}} {{ session('order')['billing_address']['suffix']}} </p>
                         <p>{{ session('order')['billing_address']['zipcode']}}</p>
                         <p>{{ session('order')['billing_address']['city']}}</p>
                         <p>{{ session('order')['billing_address']['country']}}</p>
                     @endif
                     </div>
                 @else
-                    <div class="col-md-6">
+                    <div class="col-md-5">
+                        <h4>Info</h4>
+						<br>
                         <p>{{ $user->email }}</p>
-                        <p>{{ $user->member->firstname }}</p>
-                        <p>{{ $user->member->insertion }} {{ $user->member->lastname }}</p>
+                        <p>{{ $user->member->firstname }} {{ $user->member->lastname }}</p>
                     </div>
-                    <div class="col-md-3 address-div">
-                        <p>{{ $addresses['delivery_address']['street'] }}</p>
-                        <p>{{ $addresses['delivery_address']['house_number'] }}{{ $addresses['delivery_address']['suffix'] }}</p>
+                    <div class="col-md-4 address-div">
+                        <h4>Delivery address</h4>
+						<br>
+                        <p>{{ $addresses['delivery_address']['street'] }} {{ $addresses['delivery_address']['house_number'] }}{{ $addresses['delivery_address']['suffix'] }}</p>
                         <p>{{ $addresses['delivery_address']['zipcode'] }}</p>
                         <p>{{ $addresses['delivery_address']['city'] }}</p>
                         <p>{{ $addresses['delivery_address']['country'] }}</p>
                     </div>
                     <div class="col-md-3 address-div">
                     @if($addresses['billing_address'] == $addresses['delivery_address'])
+                        <h4>Billing address</h4>
+                        <br>
                         <p>Same as delivery address</p>
                     @else
-                        <p>{{ $addresses['billing_address']['street'] }}</p>
-                        <p>{{ $addresses['billing_address']['house_number'] }}</p>
-                        <p>{{ $addresses['billing_address']['suffix'] }}</p>
+                        <h4>Billing address</h4>
+                        <br>
+						<p>{{ $addresses['billing_address']['street'] }} {{ $addresses['billing_address']['house_number'] }}{{ $addresses['billing_address']['suffix'] }}</p>
                         <p>{{ $addresses['billing_address']['zipcode'] }}</p>
                         <p>{{ $addresses['billing_address']['city'] }}</p>
                         <p>{{ $addresses['billing_address']['country'] }}</p>

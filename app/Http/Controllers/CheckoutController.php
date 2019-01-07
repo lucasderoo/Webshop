@@ -11,6 +11,7 @@ use App\Order;
 use App\OrderProduct;
 use App\Product;
 
+use Mail;
 class CheckoutController extends Controller
 {
 	
@@ -125,7 +126,7 @@ class CheckoutController extends Controller
                 'info' => [
                     "email" => $user->email,
                     "firstname" => $user->member->firstname,
-                    "lastname" => $user->member->lastname,
+                    "lastname" => $user->member->insertion.' '.$user->member->lastname,
                     "price" => $price
                 ],
                 'delivery_address' => $request['delivery_input'][0]
@@ -187,6 +188,10 @@ class CheckoutController extends Controller
 
 
         if(session('order')){
+
+
+
+
         	$order = Order::create([
 	            'amount' => session('order')['info']['price'],
 	            'status' => 'paid',
@@ -197,11 +202,10 @@ class CheckoutController extends Controller
         	]);
 
 
-
         	if(Auth::guest()){
-        		foreach(session('basket') as $key => $product){
+        		foreach(session('basket') as $key => $bproduct){
         			$orderProduct = OrderProduct::create([
-        				'quantity' => $product['quantity'],
+        				'quantity' => $bproduct['quantity'],
         			]);
 	    	     	$orderProduct->order()->associate($order);
 	    	     	$product = Product::find($key);
@@ -211,12 +215,12 @@ class CheckoutController extends Controller
         	}
         	else{
         		$user = Auth::user();
-        		foreach($user->basket->basketproducts as $product){
+        		foreach($user->basket->basketproducts as $bproduct){
         			$orderProduct = OrderProduct::create([
-        				'quantity' => $product->quantity,
+        				'quantity' => $bproduct->quantity,
         			]);
 	    	     	$orderProduct->order()->associate($order);
-	    	     	$orderProduct->product()->associate($product);
+	    	     	$orderProduct->product()->associate($bproduct->product);
 	    	     	$orderProduct->save();
         		}
 
@@ -252,8 +256,7 @@ class CheckoutController extends Controller
         		$billing_address->order_billing()->save($order);
         	}
         	elseif(session('order')['billing_address'] == "same"){
-        		$delivery_address = Address::find((int)session('order')['delivery_address']);
-        		$delivery_address->order_billing()->save($order);
+        		$order->address()->first()->order_billing()->save($order);
         	}
         	else{
         		$billing_address = Address::find((int)session('order')['billing_address']);
@@ -262,12 +265,65 @@ class CheckoutController extends Controller
 
         	$order->save();
 
+        	$orderId = $order->id;
+        	$orderDetails = session('order');
+        	$basketDetails = empty(session('basket')) ? Auth::user()->basket->basketproducts : session('basket');
 
         	session()->forget('order');
 
+        	$guest = Auth::guest() ? true : false;
         	if(Auth::guest()){
         		session()->forget('basket');
         	}
+        	else{
+        		Auth::user()->basket()->delete();
+        	}
+
+
+        	if(!is_array($orderDetails['delivery_address'])){
+        		$delivery_address = Address::find((int)$orderDetails['delivery_address']);
+        		$orderDetails['delivery_address'] = [
+        			'street' => $delivery_address->street,
+		            'house_number' => $delivery_address->house_number,
+		            'suffix' => $delivery_address->suffix,
+		            'zipcode' => $delivery_address->zipcode,
+		            'city' => $delivery_address->city,
+		            'country' => $delivery_address->country,
+        		];
+
+
+        		if($orderDetails['billing_address'] == "same"){
+        			$orderDetails['billing_address'] = [
+        				'street' => $delivery_address->street,
+		            	'house_number' => $delivery_address->house_number,
+		            	'suffix' => $delivery_address->suffix,
+		            	'zipcode' => $delivery_address->zipcode,
+		            	'city' => $delivery_address->city,
+		            	'country' => $delivery_address->country,
+        			];
+        		}
+        		else{
+        			$billing_address = Address::find((int)$orderDetails['billing_address']);
+	        		$orderDetails['billing_address'] = [
+	        			'street' => $billing_address->street,
+			            'house_number' => $billing_address->house_number,
+			            'suffix' => $billing_address->suffix,
+			            'zipcode' => $billing_address->zipcode,
+			            'city' => $billing_address->city,
+			            'country' => $billing_address->country,
+	        		];
+        		}
+        	}
+        	
+        	if($orderDetails['billing_address'] == "same"){
+        		$orderDetails['billing_address'] = $orderDetails['delivery_address'];
+        	}
+
+        	mail::send('mail.order-confirm', compact('orderDetails', 'basketDetails', 'guest', 'order'), function($message) use ($orderDetails, $orderId)
+	        {
+	            $message->to($orderDetails['info']['email'], 'Schoolwebshop')->subject('Order confirmation #'.$orderId);
+	        });
+
         }
         else{
         	Session::flash('feedback_error', 'unknown error, please try again');
@@ -280,67 +336,4 @@ class CheckoutController extends Controller
         return view('shop.checkout.thank_you');
     }
 
-    // public function delivery_address_store(request $request){
-    //     // return var_dump($request->all());
-    //     $user = Auth::User();     
-    //     $deliveryaddress = Address::where('id', '=',(int)$request['delivery_input'])->where('user_id', '=', $user->id)->first();
-    //     $billingaddress = Address::where('id', '=',(int)$request['billing_input'])->where('user_id', '=', $user->id)->first();
-        
-    //     $productsCount = 0;
-    //     $price = (float)0.00;
-
-    // 	foreach($user->basket->basketproducts as $product){
-    // 		$productsCount = $productsCount + $product->quantity;
-    // 		$price = $price + floatval($product->product->price * $product->quantity);
-    // 	}
-
-    //     if(empty($deliveryaddress) or empty($billingaddress)){
-    //         return redirect()->route('checkout/delivery_address');
-    //     }
-        
-    //     $order = Order::create([
-    //         'amount' => $price,
-    //         'status' => 'paid',
-    //         'payment_method' => 'IDEAL'
-    //     ]);
-    //     $deliveryaddress->order_delivery()->save($order);
-    //     $billingaddress->order_billing()->save($order);
-    //     $user->orders()->save($order);
-    //     $user->save();
-
-    //     return redirect()->route('checkout/confirmation')->with(compact("order"));
-    //     }
-    
-
-    // public function billing_address_create(){
-    //     $user = Auth::User();
-
-    //     return view('shop/checkout/billing_address')->with(compact("user"));
-    // }
-
-
-    // public function thank_you_create(){
-    //     $user = Auth::User();
-
-    //     return view('shop/checkout/thank_you')->with(compact("user"));
-    // }
-
-    // public function confirmation_create(){
-    //     $user = Auth::User();
-    //     $productsCount = 0;
-    // 	$price = (float)0.00;
-    // 	foreach($user->basket->basketproducts as $product){
-    // 		$productsCount = $productsCount + $product->quantity;
-    // 		$price = $price + floatval($product->product->price * $product->quantity);
-    // 	}
-        
-
-    //     // VERY temporary spoof deletion
-    //     foreach($user->basket->basketproducts as $product){
-    //         $product->delete();
-    //     }
-
-    // 	$price = number_format((float)$price, 2, '.', '');
-    //     return view('shop/checkout/confirmation')->with(compact('user','price', 'productsCount'));
-    // }
 }

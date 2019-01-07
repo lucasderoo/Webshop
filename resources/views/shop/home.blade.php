@@ -10,7 +10,6 @@
 .two-small-banners{
   text-align: center;
   height: 100px;
-
 }
 .blog-banner{
   text-align: left;
@@ -34,14 +33,12 @@
   background-size: 100%, 100%;
   background-image: none;
 }
-
 .carousel-control-next-icon:after
 {
   content: '>';
   font-size: 50px;
   color: gray;
 }
-
 .carousel-control-prev-icon:after {
   content: '<';
   font-size: 50px;
@@ -195,7 +192,6 @@
             </div>
           </div>
       </div>
-
     </div> -->
     </div>
 

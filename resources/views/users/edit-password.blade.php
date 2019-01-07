@@ -12,7 +12,7 @@
 
 
 </style>
-<div class="container">    
+<div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
             @include('layouts.admin-submenu')
@@ -31,6 +31,7 @@
                                 <strong>{{ $errors->first('password') }}</strong>
                             </span>
                         @endif
+                        <small><b>The password must contain at least 6 characters. </b> </small>
                     </div>
                     <div class="form-input">
                         <label for="password_confirmation" class="control-label">Password Confirmation</label>

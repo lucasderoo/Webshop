@@ -18,7 +18,7 @@ use Validator;
 class ProductController extends Controller
 {
     public function index(){
-    	$products = Product::All();  
+    	$products = Product::All();
 
     	return view('products.index')->with(compact('products'));
     }
@@ -34,7 +34,7 @@ class ProductController extends Controller
     public function store(request $request){
     	$request->validate([
             'title' => 'required|string|max:50',
-            'price' => 'required|between:0,99.99|max:5',
+            'price' => 'required|numeric|between:0.00,99.99',
             'release_date' => 'required|date',
             'category' => 'required|numeric',
             'artist' => 'required|string|max:100',
@@ -77,7 +77,7 @@ class ProductController extends Controller
             mkdir($productFolder);
         }
 
-    	for ($i=1; $i <= 4; $i++) { 
+    	for ($i=1; $i <= 4; $i++) {
     		if(!empty($request->input('product-image-' . $i))){
     			$data = $request->input('product-image-' . $i);
 
@@ -93,7 +93,7 @@ class ProductController extends Controller
             		$product->main_image_url = $i;
             		$product->save();
             	}
-            	
+
         		$image = new Image();
         		$image->image_url = "img_" . $i;
         		$image->product_id = $product->id;
@@ -124,7 +124,7 @@ class ProductController extends Controller
     public function update(request $request, $id){
     	$request->validate([
             'title' => 'required|string|max:50',
-            'price' => 'required|between:0,99.99|max:5',
+            'price' => 'required|numeric|between:0.00,99.99',
             'release_date' => 'required|date',
             'category' => 'required|numeric',
             'artist' => 'required|string|max:100',
@@ -162,7 +162,7 @@ class ProductController extends Controller
             mkdir($productFolder);
         }
 
-    	for ($i=1; $i <= 4; $i++) { 
+    	for ($i=1; $i <= 4; $i++) {
 
     		$imagePath = $productFolder . "/img_" . $i .".png";
 
@@ -221,7 +221,7 @@ class ProductController extends Controller
 
     	$product = Product::find($id);
 
-    	$product->productable()->delete();	
+    	$product->productable()->delete();
 
     	$public_path = public_path();
     	$productsFolder = public_path() . '\images\uploads\products';
@@ -256,11 +256,57 @@ class ProductController extends Controller
             'file' => 'required|mimes:csv,txt'
         ]);
         $path = request()->file('file')->getRealPath();
-        // $file = file($path);
 
         $fileHandle = fopen($path, "r");
- 
+
+
+        $rowCount = 1;
         while (($row = fgetcsv($fileHandle, 0, ",")) !== FALSE) {
+
+            if(count($row) != 9){
+                Session::flash('feedback_error', 'csv must have 8 comma\'s on a row');
+                return redirect("admin/products/create_bulk");
+            }
+
+            if(count(explode('/', $row[3])) == 3 OR count(explode('-', $row[3])) == 3){
+                if(count(explode('/', $row[3])) == 3){
+                    $check_date = explode('/', $row[3]);
+                }
+                else{
+                    $check_date = explode('-', $row[3]);
+                }
+            }
+            else{
+                Session::flash('feedback_error', 'date input error on row '.$rowCount);
+                return redirect("admin/products/create_bulk");
+            }
+
+            if(!checkdate((int)$check_date[1], (int)$check_date[2], (int)$check_date[0])){
+                Session::flash('feedback_error', 'date not valid on row '.$rowCount);
+                return redirect("admin/products/create_bulk");
+            }
+
+            if(empty($row[4]) OR empty($row[5]) OR empty($row[6]) OR empty($row[0])){
+                Session::flash('feedback_error', 'empty title, description, artist or genre on row '.$rowCount);
+                return redirect("admin/products/create_bulk");
+            }
+
+            if(empty(Carrier::find($row[7])) OR empty(Category::find($row[2]))){
+                Session::flash('feedback_error', 'invalid carrier_id or category_id on'.$rowCount);
+                return redirect("admin/products/create_bulk");
+            }
+
+
+            if(is_float($row[1]) OR strlen(explode('.',$row[1])[1]) != 2){
+                Session::flash('feedback_error', 'invalid price on row '.$rowCount);
+                return redirect("admin/products/create_bulk");
+            }
+
+            if(!is_numeric($row[8])){
+                Session::flash('feedback_error', 'invalid stock on row '.$rowCount);
+                return redirect("admin/products/create_bulk");
+            }
+
             $musicProduct = MusicProduct::Create([
                 'release_date' => $row[3],
                 'description' => $row[4],
@@ -285,8 +331,10 @@ class ProductController extends Controller
             $stock->amount = $row[8];
 
             $product->stock()->save($stock);
-        }
 
+            $rowCount++;
+        }
+        Session::flash('feedback_success', 'products added!');
         return redirect("admin/products");
 
     }

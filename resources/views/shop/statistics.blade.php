@@ -1,15 +1,27 @@
 @include('layouts.header')
+
 <style>
 .row-space{
 
 
 }
 
+.card_body{
+background-color:Tomato;"
+}
 </style>
+<div class="container">
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+    @include('layouts.feedback')
+        @include('layouts.admin-submenu')
+    </div>
+</div>
+
 <div class="col-md-8">
 
   <h1 class="page-header">
-    Website statistic
+    Website statistics
     <small></small>
   </h1>
 
@@ -41,58 +53,74 @@
               <td>The inventory</td>
               <td>{{$stock}}</td>
         </tr>
-
-        @for($i=0, $count = count($Lessthan50Name);$i<$count;$i++)
-
-
-
-  <tr bgcolor="red">
-    <td>Less than 50 in the inventory</td>
-    <td>{{$Lessthan50Name[$i]}}</td> <td>{{$Lessthan50[$i]}}</td>
-      </tr>
-
-  @endfor
-
-
-
-
-</table>
+      </table>
+    </div>
 
 
 
 
 
+        <div class="accordion-fluid" id="accordionExample" bgcolor="red">
+            <div class="card card-fluid" bgcolor="red">
+              <div class="card-header" id="headingOne" bgcolor="red">
+                <h5 class="mb-0" bgcolor="red">
+                  <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" color="red">
+                      Products that are almost sold out.
+                  </button>
+                </h5>
+              </div>
+
+              <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample" bgcolor="red">
+                <div class="card-body" bgcolor="red">
+                  @for($i=0, $count = count($Lessthan50Name);$i<$count;$i++)
+                <p><u>  {{$Lessthan50Name[$i]}} with only <b>{{$Lessthan50[$i]}}</b> copies left in the stock.</u></p>
+                  @endfor
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+
+
+
+
+
+
+
+
+
+<div>
             <br/><br/>
 
-  <div class="col-md-6">
-               {!! $pie_chart->html() !!}
-            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                                 {!! $pie_chart->html()!!}
+                                 </div>
 
-            <br></br>
-              <div class="col-md-6">
-                           {!! $pie_chart2->html() !!}
-                        </div>
+                                   <div class="col">
 
-                        <br></br>
-
+                                     {!! $pie_chart2->html()!!}
 
 
-           <div class="col-md-6">
-              {!! $line_chart->html() !!}
-           </div>
 
-           <br/><br/>
+</div>
+</div>
+<div class="row">
+  <div class="col">
+{!! $line_chart->html() !!}
+</div>
+<div class="col">
+  {!! $line_chart2->html() !!}
+</div>
+<div class="col">
+
+{!! $line_chart3->html() !!}
+
+</div>
+</div>
 
 
-           <br></br>
-            <div class="col-md-6">
-             {!! $line_chart2->html() !!}
-            </div>
-
-            <br></br>
-             <div class="col-md-6">
-              {!! $line_chart3->html() !!}
-             </div>
 
 
 

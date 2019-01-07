@@ -46,7 +46,7 @@ height: 25px;
 }
 .favourites-now{
 	float: right;
-	background-color: #FF9900;
+	background-color: #4C4B51;
 }
 .main-image-buy-btn-wrapper{
 	width: 85%;
@@ -103,7 +103,6 @@ h5{
         @include('layouts.feedback')
             <div class="row top-row">
                 <div class="col-md-12">
-                	<p>Home > {{$product->category->name}} > {{$product->productable->artist}} - {{$product->title}}</p>
                 </div>
             </div>
             <div class="row">
@@ -147,7 +146,7 @@ h5{
                 	<p><b>Title:</b> {{$product->title}}</p>
                 	<p><b>Format:</b> {{$product->productable->carrier->name}}</p>
                 	<p><b>Genre:</b> {{$product->productable->genre}}</p>
-                    <p><b>Stock:</b> {{$product->stock->amount}}</p>
+                    <p><b>Stock:</b> @if($product->stock->amount > 0) <strong style="color: green">In stock</strong> @else <strong style="color: red">Out of stock</strong> @endif</p>
                 	<p class="bottom-p"><b>Released:</b> {{$product->productable->release_date}}</p>
                 	</div>
 
@@ -170,5 +169,16 @@ $(".image-select").on("click", "img", function (event) {
     $("#big_image").attr('src', $("#"+event.target.id).attr('src'));
 });
 
+$('.Big_image').each(function(){
+    jQuery(this)[0].onerror = function() {
+        jQuery(this)[0].src = "{{ asset('images/stock_image.png') }}";
+    }
+});
+
+$('.x100_pic').each(function(){
+    jQuery(this)[0].onerror = function() {
+        jQuery(this)[0].src = "{{ asset('images/stock_image.png') }}";
+    }
+});
 </script>
 @include('layouts.footer')

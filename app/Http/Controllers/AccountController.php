@@ -13,7 +13,7 @@ use App\Order;
 use Session;
 class AccountController extends Controller
 {
-    
+
     public function index(){
 
     	$user = Auth::user();
@@ -52,7 +52,7 @@ class AccountController extends Controller
     	$request->validate([
             'email' => 'required|string|email|max:255',
             'firstname' => 'required|string|max:50',
-            'insertion' => 'string|max:20',
+            'insertion' => 'sometimes|nullable|string|max:20',
             'lastname' => 'required|string|max:50',
             'initials' => 'required|string|max:50',
             'phonenumber' => 'max:10',
@@ -80,9 +80,15 @@ class AccountController extends Controller
     	return view('account.orders')->with(compact('user'));
     }
 
+    public function show_order($id){
+    	$user = Auth::user();
+    	$order = Order::where('user_id', $user->id)->where('id', $id)->first();
+
+    	return view('account.order')->with(compact('order', 'user'));
+    }
+
     public function adresses(){
     	$user = Auth::user();
-
     	return view('account.addresses')->with(compact('user'));
     }
 
