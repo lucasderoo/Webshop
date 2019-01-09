@@ -114,6 +114,7 @@
                         </header>
                         <div class="filter-content">
                             <div class="card-body">
+                            <input type="text" name="search-genre" id="search-genre" placeholder="search for genre">
                             <?php $sel_genre = $request->has('genres') ? $request->get('genres') : []; $g = 1;?>
 
                             @for ($i = 0; $i < count($genres); $i++)
@@ -126,6 +127,8 @@
                                     <span class="form-check-label">{{ $genres[$i] }}</span>
                                 </label>
                             @endfor
+                            <div id="search-genre-result">
+                            </div>
                             </div>
                         </div>
                     </article> <!-- card-group-item.// -->
@@ -136,6 +139,7 @@
                         </header>
                         <div class="filter-content">
                             <div class="card-body">
+                            <input type="text" id="search-artist" placeholder="search for artist">
                             <?php $sel_artist = $request->has('artists') ? $request->get('artists') : []; $a = 1;?>
                             @for ($i = 0; $i < count($artists); $i++)
                             @if($i == 5*$a)
@@ -147,6 +151,8 @@
                                 <span class="form-check-label">{{ $artists[$i] }}</span>
                             </label>
                             @endfor
+                            <div id="search-artist-result">
+                            </div>
                             </div>
                         </div>
                     </article> <!-- card-group-item.// -->
@@ -179,13 +185,22 @@
                     @foreach($products as $product)
                     <div class="col-md-4" style="margin-bottom: 30px;">
                         <div class="product-div">
-                            <a class="product-link" href="{{ route('show', [ 'slug' => $product->slug]) }}"><img class="product-img" style="width: 100%;" src="{{asset('images/uploads/products/product_').$product->id.'/img_'.$product->main_image_url.'.png'}}">
-                            
-                            <div>{{ strlen($product->title) > 18 ? substr($product->title,0,15).'...' : $product->title }}</div>
-                            @if($product->productable_type == "App\MusicProduct")
-                                <div>{{ strlen($product->productable->artist) > 18 ? substr($product->productable->artist,0,15).'...' : $product->productable->artist }}</div></a>
-                            @endif
-                            <h5>€{{ $product->price }}</h5>
+                             <a href="{{ route('show', [ 'slug' => $product->slug]) }}"><img class="product-img" style="width: 100%;" src="{{asset('images/uploads/products/product_').$product->id.'/img_'.$product->main_image_url.'.png'}}">
+                        </a>
+                        <form role="form" method="POST" action="{{ route('favourites/create', ['slug' => $product->slug]) }}">
+                          {{ csrf_field() }}
+                          <button type="submit" class="btn btn-danger float-right" style="margin-top:5px; width: 30%; ">
+                            <i class="far fa-heart"></i>
+                          </button>
+                        </form>
+                        <a href="{{ route('show', [ 'slug' => $product->slug]) }}">
+
+                        @if($product->productable_type == "App\MusicProduct")
+                            <div>{{ strlen($product->productable->artist) > 18 ? substr($product->productable->artist,0,15).'...' : $product->productable->artist }}</div>
+                        @endif
+                        <div>{{ strlen($product->title) > 18 ? substr($product->title,0,15).'...' : $product->title }}</div>
+                        <h5>€{{ $product->price }}</h5>
+                        </a>
                             <form role="form" method="POST" action="{{ route('cart/create', ['slug' => $product->slug]) }}">
                                 {{ csrf_field() }}
                                 <button type="submit" class="btn btn-primary" style="margin-top:10px; width: 100%;">Add product to cart</button>
@@ -222,7 +237,8 @@
 
                 $(document).on('click', '.more-genre-section', function (e) {
                     var id = e.target.id;
-                    var id = id.substr(id.length - 1);
+                    var l = id.length-10;
+                    var id = id.substr(id.length - l);
                     $(".more-genre-section-"+id).css("display", "block");
                     $("#more-genre"+id).css("display", "none");
                     var id = parseInt(id, 10)+1;
@@ -231,7 +247,8 @@
 
                 $(document).on('click', '.more-artist-section', function (e) {
                     var id = e.target.id;
-                    var id = id.substr(id.length - 1);
+                    var l = id.length-11;
+                    var id = id.substr(id.length - l);
                     $(".more-artist-section-"+id).css("display", "block");
                     $("#more-artist"+id).css("display", "none");
                     var id = parseInt(id, 10)+1;
@@ -299,7 +316,91 @@
                         jQuery(this)[0].src = "{{ asset('images/stock_image.png') }}";
                     }
                 });
+
+
+
+                $("#search-genre-result,#search-artist-result").on("click", ".search-checkbox", function(event){
+                    var el = document.querySelectorAll("input[value='"+event.target.id+"']")[0]
+                    if(el.checked){
+                        el.checked = false;
+                    }
+                    else{
+                        el.checked = true;
+                    }
+                });
+
             </script>
+
+            <script>
+                $('#search-genre,#search-artist').on('input', function(event) {
+                    var resultDiv =  document.getElementById(event.target.id+"-result");
+                    resultDiv.style.border = "initial";
+                    if(event.target.id == "search-genre"){
+                        var id = 0;
+                    }
+                    else{
+                        var id = 1;
+                    }
+
+                    resultDiv.innerHTML = [];
+                    if(event.target.value.length < 3){
+                        return;
+                    }
+
+                    var genres = {!! json_encode($genres->toArray()) !!};
+                    var artists = {!! json_encode($artists->toArray()) !!};
+
+                    var selectedGenres = {!! json_encode($request['genres']) !!};
+                    var selectedArtists = {!! json_encode($request['artists']) !!};
+
+                    var result = [];
+
+                    var c = 0;
+
+                    if(id == 0){
+                        for (var i = 0; i < genres.length; i++){
+                            if (genres[i].toLowerCase().includes(event.target.value.toLowerCase())){
+                                result[c] = genres[i];
+                                c++;
+                            }
+                        }
+                    }
+                    else{
+                        for (var i = 0; i < artists.length; i++){
+                            if (artists[i].toLowerCase().includes(event.target.value.toLowerCase())){
+                                result[c] = artists[i];
+                                c++;
+                            }
+                        }
+                    }
+
+                    for (var i = 0; i < result.length; i++){
+                        var para = document.createElement("p");
+                        var node = document.createTextNode(result[i]);
+                        para.appendChild(node);
+                        resultDiv.appendChild(para);
+                        var checkbox = document.createElement('input');
+                        checkbox.type = "checkbox";
+                        checkbox.classList.add("search-checkbox");
+                        checkbox.id = result[i];
+
+                        if(document.querySelectorAll("input[value='"+result[i]+"']")[0].checked){
+                            checkbox.checked = true;
+                        }
+                        resultDiv.appendChild(checkbox);
+                    }
+
+                    if(result.length > 0){
+                        resultDiv.style.borderBottom = "1px solid black";
+                        resultDiv.style.borderLeft = "1px solid black";
+                        resultDiv.style.borderRight = "1px solid black";
+                    }
+
+                    console.log(result);
+                });
+
+            </script>
+
         </div>
     </div>
 </div>

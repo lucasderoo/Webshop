@@ -99,7 +99,7 @@
                   <div class="col finished">
                       <div class="prod-image">
                           <a href="{{ route('show', [ 'slug' => $product->product->slug]) }}">
-                          <img src="{{asset('images/uploads/products/product_').$product->product->id.'/img_'.$product->product->main_image_url.'.png'}}">
+                          <img class="product-img" src="{{asset('images/uploads/products/product_').$product->product->id.'/img_'.$product->product->main_image_url.'.png'}}">
                       </div>
                       <div class="text-image-1">
                         <h6> {{ $product->product->title }}
@@ -200,3 +200,10 @@
 </div>
 
 @include('layouts.footer')
+<script>
+$('.product-img').each(function(){
+    jQuery(this)[0].onerror = function() {
+        jQuery(this)[0].src = "{{ asset('images/stock_image.png') }}";
+    }
+});
+</script>

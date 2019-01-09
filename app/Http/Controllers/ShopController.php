@@ -39,8 +39,9 @@ class ShopController extends Controller
         $pagination = 15;
         $paginationArray = [];
 
-        $genres = MusicProduct::all()->pluck('genre')->unique()->values()->sort();
-        $artists = MusicProduct::all()->pluck('artist')->unique()->values()->sort();
+        $genres = MusicProduct::all()->sortBy('genre')->pluck('genre')->unique()->values();
+        $artists = MusicProduct::all()->sortBy('artist')->pluck('artist')->unique()->values();
+
         $categories = Category::all();
 
         $genresFilter = $request->has('genres') ? $request->get('genres') : [];

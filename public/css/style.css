@@ -1,3 +1,8 @@
+.container{
+    max-width:1500px;
+    margin-top:20px;
+}
+
 /* header */
 
 .nav-right{
@@ -118,6 +123,41 @@
     width: 85px;
 }
 
+.card-body{
+    position: relative;
+}
+
+
+
+#search-genre-result, #search-artist-result{
+    max-width: 178px;
+    width: 100%;
+    position: absolute;
+    height: auto;
+    background-color: white;
+    z-index: 2;
+    left: 20px;
+    top: 50px;
+
+}
+
+#search-genre-result p, #search-artist-result p{
+    width: 85%;
+    cursor: pointer;
+    margin: 2px;
+    float: left;
+}
+
+#search-genre-result input, #search-artist-result input{
+    cursor: pointer;
+    margin-top: 11px;
+    margin-right: 2px;
+    float: right;
+}
+#search-genre{
+    width: auto;
+    max-width: 178px;
+}
 /* end header */
 /* feedback boxes */
 .feedback {

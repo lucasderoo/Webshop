@@ -45,16 +45,21 @@ class Basket extends Model
 		
 		$price = (float)0.00;
 		if(Auth::guest()){
-            foreach(session('basket') as $product){
-                $price = $price + floatval($product['price'] * $product['quantity']);
-            }
+			if(session('basket')){
+	            foreach(session('basket') as $product){
+	                $price = $price + floatval($product['price'] * $product['quantity']);
+	            }
+	        }
         }
         else{
-        	foreach($user->basket->basketproducts as $product){
-		    	$price = $price + floatval($product->product->price * $product->quantity);
+        	if(Auth::user()->basket){
+	        	foreach(Auth::user()->basket->basketproducts as $product){
+			    	$price = $price + floatval($product->product->price * $product->quantity);
+				}
 			}
         }
 
+        $price = number_format((float)$price, 2, '.', '');
         return $price;
     }
 }
