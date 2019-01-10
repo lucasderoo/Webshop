@@ -185,16 +185,13 @@
                     @foreach($products as $product)
                     <div class="col-md-4" style="margin-bottom: 30px;">
                         <div class="product-div">
-                             <a href="{{ route('show', [ 'slug' => $product->slug]) }}"><img class="product-img" style="width: 100%;" src="{{asset('images/uploads/products/product_').$product->id.'/img_'.$product->main_image_url.'.png'}}">
-                        </a>
+                             <a href="{{ route('show', [ 'slug' => $product->slug]) }}"><img class="product-img" style="width: 100%;" src="{{asset('images/uploads/products/product_').$product->id.'/img_'.$product->main_image_url.'.png'}}"></a>
+
                         <form role="form" method="POST" action="{{ route('favourites/create', ['slug' => $product->slug]) }}">
                           {{ csrf_field() }}
-                          <button type="submit" class="btn btn-danger float-right" style="margin-top:5px; width: 30%; ">
-                            <i class="far fa-heart"></i>
-                          </button>
+                        <i onclick="submit_fav_form(this)"class="{{ $favourites->contains('product_id' , $product->id) ? 'fas' : 'far' }} fa-heart favorite-icon"></i>
                         </form>
                         <a href="{{ route('show', [ 'slug' => $product->slug]) }}">
-
                         @if($product->productable_type == "App\MusicProduct")
                             <div>{{ strlen($product->productable->artist) > 18 ? substr($product->productable->artist,0,15).'...' : $product->productable->artist }}</div>
                         @endif
@@ -347,6 +344,7 @@
                         return;
                     }
 
+                    resultDiv.style.display = "block";
                     var genres = {!! json_encode($genres->toArray()) !!};
                     var artists = {!! json_encode($artists->toArray()) !!};
 
@@ -396,9 +394,30 @@
                         resultDiv.style.borderRight = "1px solid black";
                     }
 
+
                     console.log(result);
                 });
 
+
+                $(document).click(function(event) { 
+                    if(!$(event.target).closest('#search-genre-result,#search-genre').length) {
+                        if($('#search-genre-result,#search-genre').is(":visible")) {
+                            $('#search-genre-result').hide();
+                            // alert('homo');
+                        }
+                    }
+
+
+                    if(!$(event.target).closest('#search-artist-result,#search-artist').length) {
+                        if($('#search-artist-result,#search-artist').is(":visible")) {
+                            $('#search-artist-result').hide();
+                        }
+                    }      
+                });
+
+                function submit_fav_form(el){
+                    el.parentElement.submit();
+                }
             </script>
 
         </div>

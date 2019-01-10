@@ -38,6 +38,11 @@ class ShopController extends Controller
     public function products(request $request){
         $pagination = 15;
         $paginationArray = [];
+        $favourites = collect();
+
+        if(!Auth::guest() && !empty(Auth::user()->favourites)){
+            $favourites = Auth::user()->favourites->favouritesproducts;
+        }
 
         $genres = MusicProduct::all()->sortBy('genre')->pluck('genre')->unique()->values();
         $artists = MusicProduct::all()->sortBy('artist')->pluck('artist')->unique()->values();
@@ -116,7 +121,8 @@ class ShopController extends Controller
             $products = $products->slice($paginationArray['currentpage']*$pagination-$pagination)->take($pagination);
         }
 
-        return view('shop.list')->with(compact('products', 'categories', 'genres', 'artists', 'request', 'maxPrice', 'paginationArray', 'minDate', 'maxDate', 'orderBy'));
+
+        return view('shop.list')->with(compact('products', 'categories', 'genres', 'artists', 'request', 'maxPrice', 'paginationArray', 'minDate', 'maxDate', 'orderBy', 'favourites'));
     }
 
     public function search(request $request){
