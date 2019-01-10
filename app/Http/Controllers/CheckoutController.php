@@ -47,17 +47,8 @@ class CheckoutController extends Controller
 	            'country' => 'required|string|max:255',
         	]);
 
-        	$price = (float)0.00;
-        	if(!empty(session('basket'))){
-                foreach(session('basket') as $product){
-                    $price = $price + floatval($product['price'] * $product['quantity']);
-                }
-            }
-            else{
-            	Session::flash('feedback_error', 'unknown error, please try again');
-        		return redirect()->route('checkout');
-            }
-            $price = number_format((float)$price, 2, '.', '');
+
+            $price = Basket::calculate_price();
 
         	$order = [
                 'info' => [
@@ -108,19 +99,7 @@ class CheckoutController extends Controller
         		return redirect()->route('checkout');
         	}
 
-        	if(!empty($user->basket)){
-                $products = $user->basket->basketproducts;
-                $price = (float)0.00;
-                foreach($user->basket->basketproducts as $product){
-                    $price = $price + floatval($product->product->price * $product->quantity);
-                }
-            }
-            else{
-            	Session::flash('feedback_error', 'unknown error, please try again');
-        		return redirect()->route('checkout');
-            }
-            $price = number_format((float)$price, 2, '.', '');
-
+            $price = Basket::calculate_price();
 
         	$order = [
                 'info' => [
@@ -153,7 +132,6 @@ class CheckoutController extends Controller
     public function confirm(){
         
         $user = Auth::user();
-        $price = (float)0.00;
         if(!session('order')){
         	Session::flash('feedback_error', 'unknown error, please try again');
         	return redirect()->route('checkout');
@@ -166,20 +144,7 @@ class CheckoutController extends Controller
         }
 
         $guest = Auth::guest();
-
-        if(session('basket') && Auth::guest()){
-        	$products = session('basket');
-        	foreach(session('basket') as $product){
-                $price = $price + floatval($product['price'] * $product['quantity']);
-            }
-        }
-        else{
-        	$products = $user->basket->basketproducts;
-        	foreach($user->basket->basketproducts as $product){
-                $price = $price + floatval($product->product->price * $product->quantity);
-            }
-        }
-        $price = number_format((float)$price, 2, '.', '');
+        $price = Basket::calculate_price();
 
         return view('shop.checkout.confirm')->with(compact("addresses", "products", "guest", "user", "price"));
     }
