@@ -71,15 +71,15 @@
                                     <p>€ {{ $product->product->price }}</p>
                                 </div>
                                 <div class="favourites-product-btns">
-                                    <form action="{{ route('favourites/create', ['id' => $product->product->slug]) }}" method="POST">
+                                    <form class="remove-favourite-form" action="{{ route('favourites/create', ['id' => $product->product->slug]) }}" method="POST">
                                         {{ csrf_field() }}
-                                        <button type="submit" class="btn btn-small btn-danger">Remove</button>
-                                    <form role="form" method="POST" action="{{ route('cart/create', ['slug' => $product->product->slug]) }}">
+                                        <button type="submit" class="remove-favourite btn btn-small btn-danger">Remove</button>
+                                    </form>
+                                    <form class="add-to-cart-form" method="POST" action="{{ route('cart/create', ['slug' => $product->product->slug]) }}">
                                         {{ csrf_field() }}
                                         <button class="add-to-cart btn" type="submit">Add to Cart</button>
                                     </form>
                                 </div>
-                                </form>
                             </div>
                         </div>
                     </div>

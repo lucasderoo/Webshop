@@ -138,7 +138,16 @@
     cursor: pointer;
 }
 
+/* favourites page */
 
+
+.remove-favourite-form{
+    float: left;
+    margin-right: 10px;
+}
+.add-to-cart-form{
+    float: left;
+}
 #search-genre-result, #search-artist-result{
     max-width: 178px;
     width: 100%;
