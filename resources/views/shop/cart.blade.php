@@ -63,9 +63,9 @@
                             <div class="col-md-12 cart-product">
                                 <div class="cart-product-image">
                                     @if(Auth::guest())
-                                    <a href="{{ route('show', [ 'slug' => $product['slug']])  }}"><img src="{{ asset('images/uploads/products/product_').$key.'/img_'.$product['main_image_url'].'.png' }}" class="afbeelding"></a>
+                                    <a href="{{ route('show', [ 'slug' => $product['slug']])  }}"><img src="{{ asset('images/uploads/products/product_').$key.'/img_'.$product['main_image_url'].'.png' }}" class="product-img-small"></a>
                                     @else
-                                    <a href="{{ route('show', [ 'slug' => $product->product->slug]) }}"><img src="{{ asset('images/uploads/products/product_').$product->product->id.'/img_'.$product->product->main_image_url.'.png'}}" class="afbeelding"></a>
+                                    <a href="{{ route('show', [ 'slug' => $product->product->slug]) }}"><img src="{{ asset('images/uploads/products/product_').$product->product->id.'/img_'.$product->product->main_image_url.'.png'}}" class="product-img-small"></a>
                                     @endif
                                 </div>
                                 <div class="cart-product-info">
