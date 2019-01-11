@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Category;
+use App\HomePageProduct;
 use Session;
 
 class CategoryController extends Controller
@@ -65,8 +66,24 @@ class CategoryController extends Controller
 
     public function destroy($id){
     	$category = Category::find($id);
-    	$category->Musicproducts()->delete();
-    	$category->delete();
+
+        if(!empty($category->products)){
+            foreach($category->products as $product){
+                foreach($product->images as $image){
+                    $imagePath = $productsFolder . "\product_" . $product->id . "/" . $image->image_url . ".png";
+                    unlink($imagePath);
+                }
+                $product->productable()->delete();
+                $product->images()->delete();
+
+                var_dump($product->id);
+                HomePageProduct::where('product_id', $product->id)->delete();
+            }
+        }
+
+        $category->products()->delete();
+
+        $category->delete();
 
     	Session::flash('feedback_error', 'Category deleted');
     	return redirect()->route('admin/categories');

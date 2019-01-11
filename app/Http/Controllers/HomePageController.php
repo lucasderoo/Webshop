@@ -17,6 +17,7 @@ class HomePageController extends Controller
 
     	$pages = HomePage::All();
 
+
     	return view('homepage.index')->with(compact('pages'));
     }
 

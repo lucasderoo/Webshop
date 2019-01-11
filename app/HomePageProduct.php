@@ -13,7 +13,7 @@ class HomePageProduct extends Model
         return $this->belongsTo('App\HomePage');
     }
 
-    public function product()
+   	public function product()
     {
         return $this->belongsTo('App\Product');
     }

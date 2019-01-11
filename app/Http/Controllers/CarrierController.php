@@ -66,6 +66,16 @@ class CarrierController extends Controller
 
     public function destroy($id){
     	$carrier = Carrier::find($id);
+
+        if(!empty($carrier->music_products){
+            foreach($carrier->music_products as $product){
+                $product->productable->delete();
+                HomePageProduct::where('product_id', $product->productable->id)->delete();
+            }
+
+        }
+
+
     	$carrier->music_products()->delete();
     	$carrier->delete();
 

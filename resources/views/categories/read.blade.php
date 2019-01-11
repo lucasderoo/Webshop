@@ -25,7 +25,30 @@
                     <label for="name" class="control-label">Name</label>
                     <p>{{ $category->name }}</p>
                 </div>
-                <p>// All products will come here //</p>
+                <h3>Products</h3>
+                <hr>
+                <div class="form-input">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <td>ID</td>
+                                <td>Title</td>
+                                <td>Price</td>
+                                <td>Category</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($category->products as $product)
+                            <tr>
+                                <td>{{ $product->id }}</td>
+                                <td>{{ $product->title }}</td>
+                                <td>{{ $product->price }}</td>
+                                <td>{{ $product->category->name }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

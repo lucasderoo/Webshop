@@ -10,6 +10,8 @@ use App\Genre;
 use App\MusicProduct;
 use App\Image;
 use App\Stock;
+use App\HomePage;
+use App\HomePageProduct;
 
 use Session;
 
@@ -234,6 +236,9 @@ class ProductController extends Controller
     	$product->images()->delete();
 
     	$product->delete();
+
+
+        HomePageProduct::where('product_id',$id)->delete();
 
         Session::flash('feedback_success', 'Product deleted');
     	return redirect('admin/products');
