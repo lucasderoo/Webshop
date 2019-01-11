@@ -45,16 +45,6 @@
     <ul class="navbar-nav nav-right">
       <li class="nav-item dropdown" style="cursor:pointer;">
           <img src="{{asset('images/user_icon.svg') }}">
-          <small class="icon_text">
-          @if(Auth::guest())
-          Login
-          @elseif(!Auth::guest() AND Auth::user()->user_account_type == 1)
-          Account
-          @elseif(!Auth::guest() AND Auth::user()->user_account_type == 2)
-          Manager
-          @elseif(!Auth::guest() AND Auth::user()->user_account_type == 3)
-          Admin
-          @endif</small>
           <div id="myDropdown" class="dropdown-content">
             @if(Auth::guest())
               <a href="{{ route('login') }}">Login</a>
@@ -75,15 +65,13 @@
           </div>
       </li>
       @if(!Auth::guest() AND Auth::user()->user_account_type == 1)
-      <a href="{{ route('favourites') }}"><li class="nav-item" style="padding-left: 6px !important; margin-left: 9px !important;">
+      <a href="{{ route('favourites') }}"><li class="nav-item">
           <img src="{{asset('images/fav_icon.svg') }}">
-          <small style="margin-left: -6px;" class="icon_text">Favourites</small>
       </li></a>
       @endif
       <a href="{{ route('cart') }}"><li class="nav-item">
           <img src="{{asset('images/cart_icon.svg') }}">
           <span style="text-decoration: none !important;"class='badge badge-warning' id='lblCartCount'> {{ $cart_items }} </span>
-          <small class="icon_text">Cart</small>
       </li></a>
     </ul>
   <!-- </div> -->

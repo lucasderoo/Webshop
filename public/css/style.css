@@ -29,7 +29,7 @@
 }
 
 .nav-item img{
-    height: 28px;
+    height: 35px;
     margin-left: 4px;
     margin-right: 4px;
 }
@@ -88,16 +88,6 @@
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
-
-.icon_text{
-    display: block;
-    color: white;
-    margin-top: -3px;
-    margin-left: -2px;
-    font-size: 70%;
-    font-weight: 400;
-    text-align: center;
-}
 
 #search-form{
     margin: 0 !important;
