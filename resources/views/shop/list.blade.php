@@ -403,7 +403,6 @@
                     if(!$(event.target).closest('#search-genre-result,#search-genre').length) {
                         if($('#search-genre-result,#search-genre').is(":visible")) {
                             $('#search-genre-result').hide();
-                            // alert('homo');
                         }
                     }
 
