@@ -236,6 +236,19 @@ class CheckoutController extends Controller
         	$orderDetails = session('order');
         	$basketDetails = $guest ? session('basket') : Auth::user()->basket->basketproducts;
 
+
+            foreach($basketDetails as $basketProduct){
+                if($guest){
+                    $product = Product::find($basketProduct['id']);
+                    $product->stock->amount = $product->stock->amount - $product['quantity'];
+                    $product->stock->save();
+                }
+                else{
+                    $basketProduct->product->stock->amount = $basketProduct->product->stock->amount - $basketProduct->quantity;
+                    $basketProduct->product->stock->save();
+                }
+            }
+
         	session()->forget('order');
 
         	$guest = Auth::guest();

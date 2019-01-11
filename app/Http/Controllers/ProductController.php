@@ -286,8 +286,8 @@ class ProductController extends Controller
                 return redirect("admin/products/create_bulk");
             }
 
-            if(empty($row[4]) OR empty($row[5]) OR empty($row[6]) OR empty($row[0])){
-                Session::flash('feedback_error', 'empty title, description, artist or genre on row '.$rowCount);
+            if(empty($row[4]) OR empty($row[5]) OR empty($row[6]) OR empty($row[0]) OR strlen($row[0]) > 50 OR strlen($row[0]) > 50 OR strlen($row[5]) > 75 OR strlen($row[5]) > 75){
+                Session::flash('feedback_error', 'empty or too long title, description, artist or genre on row '.$rowCount);
                 return redirect("admin/products/create_bulk");
             }
 
@@ -306,20 +306,24 @@ class ProductController extends Controller
                 Session::flash('feedback_error', 'invalid stock on row '.$rowCount);
                 return redirect("admin/products/create_bulk");
             }
+            $rowCount++;
+        }
 
+        $fileHandle = fopen($path, "r");
+
+        while (($roww = fgetcsv($fileHandle, 0, ",")) !== FALSE) {
             $musicProduct = MusicProduct::Create([
-                'release_date' => $row[3],
-                'description' => $row[4],
-                'artist' => $row[5],
-                'genre' => $row[6],
-                'carrier_id' => $row[7]
+                'release_date' => $roww[3],
+                'description' => $roww[4],
+                'artist' => $roww[5],
+                'genre' => $roww[6],
+                'carrier_id' => $roww[7]
             ]);
             $musicProduct->save();
-
             $product = new Product();
-            $product->title = $row[0];
-            $product->price = $row[1];
-            $product->category_id = $row[2];
+            $product->title = $roww[0];
+            $product->price = $roww[1];
+            $product->category_id = $roww[2];
             $product->productable_id = $musicProduct->id;
             $product->productable_type = "App\MusicProduct";
             $product->updated_at;
@@ -328,12 +332,12 @@ class ProductController extends Controller
             $product->save();
 
             $stock = new Stock();
-            $stock->amount = $row[8];
+            $stock->amount = $roww[8];
 
             $product->stock()->save($stock);
-
-            $rowCount++;
         }
+
+
         Session::flash('feedback_success', 'products added!');
         return redirect("admin/products");
 
