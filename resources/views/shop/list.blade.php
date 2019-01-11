@@ -87,10 +87,10 @@
                 </div>
             </div>
 
+            <form id="filter-form" action="{{ URL::current()}}" style="margin: 0px;">
             <div class="row">
               <div class="col-md-4">
           	     <div class="card">
-            <form id="filter-form" action="{{ URL::current()}}" style="margin: 0px;">
                     <button style="margin-bottom: 15px;" type="submit" class="btn btn-block btn-outline-primary">Apply</button>
                     <!-- <article class="card-group-item">
                         <header class="card-header">
@@ -208,6 +208,7 @@
                 </div>
                 <div class="center">
                     <div class="pages">
+                    {{ $products->links('pagination.default') }}
                     </div>
                 </div>
             </div>

@@ -18,7 +18,7 @@ use Validator;
 class ProductController extends Controller
 {
     public function index(){
-    	$products = Product::All();
+    	$products = Product::paginate(15);
 
     	return view('products.index')->with(compact('products'));
     }
