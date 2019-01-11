@@ -43,6 +43,9 @@
 @if(Session::has('feedback_success_account_address'))
     <div class="alert alert-success"><p>{{ Session::get('feedback_success_account_address') }}</p></div>
 @endif
+@if(Session::has('feedback_success_password_change'))
+    <div class="alert alert-success"><p>{{ Session::get('feedback_success_password_change') }}</p></div>
+@endif
 @if(Session::has('feedback_error'))
     <div class="alert alert-danger"><p>{{ Session::get('feedback_error') }}</p></div>
 @endif

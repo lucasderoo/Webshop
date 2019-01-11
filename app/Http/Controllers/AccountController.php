@@ -43,7 +43,7 @@ class AccountController extends Controller
 
         $user->save();
 
-		Session::flash('feedback_success', 'Current password not correct');
+		Session::flash('feedback_success_password_change', 'Current password correct');
     	return redirect()->route('account');
     }
 
