@@ -107,6 +107,15 @@ Route::group([
 });
 
 Route::group([
+	'prefix' => '/admin/orders',
+	'middleware' => 'Manager'
+], function(){
+	Route::get('', 'OrderController@index')->name('admin/orders');
+	Route::get('/read/{id}', 'OrderController@show')->name('admin/orders/show');
+	Route::post('/read/{id}', 'OrderController@update');
+});
+
+Route::group([
 	'prefix' => '/admin/carriers',
 	'middleware' => 'Manager'
 ], function(){
@@ -164,8 +173,6 @@ Route::group([
 ], function(){
 	Route::get('', 'FavouritesController@index')->name('favourites');
 	Route::post('/add/{slug}', 'FavouritesController@store')->name('favourites/create');
-	Route::post('/update/{id}', 'FavouritesController@update')->name('favourites/update');
-	Route::post('/delete/{id}', 'FavouritesController@destroy')->name('favourites/delete');
 	Route::post('/saveforlater/{slug}', 'FavouritesController@save_for_later')->name('favourites/saveForLater');
 });
 

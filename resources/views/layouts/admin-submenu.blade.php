@@ -5,6 +5,7 @@
 </style>
 <div class="sub-admin-menu">
     <ul class="navbar">
+        <li class="nav-item"><a href="{{ route('admin/orders') }}">Orders</a></li>
         <li class="nav-item"><a href="{{ route('admin/products') }}">Products</a></li>
         <li class="nav-item"><a href="{{ route('admin/categories') }}">Categories</a></li>
         <li class="nav-item"><a href="{{ route('admin/users') }}">Users</a></li>

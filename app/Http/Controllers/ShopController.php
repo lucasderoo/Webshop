@@ -73,8 +73,6 @@ class ShopController extends Controller
         $productsQuery = $productsQuery->where('music_products.release_date', '>=', $minDate);
         $productsQuery = $productsQuery->where('music_products.release_date', '<=', $maxDate);
 
-        $products = $productsQuery->paginate(15);
-
         $orderBy_ = "id";
         $orderBy = $request->has('orderby') ? $request->get('orderby') : "sold";
         $sort = $request->has('sort') ? $request->get('sort') : "DESC";
