@@ -90,7 +90,7 @@
             <div class="row">
               <div class="col-md-4">
           	     <div class="card">
-                    <form id="filter-form" action="{{ URL::current()}}" style="margin: 0px;">
+            <form id="filter-form" action="{{ URL::current()}}" style="margin: 0px;">
                     <button style="margin-bottom: 15px;" type="submit" class="btn btn-block btn-outline-primary">Apply</button>
                     <!-- <article class="card-group-item">
                         <header class="card-header">
@@ -180,7 +180,7 @@
                 </form>
                 </div>
               </div>
-          	<div class="col-8">
+          	     <div class="col-8">
                 <div class="row">
                     @foreach($products as $product)
                     <div class="col-md-4" style="margin-bottom: 30px;">
@@ -208,20 +208,12 @@
                 </div>
                 <div class="center">
                     <div class="pages">
-                    <?php $pages = array_key_exists('pages', $paginationArray) ? $paginationArray['pages'] : 1; $currentPage = $request->has('page') ? $request->get('page') : 1; $pagesRangeEnd = $currentPage+2>=$pages ? $pages : $currentPage+5-$currentPage; $pagesRangeStart = $pages >= 5 ? $pagesRangeEnd-4 : 1; ?>
-                        @if($pages > 1)
-                        <a id="{{ $currentPage <= 1 ? $currentPage : $currentPage-1 }}">&laquo;</a>
-                            @for ($pagesRangeStart; $pagesRangeStart <= $pagesRangeEnd; $pagesRangeStart++)
-                                <a class="{{ $currentPage == $pagesRangeStart ? 'active-page' : ''}}" id="{{ $pagesRangeStart }}">{{ $pagesRangeStart }}</a>
-                            @endfor
-                        <a id="{{ $currentPage >= $pages ? $currentPage : $currentPage+1 }}">&raquo;</a>
-                        @endif
                     </div>
                 </div>
             </div>
+            </div>
+            </form>
             <script>
-
-
                 $(".pages").on('click', 'a', function (e) {
                     document.getElementById("page").value = e.target.id;
                     document.getElementById("filter-form").submit(); 

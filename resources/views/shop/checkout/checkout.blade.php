@@ -261,7 +261,7 @@
 		<hr>
     </div>
 </div>
-
+@include('layouts.footer')
 <script>
 
 function show_billing(){
@@ -295,5 +295,3 @@ $("input[name='billing_input[]'").change(function (event) {
     event.target.checked = true;
 });
 </script>
-
-@include('layouts.footer')

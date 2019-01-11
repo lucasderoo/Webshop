@@ -137,7 +137,14 @@
     color:#0062cc;
     cursor: pointer;
 }
-
+.active{
+    background-color: #2570e8;
+    color: white;
+}
+.active a:hover{
+    background-color: #2570e8 !important;
+    color: white !important;
+}
 /* favourites page */
 
 
@@ -157,7 +164,6 @@
     z-index: 2;
     left: 20px;
     top: 50px;
-
 }
 
 #search-genre-result p, #search-artist-result p{

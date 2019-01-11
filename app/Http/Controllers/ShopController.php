@@ -59,67 +59,58 @@ class ShopController extends Controller
         $maxDate = $request->has('max-date') ? $request->get('max-date') : MusicProduct::max('release_date');
 
 
-        $musicQuery = MusicProduct::query();
+
+        $productsQuery = Product::query();
+
+        $productsQuery = $productsQuery->leftJoin('music_products', 'products.productable_id', '=', 'music_products.id');
 
         if(!empty($genresFilter)){
-            $musicQuery = $musicQuery->whereIn('genre', $genresFilter);
+            $productsQuery = $productsQuery->whereIn('music_products.genre', $genresFilter);
         }
         if(!empty($artistsFilter)){
-            $musicQuery = $musicQuery->whereIn('artist', $artistsFilter);
+            $productsQuery = $productsQuery->whereIn('music_products.artist', $artistsFilter);
         }
-        $musicQuery = $musicQuery->where('release_date', '>=', $minDate);
-        $musicQuery = $musicQuery->where('release_date', '<=', $maxDate);
+        $productsQuery = $productsQuery->where('music_products.release_date', '>=', $minDate);
+        $productsQuery = $productsQuery->where('music_products.release_date', '<=', $maxDate);
 
-        $musicProducts = $musicQuery->get();
+        $products = $productsQuery->paginate(15);
 
-        $products = collect();
-
-        foreach($musicProducts as $product){
-            if($product->productable()->first()->price >= $minPrice AND $product->productable()->first()->price <= $maxPrice){
-                $products->push($product->productable()->first());
-            }
-        }
-
-        $orderBy_ = "";
+        $orderBy_ = "id";
         $orderBy = $request->has('orderby') ? $request->get('orderby') : "sold";
         $sort = $request->has('sort') ? $request->get('sort') : "DESC";
 
         if($orderBy == "price-high-low"){
-            $orderBy_ = "price";
+            $orderBy_ = "products.price";
             $sort = "DESC";
         }
         elseif($orderBy == "price-low-high"){
-            $orderBy_ = "price";
+            $orderBy_ = "products.price";
             $sort = "ASC";
         }
         elseif($orderBy == "date-new-old"){
-            $orderBy_ = "created_at"; 
+            $orderBy_ = "products.created_at"; 
             $sort = "DESC";
         }
         elseif($orderBy == "date-old-new"){
-            $orderBy_ = "created_at";
+            $orderBy_ = "products.created_at";
             $sort = "ASC";
         }
         else{
-            $orderBy_ = "id";
+            $orderBy_ = "products.id";
             $sort = "ASC";
         }
 
-        if($sort == "DESC"){
-            $products = $products->sortbydesc($orderBy_);
-        }
-        else{
-            $products = $products->sortby($orderBy_);
-        }
+        $productsQuery = $productsQuery->orderby($orderBy_, $sort);
 
-        // keep this at the bottom
+        $products = $productsQuery->paginate(15);
+
         $productsCount = count($products);
-        if($productsCount > $pagination){
-            $paginationArray['pages'] = $productsCount/$pagination+1;
-            $paginationArray['pages'] = (int)$paginationArray['pages'];
-            $paginationArray['currentpage'] = $request->has('page') ? $request->get('page') :  1;
-            $products = $products->slice($paginationArray['currentpage']*$pagination-$pagination)->take($pagination);
-        }
+        // if($productsCount > $pagination){
+        //     $paginationArray['pages'] = $productsCount/$pagination+1;
+        //     $paginationArray['pages'] = (int)$paginationArray['pages'];
+        //     $paginationArray['currentpage'] = $request->has('page') ? $request->get('page') :  1;
+        //     // $products = $products->slice($paginationArray['currentpage']*$pagination-$pagination)->take($pagination);
+        // }
 
 
         return view('shop.list')->with(compact('products', 'categories', 'genres', 'artists', 'request', 'maxPrice', 'paginationArray', 'minDate', 'maxDate', 'orderBy', 'favourites'));
