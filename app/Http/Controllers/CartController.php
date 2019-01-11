@@ -97,15 +97,7 @@ class CartController extends Controller
          		$user->basket = $basket;
          	}
 
-         	$duplicate = false;
-
-         	foreach($user->basket->basketproducts as $basketProduct){
-         		if($basketProduct->product_id == $product->id){
-         			$duplicate = true;
-         		}
-         	}
-
-         	if(!$duplicate){
+            if(!$user->basket->basketproducts->contains('product_id', (int)$product->id)){
          		$cartProduct = BasketProduct::create();
     	     	$cartProduct->basket()->associate($user->basket);
     	     	$cartProduct->product()->associate($product);

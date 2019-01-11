@@ -4,9 +4,14 @@ namespace App\Http\Controllers\Auth;
 
 use App\Member;
 use App\User;
+use App\Basket;
+use App\BasketProduct;
+use App\Product;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Session;
 
 class RegisterController extends Controller
 {
@@ -86,6 +91,22 @@ class RegisterController extends Controller
         $user->member()->save($member);
 
         $user->save();
+
+        if(!empty(session('basket'))){
+            $basket = Basket::create();
+            $user->basket()->save($basket);
+            $user->basket = $basket;
+
+
+            foreach(session('basket') as $key => $basketproduct){
+                $product = Product::find($key);
+                $BasketProduct = BasketProduct::create();
+                $BasketProduct->basket()->associate($user->basket);
+                $BasketProduct->product()->associate($product);
+                $BasketProduct->quantity = $basketproduct['quantity'];
+                $BasketProduct->save();
+            }
+        }
 
         return $user;
     }
