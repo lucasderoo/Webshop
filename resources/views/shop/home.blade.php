@@ -7,7 +7,7 @@ body{
   margin: 0 auto;
 }
 .main-story {
-  background-image: url("images/bg-banner-metallica.jpg");
+  background-image: url("images/bg-banner-metallica.jpg"); 
   background-repeat: no-repeat;
   background-position: center;
   height: 570px;
@@ -43,13 +43,13 @@ body{
           </ol>
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img class="d-block w-100" src="images/Kamikaze_Eminem_Front.jpg" alt="First slide">
+              <img class="d-block w-100" src="{{ asset('images/Kamikaze_Eminem_Front.jpg') }}" alt="First slide">
             </div>
             <div class="carousel-item">
-              <img class="d-block w-100" src="images/Metallica_Ride_the_Lightning_front.jpg" alt="Second slide">
+              <img class="d-block w-100" src="{{ asset('images/Metallica_Ride_the_Lightning_front.jpg') }}" alt="Second slide">
             </div>
             <div class="carousel-item">
-              <img class="d-block w-100" src="images/Nicky_M_Queen_Front.jpg" alt="Third slide">
+              <img class="d-block w-100" src="{{ ('images/Nicky_M_Queen_Front.jpg') }}" alt="Third slide">
             </div>
           </div> 
         </div>

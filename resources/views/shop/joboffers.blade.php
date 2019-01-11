@@ -9,8 +9,8 @@
         <div class="col-sm-12">
           <div class="jumbotron jumbotron-fluid">
             <div class="container">
-              <h1 class="display-4">Latest News</h1>
-              <p class="lead">Check here to see the latest adaptations, additions and changes to the webshop</p>
+              <h1 class="display-4">Our Job Offers</h1>
+              <p class="lead">Check here to see all open positions</p>
             </div>
           </div>
         </div>

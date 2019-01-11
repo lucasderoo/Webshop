@@ -22,10 +22,10 @@
               13 November 2018
             </div>
             <div class="card-body">
-              <h5 class="card-title">New CD's added!</h5>
+              <h5 class="card-title">New products added!</h5>
               <p class="card-text">Check the newest additions to our shop!</p>
-              <img src="/images/Kamikaze_Eminem_Front.jpg" style="width:150px; height:150px"/>
-              <a style="margin-top:20px" href="/products?min-price=0&max-price=100&page=1&sortby=sold&order=DESC" class="btn btn-primary">Click here</a>
+              <img src="{{asset('images/bannerallproducts.png') }}" style="width:150px; height:150px"/>
+              <a style="margin-top:20px" href="{" class="btn btn-primary">Click here</a>
             </div>
           </div>
         </div>
