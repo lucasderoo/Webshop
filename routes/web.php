@@ -50,6 +50,7 @@ Route::group([
 	'prefix' => '/checkout',
 ], function(){
 	Route::get('', 'CheckoutController@checkout')->name('checkout');
+	Route::get('/guest', 'CheckoutController@checkout_guest' ) ->name('checkout/guest');
 	Route::post('', 'CheckoutController@checkout_store');
 	Route::get('/confirm', 'CheckoutController@confirm')->name('checkout/confirm');;
 	Route::post('/confirm', 'CheckoutController@confirm_store');

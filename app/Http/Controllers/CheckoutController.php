@@ -15,7 +15,7 @@ use App\Basket;
 use Mail;
 class CheckoutController extends Controller
 {
-	
+
     public function checkout(){
         if(Auth::guest()){
         	if(!session('basket') OR empty(session('basket'))){
@@ -110,7 +110,7 @@ class CheckoutController extends Controller
                     "price" => $price
                 ],
                 'delivery_address' => $request['delivery_input'][0]
-            ]; 
+            ];
 
             if($request['billing_address'] == "on"){
         		$order['billing_address'] = $request['delivery_input'][0];
@@ -131,7 +131,7 @@ class CheckoutController extends Controller
 
 
     public function confirm(){
-        
+
         $user = Auth::user();
         if(!session('order')){
         	Session::flash('feedback_error', 'unknown error, please try again');
@@ -281,7 +281,7 @@ class CheckoutController extends Controller
 	        		];
         		}
         	}
-        	
+
         	if($orderDetails['billing_address'] == "same"){
         		$orderDetails['billing_address'] = $orderDetails['delivery_address'];
         	}
@@ -302,5 +302,8 @@ class CheckoutController extends Controller
     public function thank_you($id){
         return view('shop.checkout.thank_you');
     }
+		public function checkout_guest(){
+			return view('shop.checkout.checkout_login');
+		}
 
 }

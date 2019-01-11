@@ -24,18 +24,18 @@
 <div class="container">
   <div class="row">
     <div class="col=md-8 my-auto">
-      
+
 <h3>Data Protection</h3>
 <h6><b>Notes on data protection</b><br>
-Protecting your privacy is very important to us. Our privacy policy provides information on how we use and protect your data on the LOGOHERE website.<br><br>
+Protecting your privacy is very important to us. Our privacy policy provides information on how we use and protect your data on the <b>µsic</b> website.<br><br>
 
 <b>Website operator</b><br>
-The LOGOHERE website is operated by:<br>
+The <b>µsic</b> website is operated by:<br>
 Google Headquarters<br>
 1600 Amphitheatre Pkwy,<br>
-Mountain View, CA 94043 (hereinafter "LOGOHERE")<br><br>
-Contact: service@logohere.com<br>
-You can reach our data protection officer at data-privacy@logohere.com<br><br>
+Mountain View, CA 94043 (hereinafter <b>µsic</b>)<br><br>
+Contact: schoolwebshop@gmail.com<br>
+You can reach our data protection officer at data-privacy@mu-sic.com<br><br>
 
 <b>Data collection and storage</b><br>
 

@@ -54,7 +54,26 @@
         @include('layouts.feedback')
             <div class="row">
             @if(Auth::guest())
-
+              <div class="col-md-12" style="height:80; margin-bottom: 80px; margin-top: 80px; ">
+                <div class="row justify-content-center">
+                        <span class="display-3 d-block">You are not logged in.</span>
+                      </div>
+              </div>
+              <div class="col-md-12 lead text-center" style="margin-bottom:80px;">
+                <div class="row justify-content-center">
+                  Would you like to log in?
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="row justify-content-center">
+                  <div class="col-3">
+                    <a class="btn btn-primary" href="{{ route('login') }}" role="button" style="margin-top:10px; width: 160px; height: 100%;">Go to login</a>
+                  </div>
+                  <div class="col-3">
+                    <a class="btn btn-primary " href="{{ route('checkout') }}" role="button" style="margin-top:10px; width: 160px; height: 100%;">Continue as guest</a>
+                  </div>
+                </div>
+              </div>
             @endif
             </div>
         </div>
