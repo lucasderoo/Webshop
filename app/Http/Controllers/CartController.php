@@ -17,30 +17,21 @@ class CartController extends Controller
 
     public function index(){
 
-        $products = [];
-        $productsCount = 0;
-        $price = (float)0.00;
-        $guest = Auth::guest();
+        $products =[];
         if(Auth::guest()){
-            $products = session('basket');
-            if(!empty(session('basket'))){
-                foreach(session('basket') as $product){
-                    $productsCount = $productsCount + $product['quantity'];
-                    $price = $price + floatval($product['price'] * $product['quantity']);
-                }
+            if(session('basket')){
+                $products = session('basket');
             }
         }
         else{
-            $user = Auth::user();
-            if(!empty($user->basket)){
-                $products = $user->basket->basketproducts;
-                foreach($user->basket->basketproducts as $product){
-                    $productsCount = $productsCount + $product->quantity;
-                    $price = $price + floatval($product->product->price * $product->quantity);
-                }
+            if(!empty(Auth::user()->basket)){
+                $products = Auth::user()->basket->basketproducts;
             }
         }
-    	$price = number_format((float)$price, 2, '.', '');
+        $productsCount = Basket::calculate_items();
+        $guest = Auth::guest();
+    	$price = Basket::calculate_price();
+
     	return view('shop.cart')->with(compact('price', 'productsCount','products','guest'));
     }
 

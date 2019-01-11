@@ -56,8 +56,8 @@
             <hr>
             <div class="row">
                 <div class="col-md-8">
-                @if(!empty($user->favourites))
-                    @foreach($user->favourites->favouritesproducts as $product)
+                @if(!empty($favourites))
+                    @foreach($favourites->favouritesproducts as $product)
                     <div class="favourites-products">
                         <div class="row">
                             <div class="col-md-12 favourites-product">
@@ -67,30 +67,19 @@
                                 <div class="favourites-product-info">
                                     <p>{{ $product->product->title }}</p>
                                 </div>
-                                <form action="{{ route('favourites/update', ['id' => $product->id]) }}" method="POST">
-                                {{ csrf_field() }}
                                 <div class="favourites-product-price">
-                                    <!-- <input type="number" class="quantity-input" name="quantity" value="{{ $product->quantity }}"> -->
-                                    {{-- <select name="quantity" onchange="this.form.submit()">
-                                    {{ $max = $product->quantity > 3 ? $product->quantity+3 : $product->quantity+4+3-$product->quantity}}
-                                    @for ($i = $product->quantity > 3 ? $product->quantity-3 : 1; $i <= $max; $i++)
-                                        <option value="{{ $i }}" @if($i == $product->quantity) selected @endif>{{ $i }}</option>
-                                    @endfor
-                                    </select> --}}
-                                    <br>
                                     <p>€ {{ $product->product->price }}</p>
                                 </div>
-                                </form>
-                                <form action="{{ route('favourites/delete', ['id' => $product->id]) }}" method="POST">
-                                {{ csrf_field() }}
                                 <div class="favourites-product-btns">
-                                    <button type="submit" class="btn btn-small btn-danger">Remove</button>
-                                    <form role="form" method="POST" action="{{ route('cart/create', ['slug' => $product->slug]) }}">
+                                    <form class="remove-favourite-form" action="{{ route('favourites/create', ['id' => $product->product->slug]) }}" method="POST">
                                         {{ csrf_field() }}
-                                <button class="add-to-cart btn" type="submit">Add to Cart</button>
-                              </form>
+                                        <button type="submit" class="remove-favourite btn btn-small btn-danger">Remove</button>
+                                    </form>
+                                    <form class="add-to-cart-form" method="POST" action="{{ route('cart/create', ['slug' => $product->product->slug]) }}">
+                                        {{ csrf_field() }}
+                                        <button class="add-to-cart btn" type="submit">Add to Cart</button>
+                                    </form>
                                 </div>
-                                </form>
                             </div>
                         </div>
                     </div>
@@ -100,16 +89,6 @@
                     @endforeach
                 @endif
                 </div>
-                {{-- <div class="col-md-4">
-                    <div class="cart-price">
-                        <p>Total amount: € {{ $price }}</p>
-                    </div>
-					<hr>
-					<form role="form" method="POST" action="{{ route('checkout/delivery_address') }}">
-                                {{ csrf_field() }}
-                                <button type="submit" class="btn btn-primary" style="width: 50%;" >Check out</button>
-                            </form>
-                </div> --}}
             </div>
         </div>
     </div>

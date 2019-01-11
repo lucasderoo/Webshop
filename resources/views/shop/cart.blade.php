@@ -13,7 +13,7 @@
     padding-left: 0 !important;
 }
 
-#afbeelding{
+.afbeelding{
 	width: 50px;
 }
 
@@ -63,9 +63,9 @@
                             <div class="col-md-12 cart-product">
                                 <div class="cart-product-image">
                                     @if(Auth::guest())
-                                    <a href="{{ route('show', [ 'slug' => $product['slug']])  }}"><img src="{{ asset('images/uploads/products/product_').$key.'/img_'.$product['main_image_url'].'.png' }}" id="afbeelding"></a>
+                                    <a href="{{ route('show', [ 'slug' => $product['slug']])  }}"><img src="{{ asset('images/uploads/products/product_').$key.'/img_'.$product['main_image_url'].'.png' }}" class="afbeelding"></a>
                                     @else
-                                    <a href="{{ route('show', [ 'slug' => $product->product->slug]) }}"><img src="{{ asset('images/uploads/products/product_').$product->product->id.'/img_'.$product->product->main_image_url.'.png'}}" id="afbeelding"></a>
+                                    <a href="{{ route('show', [ 'slug' => $product->product->slug]) }}"><img src="{{ asset('images/uploads/products/product_').$product->product->id.'/img_'.$product->product->main_image_url.'.png'}}" class="afbeelding"></a>
                                     @endif
                                 </div>
                                 <div class="cart-product-info">
@@ -118,3 +118,10 @@
 </div>
 @include('layouts.footer')
 
+<script>
+$('.afbeelding').each(function(){
+    jQuery(this)[0].onerror = function() {
+        jQuery(this)[0].src = "{{ asset('images/stock_image.png') }}";
+    }
+});
+</script>
