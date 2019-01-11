@@ -9,9 +9,9 @@ use Laravel\Scout\Searchable;
 class MusicProduct extends Model
 {
     //
-    use Searchable;
+    // use Searchable;
 
-    protected $fillable = [ 
+    protected $fillable = [
         'release_date',
         'description',
         'artist',

@@ -11,9 +11,9 @@ use Laravel\Scout\Searchable;
 class Product extends Model
 {
     protected $table = 'products';
-    
+
 	use Sluggable;
-    use Searchable;
+    // use Searchable;
 
     public function category()
     {
@@ -24,7 +24,7 @@ class Product extends Model
     {
         return $this->hasOne('App\Stock');
     }
-    
+
     public function images()
     {
         return $this->hasMany('App\Image');
