@@ -1,57 +1,4 @@
 @include('layouts.header')
-<style>
-.pages {
-    display: inline-block;
-}
-
-.pages a {
-    color: black;
-    float: left;
-    padding: 8px 16px;
-    text-decoration: none;
-    border: 1px solid #ddd;
-    cursor: pointer;
-}
-
-.pages a.active {
-    background-color: #4CAF50;
-    color: white;
-    border: 1px solid #4CAF50;
-}
-
-.pages a:hover:not(.active-page) {background-color: #ddd;}
-
-.pages a:first-child {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-}
-
-.pages a:last-child {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-
-.center {
-    text-align: center;
-}
-
-.active-page{
-    background-color: #2570e8 !important;
-    color: white !important;
-    border: 1px solid #2570e8 !important;
-}
-.hide-filter{
-    display: none;
-}
-
-.more-section{
-    color: #0069d9 !important;
-}
-.more-section:hover{
-    text-decoration: underline !important;
-    cursor: pointer;
-}
-</style>
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
@@ -208,7 +155,7 @@
                 </div>
                 <div class="center">
                     <div class="pages">
-                    {{ $products->links('pagination.default') }}
+                    {{ $products->links('pagination.list') }}
                     </div>
                 </div>
             </div>

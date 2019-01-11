@@ -53,7 +53,21 @@
                 @endforeach
                 </tbody>
             </table>
-            {{ $products->links() }}
+            <div class="center">
+                <div class="pages">
+                <ul class="pagination">
+                    <li>
+                        <a href="{{ $products->previousPageUrl() }}">Previous</a>
+                    </li>
+                    <li style="height: 23px;margin-top: 10px;margin-left: 10px;margin-right: 10px;">
+                        Page {{ $products->currentPage() }} of {{ $products->lastPage() }}
+                    </li>
+                    <li>
+                        <a href="{{ $products->nextPageUrl() }}">Next</a>
+                    </li>
+                </ul>
+                </div>
+            </div>
         </div>
     </div>
 </div>
