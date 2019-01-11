@@ -22,7 +22,7 @@ class CarrierController extends Controller
     }
 
     public function store(request $request){
-    	
+
     	$request->validate([
             'name' => 'required|string|max:50|unique:carriers',
         ]);
@@ -32,7 +32,7 @@ class CarrierController extends Controller
         ]);
         $carrier->save();
 
-        Session::flash('feedback_success', 'Carrier saved');
+        Session::flash('feedback_success_carrier', 'Carrier saved');
         return redirect()->route('admin/carriers');
     }
 
@@ -51,8 +51,8 @@ class CarrierController extends Controller
     	$carrier = Carrier::find($id);
     	$carrier->name = $request['name'];
     	$carrier->save();
-    	
-    	Session::flash('feedback_success', 'Carrier updated');
+
+    	Session::flash('feedback_success_carrier', 'Carrier updated');
     	return redirect()->route('admin/carriers');
     }
 
@@ -69,7 +69,7 @@ class CarrierController extends Controller
     	$carrier->music_products()->delete();
     	$carrier->delete();
 
-    	Session::flash('feedback_success', 'Carrier deleted');
+    	Session::flash('feedback_success_carrier', 'Carrier deleted');
     	return redirect()->route('admin/carriers');
     }
 

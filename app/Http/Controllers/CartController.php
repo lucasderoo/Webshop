@@ -61,7 +61,7 @@ class CartController extends Controller
 
                 session()->put('basket', $basket);
 
-                session::flash('feedback_success', 'Product added to cart');
+                session::flash('feedback_success_cart', 'Product added to cart');
                 return redirect()->back();
             }
 
@@ -72,7 +72,7 @@ class CartController extends Controller
 
                 session()->put('basket', $basket);
 
-                session::flash('feedback_success', 'Product added to cart');
+                session::flash('feedback_success_cart', 'Product added to cart');
                 return redirect()->back();
             }
 
@@ -87,7 +87,7 @@ class CartController extends Controller
 
             session()->put('basket', $basket);
 
-            session::flash('feedback_success', 'Product added to cart');
+            session::flash('feedback_success_cart', 'Product added to cart');
             return redirect()->back();
         }
         else{
@@ -117,7 +117,7 @@ class CartController extends Controller
          		$cartProduct->save();
          	}
         }
-        session::flash('feedback_success', 'Product added to cart');
+        session::flash('feedback_success_cart', 'Product added to cart');
         return redirect()->back();
     }
 

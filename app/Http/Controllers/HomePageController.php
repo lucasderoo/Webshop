@@ -22,7 +22,7 @@ class HomePageController extends Controller
 
     public function create(){
 
-    	$products = Product::All();  
+    	$products = Product::All();
 
     	return view('homepage.create')->with(compact('products'));
     }
@@ -63,14 +63,14 @@ class HomePageController extends Controller
         	$homePageProduct->save();
         }
 
-        Session::flash('feedback_success', 'Section saved');
+        Session::flash('feedback_success_home_page', 'Section saved');
         return redirect()->route('admin/homepage');
     }
 
     public function edit($id){
 
     	$homePage = HomePage::find($id);
-    	$products = Product::All();  
+    	$products = Product::All();
 
     	return view('homepage.edit')->with(compact('homePage', 'products'));
     }
@@ -113,7 +113,7 @@ class HomePageController extends Controller
         	$homePageProduct->save();
         }
 
-        Session::flash('feedback_success', 'Section saved');
+        Session::flash('feedback_success_home_page', 'Section saved');
         return redirect()->route('admin/homepage');
     }
 
@@ -129,7 +129,7 @@ class HomePageController extends Controller
     	$homePage->products()->delete();
     	$homePage->delete();
 
-    	Session::flash('feedback_success', 'Section deleted');
+    	Session::flash('feedback_success_home_page', 'Section deleted');
     	return redirect()->route('admin/homepage');
     }
 

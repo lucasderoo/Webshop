@@ -104,7 +104,7 @@ class ProductController extends Controller
     		}
     	}
 
-        Session::flash('feedback_success', 'Product saved');
+        Session::flash('feedback_success_admin_product', 'Product saved');
     	return redirect('admin/products');
     }
 
@@ -205,7 +205,7 @@ class ProductController extends Controller
             }
     	}
 
-        Session::flash('feedback_success', 'Product updated');
+        Session::flash('feedback_success_admin_product', 'Product updated');
     	return redirect('admin/products');
     }
 
@@ -235,7 +235,7 @@ class ProductController extends Controller
 
     	$product->delete();
 
-        Session::flash('feedback_success', 'Product deleted');
+        Session::flash('feedback_success_admin_product', 'Product deleted');
     	return redirect('admin/products');
     }
 
@@ -334,7 +334,7 @@ class ProductController extends Controller
 
             $rowCount++;
         }
-        Session::flash('feedback_success', 'products added!');
+        Session::flash('feedback_success_admin_product', 'products added!');
         return redirect("admin/products");
 
     }

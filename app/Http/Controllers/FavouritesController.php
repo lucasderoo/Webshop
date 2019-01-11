@@ -41,7 +41,7 @@ class FavouritesController extends Controller
      	else{
      		$favouritesProduct = FavouritesProduct::where('product_id', $product->id)->first();
      		$favouritesProduct->delete();
-            Session::flash('feedback_success_favo_add', 'Product removed from favourites');
+            Session::flash('feedback_success_favo_remove', 'Product removed from favourites');
      	}
 
      	return redirect()->back();
