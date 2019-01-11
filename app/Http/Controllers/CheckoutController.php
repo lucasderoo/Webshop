@@ -10,6 +10,7 @@ use App\Address;
 use App\Order;
 use App\OrderProduct;
 use App\Product;
+use App\Basket;
 
 use Mail;
 class CheckoutController extends Controller
@@ -145,6 +146,8 @@ class CheckoutController extends Controller
 
         $guest = Auth::guest();
         $price = Basket::calculate_price();
+        $products = $guest ? session('basket') : $user->basket->basketproducts;
+
 
         return view('shop.checkout.confirm')->with(compact("addresses", "products", "guest", "user", "price"));
     }
@@ -153,9 +156,6 @@ class CheckoutController extends Controller
 
 
         if(session('order')){
-
-
-
 
         	$order = Order::create([
 	            'amount' => session('order')['info']['price'],
@@ -230,14 +230,16 @@ class CheckoutController extends Controller
 
         	$order->save();
 
+            $guest = Auth::guest();
+
         	$orderId = $order->id;
         	$orderDetails = session('order');
-        	$basketDetails = empty(session('basket')) ? Auth::user()->basket->basketproducts : session('basket');
+        	$basketDetails = $guest ? session('basket') : Auth::user()->basket->basketproducts;
 
         	session()->forget('order');
 
-        	$guest = Auth::guest() ? true : false;
-        	if(Auth::guest()){
+        	$guest = Auth::guest();
+        	if($guest){
         		session()->forget('basket');
         	}
         	else{
