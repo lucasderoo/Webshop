@@ -22,7 +22,7 @@ class CarrierController extends Controller
     }
 
     public function store(request $request){
-    	
+
     	$request->validate([
             'name' => 'required|string|max:50|unique:carriers',
         ]);
@@ -51,7 +51,7 @@ class CarrierController extends Controller
     	$carrier = Carrier::find($id);
     	$carrier->name = $request['name'];
     	$carrier->save();
-    	
+
     	Session::flash('feedback_success', 'Carrier updated');
     	return redirect()->route('admin/carriers');
     }
@@ -67,7 +67,7 @@ class CarrierController extends Controller
     public function destroy($id){
     	$carrier = Carrier::find($id);
 
-        if(!empty($carrier->music_products){
+        if(!empty($carrier->music_products)){
             foreach($carrier->music_products as $product){
                 $product->productable->delete();
                 HomePageProduct::where('product_id', $product->productable->id)->delete();

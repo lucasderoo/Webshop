@@ -4,7 +4,7 @@
 {
   width: 100%;
   height: auto;
-  /* margin-right: -200px; */
+   margin-right: -200px; 
 }
 
 
