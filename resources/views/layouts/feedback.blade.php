@@ -25,8 +25,23 @@
 @if(Session::has('feedback_success_admin_product'))
     <div class="alert alert-success"><p>{{ Session::get('feedback_success_admin_product') }}</p></div>
 @endif
-@if(Session::has('feedback_success_user'))
-    <div class="alert alert-success"><p>{{ Session::get('feedback_success_user') }}</p></div>
+@if(Session::has('feedback_success_user_create'))
+    <div class="alert alert-success"><p>{{ Session::get('feedback_success_user_create') }}</p></div>
+@endif
+@if(Session::has('feedback_success_user_update'))
+    <div class="alert alert-success"><p>{{ Session::get('feedback_success_user_update') }}</p></div>
+@endif
+@if(Session::has('feedback_success_user_password'))
+    <div class="alert alert-success"><p>{{ Session::get('feedback_success_user_password') }}</p></div>
+@endif
+@if(Session::has('feedback_success_user_delete'))
+    <div class="alert alert-success"><p>{{ Session::get('feedback_success_user_delete') }}</p></div>
+@endif
+@if(Session::has('feedback_success_account'))
+    <div class="alert alert-success"><p>{{ Session::get('feedback_success_account') }}</p></div>
+@endif
+@if(Session::has('feedback_success_account_address'))
+    <div class="alert alert-success"><p>{{ Session::get('feedback_success_account_address') }}</p></div>
 @endif
 @if(Session::has('feedback_error'))
     <div class="alert alert-danger"><p>{{ Session::get('feedback_error') }}</p></div>
