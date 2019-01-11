@@ -8,8 +8,10 @@
                 <span class="display-1 d-block">Thank you for ordering.</span>
 				<hr>
                 <div class="mb-4 lead">An E-Mail containing your order information has been sent.</div>
+                <a href="{{ route('products') }}" class="btn btn-outline-primary" role="button">Go back home</a>
 				<div class="col-xs-12" style="height:50;"></div>
             </div>
         </div>
     </div>
 </div>
+
