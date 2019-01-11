@@ -1,4 +1,15 @@
 <!DOCTYPE HMTL>
+<style>
+.Logotje
+{
+  width: 25%;
+  height: 5%;
+}
+
+
+
+</style>
+
 <html>
 <head>
     <title>Webshop</title>
@@ -16,7 +27,8 @@
 <body>
 
 <nav class="navbar navbar-expand-lg sticky-top main-nav" style="background-color: #2570e8;">
-  <a class="navbar-brand" href="{{ route('home') }}">LOGO HERE</a>
+  <a href="{{ route('home') }}"><img class="Logotje" src="{{asset('images/logo2.png') }}"/>
+  </a>
   <!-- <div class="navbar-collapse" id="navbarSupportedContent"> -->
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
