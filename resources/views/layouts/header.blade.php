@@ -2,8 +2,9 @@
 <style>
 .Logotje
 {
-  width: 5%;
-  height: 5%;
+  width: 100%;
+  height: auto;
+  /* margin-right: -200px; */
 }
 
 
@@ -27,10 +28,13 @@
 <body>
 
 <nav class="navbar navbar-expand-lg sticky-top main-nav" style="background-color: #2570e8;">
-   <img class="Logotje" href="{{ route('home') }}" src="{{asset('images/logo2.png') }}"/>
   <!-- <div class="navbar-collapse" id="navbarSupportedContent"> -->
     <ul class="navbar-nav mr-auto">
+      <a href="{{ route('home') }}">
+       <img class="Logotje" src="{{asset('images/logo2.png') }}"/>
+     </a>
       <li class="nav-item">
+      </li>
       <li class="nav-item">
         <a class="nav-link text-light" href="{{ route('products') }}">Music</a>
       </li>
