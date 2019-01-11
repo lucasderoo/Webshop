@@ -119,9 +119,9 @@
                     <div class="col-md-12 cart-product">
                         <div class="cart-product-image">
                             @if(Auth::guest())
-                            <img src="{{ asset('images/uploads/products/product_').$key.'/img_'.$product['main_image_url'].'.png' }}" id="afbeelding">
+                            <img src="{{ asset('images/uploads/products/product_').$key.'/img_'.$product['main_image_url'].'.png' }}" class="product-img-small">
                             @else
-                            <img src="{{ asset('images/uploads/products/product_').$product->product->id.'/img_'.$product->product->main_image_url.'.png'}}" id="afbeelding">
+                            <img src="{{ asset('images/uploads/products/product_').$product->product->id.'/img_'.$product->product->main_image_url.'.png'}}" class="product-img-small">
                             @endif
                         </div>
                         <div class="cart-product-info">

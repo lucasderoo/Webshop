@@ -3,6 +3,12 @@
     margin-top:20px;
 }
 
+.product-img-small{
+    height: 50px;
+}
+.product-img-medium{
+    height: 100px;
+}
 /* header */
 
 .nav-right{
@@ -146,7 +152,6 @@
     color: white !important;
 }
 /* favourites page */
-
 
 .remove-favourite-form{
     float: left;

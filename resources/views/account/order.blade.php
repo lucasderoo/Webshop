@@ -83,7 +83,7 @@
             @foreach($order->orderproducts as $product)
                 <div class="col-md-12 cart-product">
                     <div class="cart-product-image">
-                        <img src="{{ asset('images/uploads/products/product_').$product->product->id.'/img_'.$product->product->main_image_url.'.png' }}" id="afbeelding">
+                        <img src="{{ asset('images/uploads/products/product_').$product->product->id.'/img_'.$product->product->main_image_url.'.png' }}" class="product-img-small">
                     </div>
                     <div class="cart-product-info">
                         <p>{{ $product->product->title }}</p>
@@ -98,5 +98,4 @@
         </div>
     </div>
 </div>
-
 @include('layouts.footer')

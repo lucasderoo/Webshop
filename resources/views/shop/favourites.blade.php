@@ -62,7 +62,7 @@
                         <div class="row">
                             <div class="col-md-12 favourites-product">
                                 <div class="favourites-product-image">
-                                    <a href="{{ route('show', [ 'slug' => $product->product->slug]) }}"><img src="{{ asset('images/uploads/products/product_').$product->product->id.'/img_'.$product->product->main_image_url.'.png'}}" id="afbeelding"></a>
+                                    <a href="{{ route('show', [ 'slug' => $product->product->slug]) }}"><img src="{{ asset('images/uploads/products/product_').$product->product->id.'/img_'.$product->product->main_image_url.'.png'}}" class="product-img-small"></a>
                                 </div>
                                 <div class="favourites-product-info">
                                     <p>{{ $product->product->title }}</p>

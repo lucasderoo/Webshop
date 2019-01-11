@@ -104,16 +104,7 @@ class ShopController extends Controller
 
         $products = $productsQuery->paginate(15);
 
-        $productsCount = count($products);
-        // if($productsCount > $pagination){
-        //     $paginationArray['pages'] = $productsCount/$pagination+1;
-        //     $paginationArray['pages'] = (int)$paginationArray['pages'];
-        //     $paginationArray['currentpage'] = $request->has('page') ? $request->get('page') :  1;
-        //     // $products = $products->slice($paginationArray['currentpage']*$pagination-$pagination)->take($pagination);
-        // }
-
-
-        return view('shop.list')->with(compact('products', 'categories', 'genres', 'artists', 'request', 'maxPrice', 'paginationArray', 'minDate', 'maxDate', 'orderBy', 'favourites'));
+        return view('shop.list')->with(compact('products', 'categories', 'genres', 'artists', 'request', 'maxPrice', 'minDate', 'maxDate', 'orderBy', 'favourites'));
     }
 
     public function search(request $request){

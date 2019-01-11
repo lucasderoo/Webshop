@@ -56,7 +56,7 @@ height: 25px;
 	margin-top: 10px;
 	height: 50px;
 }
-.Big_image{
+.product-img{
 width: 100%;
 height: auto;
 border:1.5px solid lightgray;
@@ -111,13 +111,13 @@ h5{
                     <img id="img-1" class="x100_pic selected-image" src="{{asset('images/uploads/products/product_').$product->id.'/img_'.$product->main_image_url.'.png'}}">
                     @foreach($product->images as $image)
                         @if($product->main_image_url != (int)substr($image->image_url, -1))
-                            <img id="img-{{$loop->iteration+1}}" class="x100_pic " src="{{asset('images/uploads/products/product_').$product->id.'/'.$image->image_url.'.png'}}">
+                            <img id="img-{{$loop->iteration+1}}" class="product-img-medium" src="{{asset('images/uploads/products/product_').$product->id.'/'.$image->image_url.'.png'}}">
                         @endif
                     @endforeach
                 	</div>
                 	<div class="main-image-buy-btn">
                 		<div class="main-image-buy-btn-wrapper">
-                			<img id="big_image" class="Big_image" src="{{asset('images/uploads/products/product_').$product->id.'/img_'.$product->main_image_url.'.png'}}">
+                			<img id="big_image" class="product-img" src="{{asset('images/uploads/products/product_').$product->id.'/img_'.$product->main_image_url.'.png'}}">
 										</div>
 										<div class="col-md-12">
                 			<div class="buy-buttons">
@@ -169,16 +169,5 @@ $(".image-select").on("click", "img", function (event) {
     $("#big_image").attr('src', $("#"+event.target.id).attr('src'));
 });
 
-$('.Big_image').each(function(){
-    jQuery(this)[0].onerror = function() {
-        jQuery(this)[0].src = "{{ asset('images/stock_image.png') }}";
-    }
-});
-
-$('.x100_pic').each(function(){
-    jQuery(this)[0].onerror = function() {
-        jQuery(this)[0].src = "{{ asset('images/stock_image.png') }}";
-    }
-});
 </script>
 @include('layouts.footer')

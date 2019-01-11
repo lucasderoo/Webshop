@@ -110,6 +110,12 @@
       <a> Schoolwebshop.nl</a>
     </div>
     <!-- Copyright -->
-
+    <script>
+    $('.product-img, .product-img-small, .product-img-medium').each(function(){
+      jQuery(this)[0].onerror = function() {
+          jQuery(this)[0].src = "{{ asset('images/stock_image.png') }}";
+      }
+    });
+    </script>
   </footer>
   <!-- Footer -->

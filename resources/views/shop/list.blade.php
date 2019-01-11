@@ -301,14 +301,6 @@
                     }
                 }
 
-                $('.product-img').each(function(){
-                    jQuery(this)[0].onerror = function() {
-                        jQuery(this)[0].src = "{{ asset('images/stock_image.png') }}";
-                    }
-                });
-
-
-
                 $("#search-genre-result,#search-artist-result").on("click", ".search-checkbox", function(event){
                     var el = document.querySelectorAll("input[value='"+event.target.id+"']")[0]
                     if(el.checked){
@@ -387,8 +379,6 @@
                         resultDiv.style.borderRight = "1px solid black";
                     }
 
-
-                    console.log(result);
                 });
 
 

@@ -117,11 +117,3 @@
     </div>
 </div>
 @include('layouts.footer')
-
-<script>
-$('.afbeelding').each(function(){
-    jQuery(this)[0].onerror = function() {
-        jQuery(this)[0].src = "{{ asset('images/stock_image.png') }}";
-    }
-});
-</script>
