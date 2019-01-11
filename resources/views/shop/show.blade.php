@@ -85,7 +85,7 @@ h5{
 	width: 100% !important;
 }
 
-.product-desc textarea{
+.product-desc textarea {
     resize: none;
     border: none;
     height: 100%;
@@ -150,7 +150,7 @@ h5{
                 	<p class="bottom-p"><b>Released:</b> {{$product->productable->release_date}}</p>
                 	</div>
 
-                	<div class="product-desc" style="height: auto;">
+                	<div class="product-desc" style="height: 250px;">
                 	<br>
                 		<textarea readonly="readonly">{{$product->productable->description}}</textarea>
                 	</div>

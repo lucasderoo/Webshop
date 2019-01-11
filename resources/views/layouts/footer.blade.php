@@ -7,6 +7,7 @@
 .headerlink:hover{
   color:#aaaaaa;
 }
+
 </style>
 
 <!-- Footer -->
@@ -28,17 +29,17 @@
         <h5 class="text-uppercase">Social Media</h5>
         <ul class="list-unstyled">
           <li>
-            <a href="http://www.facebook.com" class="headerlink">
+            <a href="http://www.facebook.com">
               <i class="fab fa-facebook-square"></i> Check out our Facebook page!
             </a>
         </li>
         <li>
-            <a href="http://www.twitter.com" class="headerlink">
+            <a href="http://www.twitter.com">
               <i class="fab fa-twitter"></i> Check out our twitter page!
             </a>
         </li>
         <li>
-          <a href="http://www.instagram.com" class="headerlink">
+          <a href="http://www.instagram.com">
             <i class="fab fa-instagram"></i> Check out our instagram!
           </a>
         </li>

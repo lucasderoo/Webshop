@@ -46,7 +46,7 @@
     width:40px;
 }
 </style>
-<div class="container">    
+<div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2 products-index">
         @include('layouts.feedback')
@@ -110,7 +110,7 @@
                         <p>Total amount: € {{ $price }}</p>
                     </div>
 					<hr>
-                    <a class="btn btn-small btn-info" href="{{ route('checkout') }}">Checkout</a>
+                    <a class="btn btn-small btn-info" href="{{ $guest ? route('checkout/guest') : route('checkout') }}">Checkout</a>
                 </div>
             </div>
         </div>

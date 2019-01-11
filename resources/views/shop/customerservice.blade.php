@@ -62,7 +62,7 @@
 <form>
 <legend><span class="glyphicon glyphicon-globe"></span> Our office</legend>
 <address>
-<strong>Logo Here</strong><br>
+<strong>µsic HQ</strong><br>
 1600 Amphitheatre Pkwy<br>
 Mountain View, CA 94043<br>
 <abbr title="Phone">
@@ -70,8 +70,8 @@ P:</abbr>
 (123) 456-7890
 </address>
 <address>
-<strong>Full Name</strong><br>
-<a href="mailto:#">first.last@example.com</a>
+<strong>µsic</strong><br>
+<a href="mailto:#">schoolwebshop@gmail.com</a>
 </address>
 </form>
 </div>

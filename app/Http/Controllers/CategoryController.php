@@ -23,7 +23,7 @@ class CategoryController extends Controller
     }
 
     public function store(request $request){
-    	
+
     	$request->validate([
             'name' => 'required|string|max:50|unique:categories',
         ]);
@@ -33,7 +33,7 @@ class CategoryController extends Controller
         ]);
         $category->save();
 
-        Session::flash('feedback_success', 'Category added');
+        Session::flash('feedback_success_category', 'Category added');
         return redirect()->route('admin/categories');
     }
     public function edit(request $request, $id){
@@ -51,8 +51,8 @@ class CategoryController extends Controller
     	$category = Category::find($id);
     	$category->name = $request['name'];
     	$category->save();
-    	
-        Session::flash('feedback_success', 'Category updated');
+
+        Session::flash('feedback_success_category', 'Category updated');
     	return redirect()->route('admin/categories');
     }
 

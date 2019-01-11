@@ -43,7 +43,7 @@ class AccountController extends Controller
 
         $user->save();
 
-		Session::flash('feedback_success', 'Current password not correct');
+		Session::flash('feedback_success_password_change', 'Current password correct');
     	return redirect()->route('account');
     }
 
@@ -70,7 +70,7 @@ class AccountController extends Controller
     	$user->member->save();
         $user->save();
 
-        Session::flash('feedback_success', 'Account updated');
+        Session::flash('feedback_success_account', 'Account updated');
         return redirect()->route('account');
     }
 
@@ -144,7 +144,7 @@ class AccountController extends Controller
 
         $user->addresses()->save($address);
 
-        Session::flash('feedback_success', 'Address saved');
+        Session::flash('feedback_success_account_address', 'Address saved');
         return redirect()->route('account/addresses');
     }
 
@@ -170,7 +170,7 @@ class AccountController extends Controller
 
         $user->addresses()->save($address);
 
-        Session::flash('feedback_success', 'Address updated');
+        Session::flash('feedback_success_account_address', 'Address updated');
         return redirect()->route('account/addresses');
     }
 
@@ -185,7 +185,7 @@ class AccountController extends Controller
 
         $address->delete();
 
-        Session::flash('feedback_success', 'Address deleted');
+        Session::flash('feedback_success_account_address', 'Address deleted');
         return redirect()->route('account/addresses');
     }
 }
