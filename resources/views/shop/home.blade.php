@@ -56,7 +56,7 @@ body{
       </div>
       <div class="col-md-6 bg">
       <a href="{{ route('products') }}">
-      <img src="images/bannertest.png" style="width:100%">
+      <img src="images/bannerallproducts.png" style="width:100%">
       </a> 
       </div>
       <br>

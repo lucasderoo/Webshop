@@ -19,32 +19,26 @@
       <div class="row">
 
         <!-- Grid column -->
-        <div class="col-md-3 mt-md-0 mt-3">
 
-          <!-- Content -->
-          <h5 class="text-uppercase">LOGO HERE</h5>
-          <p>Here you can use rows and columns here to organize your footer content.</p>
-
-        </div>
         <!-- Grid column -->
 
-        <div class="col-md-3 mt-md-0 mt-3">
+        <div class="col-md-4   mt-md-0 mt-4">
 
         <!-- Content -->
         <h5 class="text-uppercase">Social Media</h5>
         <ul class="list-unstyled">
           <li>
-            <a href="https://www.facebook.com">
+            <a href="http://www.facebook.com" class="headerlink">
               <i class="fab fa-facebook-square"></i> Check out our Facebook page!
             </a>
         </li>
         <li>
-            <a href="https://www.twitter.com">
+            <a href="http://www.twitter.com" class="headerlink">
               <i class="fab fa-twitter"></i> Check out our twitter page!
             </a>
         </li>
         <li>
-          <a href="https://www.instagram.com">
+          <a href="http://www.instagram.com" class="headerlink">
             <i class="fab fa-instagram"></i> Check out our instagram!
           </a>
         </li>
@@ -55,7 +49,7 @@
         <hr class="clearfix w-100 d-md-none pb-3">
 
         <!-- Grid column -->
-        <div class="col-md-3 mb-md-0 mb-3">
+        <div class="col-md-4 mb-md-0 mb-4">
 
             <!-- Links -->
             <h5 class="text-uppercase">Service</h5>
@@ -79,7 +73,7 @@
           <!-- Grid column -->
 
           <!-- Grid column -->
-          <div class="col-md-3 mb-md-0 mb-3">
+          <div class="col-md-4 mb-md-0 mb-4">
 
             <!-- Links -->
             <h5 class="text-uppercase">Other</h5>
@@ -107,7 +101,7 @@
 
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3">© 2018 Copyright:
-      <a> Schoolwebshop.nl</a>
+      <a> µsicwebshop.nl</a>
     </div>
     <!-- Copyright -->
     <script>
